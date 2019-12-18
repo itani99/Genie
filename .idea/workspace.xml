@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f090c77-cf56-4aeb-b9be-f4202e10e303" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/HandymanApplication/app/src/main/java/com/example/handymanapplication/activities/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/HandymanApplication/app/src/main/java/com/example/handymanapplication/activities/MainActivity.kt" afterDir="false" />
-    </list>
+    <list default="true" id="6f090c77-cf56-4aeb-b9be-f4202e10e303" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,6 +137,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
