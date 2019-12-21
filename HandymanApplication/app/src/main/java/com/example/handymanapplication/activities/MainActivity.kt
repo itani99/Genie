@@ -25,8 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         btn_login.setOnClickListener { login() }
-//this is a comment
-        //hey
+
     }
 
     private fun login() {
@@ -38,9 +37,9 @@ class MainActivity : AppCompatActivity() {
             .responseJson { _, _, result ->
                 result.success {
                     var res = it.obj()
-                    if (res.getBoolean("status")) {
+                    if (res.optString("status", "error") == "success") {
 
-                        Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
+                        // Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
 
                         var user = res.getJSONObject("user")
 
@@ -52,6 +51,18 @@ class MainActivity : AppCompatActivity() {
                             this@MainActivity, Constants.FILE_USER,
                             Constants.USER_NAME, user.getString("name")
                         )
+                        SharedPreferences.setPrefernces(
+                            this@MainActivity, Constants.FILE_USER,
+                            Constants.USER_TOKEN, res.getString("token")
+                        )
+                        runOnUiThread {
+                            Toast.makeText(
+                                this,
+                                SharedPreferences.getToken(this@MainActivity).toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+
 //                       SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
                     } else {
                         Toast.makeText(
@@ -73,4 +84,6 @@ class MainActivity : AppCompatActivity() {
     fun OpenSignupPage(view: View) {
         startActivity(Intent(this@MainActivity, signupActivity::class.java))
     }
+
+
 }

@@ -10,7 +10,7 @@ import com.example.handymanapplication.R
 import kotlinx.android.synthetic.main.activity_signup.*
 
 class signupActivity : AppCompatActivity() {
-//
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(

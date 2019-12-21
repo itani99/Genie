@@ -21,7 +21,7 @@ import java.util.*
 
 class Utils {
     companion object {
-        private const val BASE_URL = "https://uneteaforever.es/api"
+        private const val BASE_URL = "http://handiman.club/api"
         const val BASE_IMAGE_URL = "https://uneteaforever.es/"
         const val AUTHORIZATION = "Authorization"
 
