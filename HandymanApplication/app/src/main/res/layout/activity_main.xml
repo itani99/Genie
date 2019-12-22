@@ -126,7 +126,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginStart="30dp"
                 android:padding="15dp"
-                android:onClick="OpenSignupPage"
+                android:onClick="openSignupPage"
                 android:text="Sign up"
                 android:textSize="18sp"
                 android:textStyle="bold" />

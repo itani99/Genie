@@ -21,12 +21,13 @@ import java.util.*
 
 class Utils {
     companion object {
-        private const val BASE_URL = "http://handiman.club/api"
+        private const val BASE_URL = "https://handiman.club/api"
         const val BASE_IMAGE_URL = "https://uneteaforever.es/"
         const val AUTHORIZATION = "Authorization"
 
         const val API_CHECK_DISTRIBUTOR = "$BASE_URL/check-distributor/"
         const val API_LOGIN = "$BASE_URL/login"
+        const val API_Register ="$BASE_URL/register"
         const val API_PROFILE = "$BASE_URL/profile"
         const val API_EDIT_PROFILE = "$BASE_URL/profile/edit"
         const val API_NIF_PROFILE = "$BASE_URL/profile/nif"

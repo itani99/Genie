@@ -1,5 +1,6 @@
 package com.example.handymanapplication.activities
 
+import android.app.ProgressDialog.show
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             .header("accept" to "application/json")
             .responseJson { _, _, result ->
                 result.success {
+
                     var res = it.obj()
                     if (res.optString("status", "error") == "success") {
 
@@ -62,17 +64,25 @@ class MainActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+                        val intent = Intent(this, HomePageActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
 
 //                       SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
                     } else {
+
+
+
                         Toast.makeText(
                             this@MainActivity,
-                            res.getString("message"),
+                            res.getString("errors"),
                             Toast.LENGTH_LONG
                         ).show()
                     }
                 }
                 result.failure {
+
                     runOnUiThread {
                         Toast.makeText(this@MainActivity, it.localizedMessage, Toast.LENGTH_LONG)
                             .show()
@@ -81,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun OpenSignupPage(view: View) {
+    fun openSignUpPage(view: View) {
         startActivity(Intent(this@MainActivity, signupActivity::class.java))
     }
 

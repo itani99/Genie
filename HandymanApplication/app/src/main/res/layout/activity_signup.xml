@@ -33,7 +33,7 @@
         android:orientation="vertical"
         android:gravity="bottom">
         <EditText
-            android:id="@+id/HandymanNameRegister"
+            android:id="@+id/register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -53,7 +53,7 @@
             android:layout_marginEnd="30dp"
             android:background="#B1B1B1" />
         <EditText
-            android:id="@+id/HandymanEmailRegister"
+            android:id="@+id/register_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -73,14 +73,15 @@
             android:layout_marginEnd="30dp"
             android:background="#B1B1B1" />
         <EditText
-            android:id="@+id/HandymanPasswordRegister"
+            android:id="@+id/register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:backgroundTint="@android:color/transparent"
             android:hint="Password"
-            android:inputType="textEmailAddress"
+            android:inputType="textPassword"
+
             android:padding="15dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
@@ -101,7 +102,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/HandymanSubmitRegister"
+                android:id="@+id/register_btn"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:src="@drawable/round_arrow_forward_24"
@@ -143,7 +144,7 @@
                 android:padding="15dp"
                 android:text="Sign in"
 
-                android:onClick="OpenMainActivity"
+                android:onClick="openMainActivity"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />

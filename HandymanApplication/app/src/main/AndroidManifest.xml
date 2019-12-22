@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".activities.HomePageActivity"
+            android:windowSoftInputMode="adjustResize">>
+        </activity>
+        <activity
             android:name=".activities.signupActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
