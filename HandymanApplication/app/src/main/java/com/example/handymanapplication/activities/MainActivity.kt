@@ -16,6 +16,7 @@ import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.math.sign
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private fun login() {
         val email = edt_email.text.toString()
         val password = edt_password.text.toString()
+
 
         Fuel.post(Utils.API_LOGIN, listOf("email" to email, "password" to password))
             .header("accept" to "application/json")
@@ -74,11 +76,14 @@ class MainActivity : AppCompatActivity() {
 
 
 
+                     runOnUiThread{
+
                         Toast.makeText(
                             this@MainActivity,
                             res.getString("errors"),
                             Toast.LENGTH_LONG
                         ).show()
+                     }
                     }
                 }
                 result.failure {
@@ -92,7 +97,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openSignUpPage(view: View) {
-        startActivity(Intent(this@MainActivity, signupActivity::class.java))
+        val intent = Intent(this@MainActivity, signupActivity::class.java)
+
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+
     }
 
 

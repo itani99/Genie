@@ -101,6 +101,10 @@ class signupActivity : AppCompatActivity() {
     }
 
     fun openMainActivity(view: View) {
-        startActivity(Intent(this@signupActivity, MainActivity::class.java))
-    }
+        val intent = Intent(this@signupActivity, MainActivity::class.java)
+
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+       }
 }
