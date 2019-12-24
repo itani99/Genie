@@ -33,17 +33,19 @@ class signupActivity : AppCompatActivity() {
         val name = register_name.text.toString()
         val email = register_email.text.toString()
         val password = register_password.text.toString()
-        val passwordconfirmation = password
+        val passwordConfirmation = confirmation_password.text.toString()
 
         //
 
         Fuel.post(
             Utils.API_Register,
             listOf(
-                "name" to name, "email" to email, "password" to password,
-                "password_confirmation" to passwordconfirmation
+                "password_confirmation" to passwordConfirmation,
+                "name" to name, "email" to email, "password" to password
+
             )
         )
+
             .header("accept" to "application/json")
             .responseJson { _, _, result ->
                 result.success {
@@ -53,7 +55,7 @@ class signupActivity : AppCompatActivity() {
 
                         //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
 
-                        var user = res.getJSONObject("user")
+                        var user  = res.getJSONObject("user")
 
                         SharedPreferences.setPrefernces(
                             this@signupActivity, Constants.FILE_USER,
@@ -66,7 +68,7 @@ class signupActivity : AppCompatActivity() {
                         SharedPreferences.setPrefernces(
                             this@signupActivity, Constants.FILE_USER,
                             Constants.USER_TOKEN, res.getString("token")
-                      )
+                        )
                         runOnUiThread {
                             Toast.makeText(
                                 this,

@@ -113,7 +113,6 @@ class Utils {
 
         }
 
-
         fun stringToCalendar(date: String, pattern: String): Calendar {
             val format =
                 SimpleDateFormat(pattern, Locale.getDefault())

@@ -93,6 +93,27 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="30dp"
             android:background="#B1B1B1" />
+        <EditText
+            android:id="@+id/confirmation_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+
+            android:padding="15dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="30dp"
+            android:background="#B1B1B1" />
 
         <RelativeLayout
             android:layout_width="match_parent"
