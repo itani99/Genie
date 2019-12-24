@@ -13,14 +13,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.HomePageActivity"
-            android:windowSoftInputMode="adjustResize">>
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".activities.signupActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.MainActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
