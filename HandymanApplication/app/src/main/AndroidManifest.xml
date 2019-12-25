@@ -15,11 +15,7 @@
         <activity
             android:name=".activities.HomePageActivity"
             android:label="@string/title_activity_bottom_navigator"></activity>
-        <activity
-            android:name=".activities.PhoneVerificationActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_phone_verification"
-            android:theme="@style/FullscreenTheme" />
+
 
         <activity
             android:name=".activities.SignupActivity"

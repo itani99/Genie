@@ -9,6 +9,7 @@ import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
 import android.view.View
 import android.widget.Toast
+import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Utils
 import com.github.kittinunf.fuel.Fuel
@@ -16,9 +17,9 @@ import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
-import kotlinx.android.synthetic.main.activity_phone_verification.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.concurrent.TimeUnit
 
@@ -37,11 +38,16 @@ class SignupActivity : AppCompatActivity() {
 
         override fun onCodeSent(p0: String, p1: PhoneAuthProvider.ForceResendingToken) {
             Log.d("OnCode Sent", p0)
-            startActivityForResult( Intent( this@SignupActivity , PhoneVerificationActivity::class.java), 1000)
+            ll_signup_form.visibility = View.GONE
+            ll_verify_code.visibility = View.VISIBLE
+            authToken = p0
         }
 
 
     }
+    var fauth = PhoneAuthProvider.getInstance()
+    var authToken : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_signup)
         super.onCreate(savedInstanceState)
@@ -49,16 +55,40 @@ class SignupActivity : AppCompatActivity() {
         //  register_btn.setOnClickListener { register() }
 
         btn_register.setOnClickListener {
-            if (edt_phone.text.toString().isEmpty()){
-                return@setOnClickListener
+            if ( ll_signup_form.visibility == View.VISIBLE){
+                //make registration
+
+                if (edt_phone.text.toString().isEmpty() ||
+                    edt_name.text.toString().isEmpty() ||
+                    edt_email.text.toString().isEmpty() ||
+                    edt_password.text.toString().isEmpty() ||
+                    edt_confirm_password.text.toString().isEmpty() ){
+                    return@setOnClickListener
+                }
+
+                fauth.verifyPhoneNumber(
+                    edt_phone.text.toString(), // Phone number to verify
+                    60, // Timeout duration
+                    TimeUnit.SECONDS, // Unit of timeout
+                    this, // Activity (for callback binding)
+                    callback) // OnVerificationStateChangedCallbacks
+            }else{
+                //verify code
+                var credential = PhoneAuthProvider.getCredential( authToken!! , edt_verify_code.text.toString())
+
+                FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
+                    if ( it.isSuccessful ){
+                        register()
+                    }else{
+                        runOnUiThread {
+                            ll_signup_form.visibility = View.VISIBLE
+                            ll_verify_code.visibility = View.GONE
+                        }
+
+                    }
+                }
             }
-            var fauth = PhoneAuthProvider.getInstance()
-            fauth.verifyPhoneNumber(
-                edt_phone.text.toString(), // Phone number to verify
-                60, // Timeout duration
-                TimeUnit.SECONDS, // Unit of timeout
-                this, // Activity (for callback binding)
-                callback) // OnVerificationStateChangedCallbacks
+
 
         }
 
@@ -66,8 +96,9 @@ class SignupActivity : AppCompatActivity() {
 
 
     private fun register() {
-        val name = edt_code.text.toString()
+        val name = edt_name.text.toString()
         val email = edt_email.text.toString()
+        val phone = edt_phone.text.toString()
         val password = edt_password.text.toString()
         val passwordConfirmation = edt_confirm_password.text.toString()
 
@@ -77,7 +108,7 @@ class SignupActivity : AppCompatActivity() {
             Utils.API_Register,
             listOf(
                 "password_confirmation"    to passwordConfirmation,
-                "name" to name, "email" to email, "password" to password
+                "name" to name, "email" to email, "password" to password,"phone" to phone
 
             )
         )

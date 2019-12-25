@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
@@ -22,6 +23,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+//        if ( SharedPreferences.getToken( this@MainActivity) != null ){
+//            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
+//            finish()
+//        }
 
         btn_login.setOnClickListener { login() }
 
