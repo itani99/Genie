@@ -3,6 +3,7 @@ package com.example.handymanapplication.Utils
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
+import com.example.handymanapplication.activities.MainActivity
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
@@ -120,6 +122,14 @@ class Utils {
             val c: Calendar = Calendar.getInstance()
             c.time = d
             return c
+        }
+        fun logout(context : Context){
+            SharedPreferences.clearPreferences(context, Constants.FILE_USER)
+            val intent = Intent(context, MainActivity::class.java)
+
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         }
 
     }
