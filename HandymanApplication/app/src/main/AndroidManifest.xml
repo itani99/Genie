@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.HomePageActivity"
-            android:windowSoftInputMode="adjustResize">>
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".activities.signupActivity"
