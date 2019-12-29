@@ -24,15 +24,17 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.concurrent.TimeUnit
 
 class SignupActivity : AppCompatActivity() {
-
+var code: String=""
     var callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks()
     {
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-
+//code=p0.smsCode.toString()
+            edt_verify_code.setText( p0.smsCode )
+            btn_register.performClick()
         }
 
         override fun onVerificationFailed(p0: FirebaseException) {
-
+            Log.d("OnCode", p0.localizedMessage)
 
         }
 
@@ -41,6 +43,12 @@ class SignupActivity : AppCompatActivity() {
             ll_signup_form.visibility = View.GONE
             ll_verify_code.visibility = View.VISIBLE
             authToken = p0
+        }
+
+        override fun onCodeAutoRetrievalTimeOut(p0: String) {
+            Log.d("OnCode", "Time out")
+            super.onCodeAutoRetrievalTimeOut(p0)
+
         }
 
 
@@ -166,7 +174,7 @@ class SignupActivity : AppCompatActivity() {
             }
     }
 
-    fun openMainActivity(view: View) {
+    fun openSignUpPage(view: View) {
         val intent = Intent(this@SignupActivity, MainActivity::class.java)
 
         intent.flags =
