@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getActionBar()?.hide()
         setContentView(R.layout.activity_login)
 
 //        if ( SharedPreferences.getToken( this@MainActivity) != null ){

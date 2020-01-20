@@ -16,6 +16,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
+import com.google.firebase.iid.FirebaseInstanceId
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -53,29 +54,29 @@ class Utils {
         const val API_RESET_PASSWORD = "$BASE_URL/reset-password"
 
 
-//        fun sendRegistrationToServer(context: Context) {
-//            if (SharedPreferences.getToken(context) != null) {
-//
-//                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-//
-//                    Fuel.post(
-//                        API_DEVICE_TOKEN,
-//                        listOf("device_token" to it.token, "device_platform" to "android")
-//                    )
-//                        .header(Utils.AUTHORIZATION to SharedPreferences.getToken(context).toString())
-//                        .responseJson { _, _, result ->
-//                            result.success {
-//                                Log.i("Firebase reg", it.content)
-//                            }
-//                            result.failure {
-//                                Log.i("Firebase fail", it.localizedMessage)
-//                            }
-//                        }
-//                }
-//
-//
-//            }
-//        }
+        fun sendRegistrationToServer(context: Context) {
+            if (SharedPreferences.getToken(context) != null) {
+
+                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+
+                    Fuel.post(
+                        API_DEVICE_TOKEN,
+                        listOf("device_token" to it.token, "device_platform" to "android")
+                    )
+                        .header(Utils.AUTHORIZATION to SharedPreferences.getToken(context).toString())
+                        .responseJson { _, _, result ->
+                            result.success {
+                                Log.i("Firebase reg", it.content)
+                            }
+                            result.failure {
+                                Log.i("Firebase fail", it.localizedMessage)
+                            }
+                        }
+                }
+
+
+            }
+        }
 
         fun isReadStoragePermissionGranted(context: Context): Boolean {
             return if (Build.VERSION.SDK_INT >= 23) {

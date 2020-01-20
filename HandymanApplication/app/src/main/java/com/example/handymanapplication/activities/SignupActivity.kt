@@ -58,6 +58,7 @@ var code: String=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_signup)
+        getActionBar()?.hide()
         super.onCreate(savedInstanceState)
 
         //  register_btn.setOnClickListener { register() }
@@ -78,7 +79,7 @@ var code: String=""
                     edt_phone.text.toString(), // Phone number to verify
                     60, // Timeout duration
                     TimeUnit.SECONDS, // Unit of timeout
-                    this, // Activity (for callback binding)
+                    this@SignupActivity, // Activity (for callback binding)
                     callback) // OnVerificationStateChangedCallbacks
             }else{
                 //verify code
