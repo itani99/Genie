@@ -14,6 +14,7 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navigator)
+
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
@@ -23,5 +24,7 @@ class HomePageActivity : AppCompatActivity() {
             R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
     }
 }

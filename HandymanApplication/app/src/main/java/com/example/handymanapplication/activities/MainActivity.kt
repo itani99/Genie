@@ -67,8 +67,7 @@ class MainActivity : AppCompatActivity() {
                         )
                         runOnUiThread {
                             Toast.makeText(
-                                this,
-                                SharedPreferences.getToken(this@MainActivity).toString(),
+                                this, SharedPreferences.getToken(this@MainActivity).toString(),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
