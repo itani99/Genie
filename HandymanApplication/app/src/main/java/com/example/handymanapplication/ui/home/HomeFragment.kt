@@ -16,7 +16,6 @@ import com.example.handymanapplication.adapters.HomeAdapter
 
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONObject
-import android.widget.Toast
 import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
@@ -75,14 +74,12 @@ class HomeFragment : Fragment() {
 
                }
            }
-       )
+
 
    }
 
 
-    }
 
-    fun viewHandyman(){
 
-    }
+
 }
