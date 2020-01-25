@@ -1,6 +1,8 @@
 package com.example.handymanapplication.Utils
 
 import android.content.Context
+import android.content.Intent
+import androidx.core.content.ContextCompat.startActivity
 
 
 class SharedPreferences {
@@ -39,6 +41,7 @@ class SharedPreferences {
         fun clearPreference(context: Context, file: String, item: String) {
             context.getSharedPreferences(file, Context.MODE_PRIVATE).edit().remove(item).apply()
         }
+
 
         fun getPreferences(context: Context, file: String, key: String): Any? {
             val map: Map<String, *> = context.getSharedPreferences(file, Context.MODE_PRIVATE).all

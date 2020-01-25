@@ -1,11 +1,11 @@
 package com.example.handymanapplication.activities
 
-import android.app.ProgressDialog.show
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
@@ -15,7 +15,6 @@ import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,15 +22,24 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getActionBar()?.hide()
         setContentView(R.layout.activity_login)
 
+//        if ( SharedPreferences.getToken( this@MainActivity) != null ){
+//            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
+//            finish()
+//        }
+
         btn_login.setOnClickListener { login() }
+
 
     }
 
     private fun login() {
+        btn_login.isEnabled = false
         val email = edt_email.text.toString()
         val password = edt_password.text.toString()
+
 
         Fuel.post(Utils.API_LOGIN, listOf("email" to email, "password" to password))
             .header("accept" to "application/json")
@@ -74,16 +82,20 @@ class MainActivity : AppCompatActivity() {
 
 
 
+                     runOnUiThread{
+                         btn_login.isEnabled = true
                         Toast.makeText(
                             this@MainActivity,
                             res.getString("errors"),
                             Toast.LENGTH_LONG
                         ).show()
+                     }
                     }
                 }
                 result.failure {
 
                     runOnUiThread {
+                        btn_login.isEnabled = true
                         Toast.makeText(this@MainActivity, it.localizedMessage, Toast.LENGTH_LONG)
                             .show()
                     }
@@ -92,7 +104,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openSignUpPage(view: View) {
-        startActivity(Intent(this@MainActivity, signupActivity::class.java))
+        val intent = Intent(this@MainActivity, SignupActivity::class.java)
+
+        intent.flags =
+            Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+
     }
 
 

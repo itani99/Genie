@@ -3,6 +3,7 @@ package com.example.handymanapplication.Utils
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
@@ -10,10 +11,12 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.ActivityCompat
+import com.example.handymanapplication.activities.MainActivity
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
+import com.google.firebase.iid.FirebaseInstanceId
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,29 +54,29 @@ class Utils {
         const val API_RESET_PASSWORD = "$BASE_URL/reset-password"
 
 
-//        fun sendRegistrationToServer(context: Context) {
-//            if (SharedPreferences.getToken(context) != null) {
-//
-//                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
-//
-//                    Fuel.post(
-//                        API_DEVICE_TOKEN,
-//                        listOf("device_token" to it.token, "device_platform" to "android")
-//                    )
-//                        .header(Utils.AUTHORIZATION to SharedPreferences.getToken(context).toString())
-//                        .responseJson { _, _, result ->
-//                            result.success {
-//                                Log.i("Firebase reg", it.content)
-//                            }
-//                            result.failure {
-//                                Log.i("Firebase fail", it.localizedMessage)
-//                            }
-//                        }
-//                }
-//
-//
-//            }
-//        }
+        fun sendRegistrationToServer(context: Context) {
+            if (SharedPreferences.getToken(context) != null) {
+
+                FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
+
+                    Fuel.post(
+                        API_DEVICE_TOKEN,
+                        listOf("device_token" to it.token, "device_platform" to "android")
+                    )
+                        .header(Utils.AUTHORIZATION to SharedPreferences.getToken(context).toString())
+                        .responseJson { _, _, result ->
+                            result.success {
+                                Log.i("Firebase reg", it.content)
+                            }
+                            result.failure {
+                                Log.i("Firebase fail", it.localizedMessage)
+                            }
+                        }
+                }
+
+
+            }
+        }
 
         fun isReadStoragePermissionGranted(context: Context): Boolean {
             return if (Build.VERSION.SDK_INT >= 23) {
@@ -113,7 +116,6 @@ class Utils {
 
         }
 
-
         fun stringToCalendar(date: String, pattern: String): Calendar {
             val format =
                 SimpleDateFormat(pattern, Locale.getDefault())
@@ -121,6 +123,14 @@ class Utils {
             val c: Calendar = Calendar.getInstance()
             c.time = d
             return c
+        }
+        fun logout(context : Context){
+            SharedPreferences.clearPreferences(context, Constants.FILE_USER)
+            val intent = Intent(context, MainActivity::class.java)
+
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+            context.startActivity(intent)
         }
 
     }
