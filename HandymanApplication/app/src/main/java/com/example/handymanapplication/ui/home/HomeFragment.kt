@@ -39,4 +39,8 @@ class HomeFragment : Fragment() {
 
 
     }
+
+    fun viewHandyman(){
+
+    }
 }
