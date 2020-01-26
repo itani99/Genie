@@ -26,17 +26,22 @@ import com.github.kittinunf.result.success
 
 class HomeFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        return  inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var homeAdapter = HomeAdapter( context!! )
+        var homeAdapter = HomeAdapter(context!!)
 
-        recycler_main_id.layoutManager = LinearLayoutManager( context , LinearLayoutManager.VERTICAL , false )
+        recycler_main_id.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
         recycler_main_id.adapter = homeAdapter
 
@@ -47,39 +52,39 @@ class HomeFragment : Fragment() {
         homeAdapter.setItem(JSONObject().apply {
             put("name", "Mohammad")
         })
+        viewProfile()
     }
-   fun ViewProfile(){
-       Fuel.get(
-           Utils.API_PROFILE
-                   ,listOf()
-       )
-           .header("accept" to "application/json")
-           .responseJson { _, _, result ->
-               result.success {
-                   var res = it.obj()
-                   if(res.optString("status","error")== "sucess"){
-                       var profile = res.getJSONObject("profile")
 
+    fun viewProfile() {
+        Fuel.get(
+            Utils.API_PROFILE
+
+        )
+
+            .header("accept" to "application/json"  )
+            .responseJson { _, _, result ->
+                result.success {
+                    var res = it.obj()
+                    
+                    if (res.optString("status", "error") == "success") {
+                        var profile = res.getJSONObject("profile")
+                        println(profile.toString())
                         activity?.runOnUiThread {
-                            Toast.makeText(activity,profile.toString(),Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
 
                         }
-                   }
-                   else{
+                    } else {
 
-                   }
+                    }
 
-               }
-               result.failure {
+                }
+                result.failure {
 
-               }
-           }
-
-
-   }
+                }
+            }
 
 
-
+    }
 
 
 }

@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
         getActionBar()?.hide()
         setContentView(R.layout.activity_login)
 
-        if ( SharedPreferences.getToken( this@MainActivity) != null ){
-            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
-            finish()
-        }
+//        if ( SharedPreferences.getToken( this@MainActivity) != null ){
+//            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
+//            finish()
+//        }
 
         btn_login.setOnClickListener { login() }
 
@@ -65,13 +65,13 @@ class MainActivity : AppCompatActivity() {
                             this@MainActivity, Constants.FILE_USER,
                             Constants.USER_TOKEN, res.getString("token")
                         )
-                        runOnUiThread {
-                            Toast.makeText(
-                                this,
-                                SharedPreferences.getToken(this@MainActivity).toString(),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+//                        runOnUiThread {
+//                            Toast.makeText(
+//                                this,
+//                                SharedPreferences.getToken(this@MainActivity).toString(),
+//                                Toast.LENGTH_LONG
+//                            ).show()
+//                        }
                         val intent = Intent(this, HomePageActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
