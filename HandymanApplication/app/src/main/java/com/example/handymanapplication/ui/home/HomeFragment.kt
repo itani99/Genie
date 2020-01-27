@@ -60,41 +60,40 @@ class HomeFragment : Fragment() {
     }
 
 
+    fun viewProfile() {
+        Fuel.get(Utils.API_EDIT_PROFILE)
+            .header(Utils.AUTHORIZATION to SharedPreferences.getToken(getActivity()!!.getApplicationContext()).toString())
+            .responseJson { _, _, result ->
 
-fun viewProfile() {
-    Fuel.get(Utils.API_EDIT_PROFILE)
-        .header(Utils.AUTHORIZATION to SharedPreferences.getToken(getActivity()!!.getApplicationContext()).toString())
-        .responseJson { _, _, result ->
+                result.success {
 
-        result.success {
+                    var res = it.obj()
 
-            var res = it.obj()
+                    if (res.optString("status", "error") == "success") {
+                        var profile = res.getJSONObject("profile")
+                        println(profile.toString())
+                        activity?.runOnUiThread {
+                            Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
 
-            if (res.optString("status", "error") == "success") {
-                var profile = res.getJSONObject("profile")
-                println(profile.toString())
-                activity?.runOnUiThread {
-                    Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
+                        }
+                    } else {
 
+                        Toast.makeText(
+                            activity,
+                            res.getString("status"),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
-            } else {
+                result.failure {
 
-                Toast.makeText(
-                    activity,
-                    res.getString("status"),
-                    Toast.LENGTH_LONG
-                ).show()
+                    Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
             }
-        }
-        result.failure {
 
-            Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
-                .show()
-        }
+
     }
-
-
-}
 
 
 }
