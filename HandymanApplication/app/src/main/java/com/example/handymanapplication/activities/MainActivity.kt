@@ -1,10 +1,12 @@
 package com.example.handymanapplication.activities
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+
 import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Constants
@@ -16,7 +18,6 @@ import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import kotlinx.android.synthetic.main.activity_login.*
 
-
 class MainActivity : AppCompatActivity() {
 
 
@@ -25,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         getActionBar()?.hide()
         setContentView(R.layout.activity_login)
 
-//        if ( SharedPreferences.getToken( this@MainActivity) != null ){
-//            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
-//            finish()
-//        }
+        if ( SharedPreferences.getToken( this@MainActivity) != null ){
+            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
+            finish()
+        }
 
         btn_login.setOnClickListener { login() }
 

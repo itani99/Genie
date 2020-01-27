@@ -1,6 +1,7 @@
 package com.example.handymanapplication.ui.home
 
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,10 @@ import org.json.JSONObject
 import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
+import com.example.handymanapplication.activities.HomePageActivity
+import com.example.handymanapplication.activities.MainActivity
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.httpGet
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
@@ -55,36 +59,42 @@ class HomeFragment : Fragment() {
         viewProfile()
     }
 
-    fun viewProfile() {
-        Fuel.get(
-            Utils.API_PROFILE
 
-        )
 
-            .header("accept" to "application/json"  )
-            .responseJson { _, _, result ->
-                result.success {
-                    var res = it.obj()
-                    
-                    if (res.optString("status", "error") == "success") {
-                        var profile = res.getJSONObject("profile")
-                        println(profile.toString())
-                        activity?.runOnUiThread {
-                            Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
+fun viewProfile() {
+    Fuel.get(Utils.API_EDIT_PROFILE)
+        .header(Utils.AUTHORIZATION to SharedPreferences.getToken(getActivity()!!.getApplicationContext()).toString())
+        .responseJson { _, _, result ->
 
-                        }
-                    } else {
+        result.success {
 
-                    }
+            var res = it.obj()
+
+            if (res.optString("status", "error") == "success") {
+                var profile = res.getJSONObject("profile")
+                println(profile.toString())
+                activity?.runOnUiThread {
+                    Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
 
                 }
-                result.failure {
+            } else {
 
-                }
+                Toast.makeText(
+                    activity,
+                    res.getString("status"),
+                    Toast.LENGTH_LONG
+                ).show()
             }
+        }
+        result.failure {
 
-
+            Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
+                .show()
+        }
     }
+
+
+}
 
 
 }
