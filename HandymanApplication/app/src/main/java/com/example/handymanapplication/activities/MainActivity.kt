@@ -26,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         getActionBar()?.hide()
         setContentView(R.layout.activity_login)
 
-        if ( SharedPreferences.getToken( this@MainActivity) != null ){
-            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
-            finish()
-        }
+//        if ( SharedPreferences.getToken( this@MainActivity) != null ){
+//            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
+//            finish()
+//        }
 
         btn_login.setOnClickListener { login() }
 

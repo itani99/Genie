@@ -62,7 +62,9 @@ class HomeFragment : Fragment() {
 
     fun viewProfile() {
         Fuel.get(Utils.API_EDIT_PROFILE)
-            .header(Utils.AUTHORIZATION to SharedPreferences.getToken(getActivity()!!.getApplicationContext()).toString())
+            .header(
+                "accept" to "application/json",
+                Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString())
             .responseJson { _, _, result ->
 
                 result.success {
@@ -70,11 +72,9 @@ class HomeFragment : Fragment() {
                     var res = it.obj()
 
                     if (res.optString("status", "error") == "success") {
-                        var profile = res.getJSONObject("profile")
-                        println(profile.toString())
+                     var profile = res.getJSONObject("profile")
                         activity?.runOnUiThread {
                             Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
-
                         }
                     } else {
 
