@@ -1,4 +1,4 @@
-package com.example.handymanapplication.helpers
+package com.example.handymanapplication.Models
 
 import  com.github.kittinunf.fuel.core.ResponseDeserializable
 data class  HandymanProfile(

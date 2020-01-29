@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
         homeAdapter.setItem(JSONObject().apply {
             put("name", "Mohammad")
         })
-        viewProfile()
+       // viewProfile()
     }
 
 
@@ -72,9 +72,9 @@ class HomeFragment : Fragment() {
                     var res = it.obj()
 
                     if (res.optString("status", "error") == "success") {
-                      //  var profile = res.getJSONObject("profile")
+                        var profile = res.getJSONObject("profile")
                         activity?.runOnUiThread {
-                            Toast.makeText(activity, res.toString(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
                         }
                     } else {
 

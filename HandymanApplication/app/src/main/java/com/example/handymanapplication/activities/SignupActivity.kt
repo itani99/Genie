@@ -117,7 +117,7 @@ var code: String=""
             Utils.API_Register,
             listOf(
                 "password_confirmation"    to passwordConfirmation,
-                "name" to name, "email" to email, "password" to password,"phone" to phone
+                "name" to name, "email" to email, "password" to password,"phone" to phone ,"role" to "employee"
 
             )
         )
