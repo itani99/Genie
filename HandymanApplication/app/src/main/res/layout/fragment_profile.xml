@@ -87,34 +87,6 @@
                 android:background="@android:drawable/ic_menu_edit"/>
 
 
-
-
-            <Button
-                android:id="@+id/cancel_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="-7dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:text="cancel"
-                android:visibility="invisible" />
-
-            <Button
-                android:id="@+id/save_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="50dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-
-                android:text="save"
-                android:visibility="invisible" />
-
-
         </RelativeLayout>
 
         <LinearLayout
@@ -233,9 +205,9 @@
                         android:fontFamily="sans-serif-light"
 
                         android:id="@+id/profile_email"
-                        android:inputType="textEmailAddress"
                         android:textColor="#000000"
                         android:textSize="18sp" />
+
 
                     <View
                         android:layout_width="match_parent"

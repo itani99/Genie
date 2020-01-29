@@ -24,12 +24,20 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import org.json.JSONObject
 import androidx.appcompat.app.AppCompatActivity
 import android.R
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.graphics.Bitmap
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_login.*
 import android.widget.ImageView
+import com.example.handymanapplication.Utils.IOnBackPressed
+import java.io.ByteArrayOutputStream
 
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), IOnBackPressed {
+
+    private var edit = false
+    private var image: String? = null
 
     override fun onCreateView(
 
@@ -38,6 +46,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
+        viewProfile()
         (activity as AppCompatActivity).supportActionBar!!.hide()
 
         return inflater.inflate(
@@ -45,6 +54,26 @@ class ProfileFragment : Fragment() {
             container,
             false
         )
+    }
+
+    override fun onBackPressed(): Boolean {
+        if (edit) {
+            activity?.runOnUiThread {
+                AlertDialog.Builder(activity)
+                    .setTitle(" Discard Changes?")
+                    .setMessage("Are you sure?")
+                    .setPositiveButton("Yes", { dialog, _ ->
+                        // close profile page
+                        dialog.dismiss()
+                    })
+                    .setNegativeButton("No", { dialog, _ ->
+                        dialog.dismiss()
+                    }).create().show()
+            }
+
+            return false
+        }
+        return true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,15 +86,18 @@ class ProfileFragment : Fragment() {
             startActivityForResult(intent, 0)
         }
 
-        viewProfile()
-//        edit_btn.setOnClickListener {
-//            cancel_btn.setVisibility(View.INVISIBLE)
-//            save_btn.setVisibility(View.INVISIBLE)
-//
-//        }
-//        save_btn.setOnClickListener {
-//            // call method to save
-//        }
+
+        edit_btn.setOnClickListener {
+            if (edit) {
+                // complete saving
+                saveProfile()
+            } else {
+                //open edit
+                edit_btn.setBackgroundResource(R.drawable.ic_menu_save)
+                edit = true
+
+            }
+        }
     }
 
     var selectedPhotoUri: Uri? = null
@@ -76,15 +108,20 @@ class ProfileFragment : Fragment() {
             selectedPhotoUri = data.data
             val bitmap =
                 MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedPhotoUri)
-
             selectphoto_imageview_register.setImageBitmap(bitmap)
             selectphoto_button.alpha = 0f
-
+            // when image is not null so u have an image
+            image = Utils.encodeToBase64(bitmap)
 
         }
     }
+    // ma3e yeha bel utils :p 3zkrout
 
-    fun viewProfile() {
+    private fun saveProfile() {
+
+    }
+
+    private fun viewProfile() {
         Fuel.get(Utils.API_EDIT_PROFILE)
             .header(
                 "accept" to "application/json",
@@ -100,7 +137,7 @@ class ProfileFragment : Fragment() {
 
                         var profile = res.getJSONObject("profile")
 
-                     //   profile_email.setText(profile.get("email").toString())
+                      //  profile_email.text = profile.getString("email")
 
                         activity?.runOnUiThread {
                             Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()

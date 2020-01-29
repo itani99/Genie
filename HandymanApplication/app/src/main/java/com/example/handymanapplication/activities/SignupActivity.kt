@@ -117,7 +117,8 @@ var code: String=""
             Utils.API_Register,
             listOf(
                 "password_confirmation"    to passwordConfirmation,
-                "name" to name, "email" to email, "password" to password,"phone" to phone ,"role" to "employee"
+                "name" to name, "email" to email,
+                "password" to password,"phone" to phone ,"role" to "employee"
 
             )
         )
@@ -128,7 +129,7 @@ var code: String=""
                     var res = it.obj()
                     if (res.optString("status", "error") == "success") {
 
-                        //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
+                       Utils.sendRegistrationToServer(this) //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
 
                         var user = res.getJSONObject("user")
 
