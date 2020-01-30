@@ -38,6 +38,7 @@ class ProfileFragment : Fragment(), IOnBackPressed {
 
     private var edit = false
     private var image: String? = null
+    private var flag = false
 
     override fun onCreateView(
 
@@ -115,7 +116,6 @@ class ProfileFragment : Fragment(), IOnBackPressed {
 
         }
     }
-    // ma3e yeha bel utils :p 3zkrout
 
     private fun saveProfile() {
 
@@ -137,7 +137,9 @@ class ProfileFragment : Fragment(), IOnBackPressed {
 
                         var profile = res.getJSONObject("profile")
 
-                      //  profile_email.text = profile.getString("email")
+                         profile_email.setText(profile.getString("email"))
+                             //profile.getString("email")
+                            flag = true
 
                         activity?.runOnUiThread {
                             Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()

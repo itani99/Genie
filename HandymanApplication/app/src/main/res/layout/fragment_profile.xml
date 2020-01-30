@@ -36,12 +36,12 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/selectphoto_imageview_register"
-                    android:layout_width="164dp"
-                    android:layout_height="151dp"
+                    android:layout_width="136dp"
+                    android:layout_height="143dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="7dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp" />
 
@@ -175,7 +175,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="123dp"
             android:layout_below="@+id/linlay1">
 
             <LinearLayout
@@ -199,21 +199,7 @@
                         android:textColor="@color/headings"
                         android:textSize="13sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-
-                        android:id="@+id/profile_email"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
+                    
 
                 </LinearLayout>
 
@@ -223,30 +209,23 @@
                     android:layout_marginTop="15dp"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phone"
-                        android:textColor="@color/headings"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/profile_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-light"
-                        android:inputType="phone"
-                        android:text="+1-202-555-0157"
-                        android:textColor="#000000"
-
-                        android:textSize="18sp" />
-
-                    <View
+                    <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/grey" />
+                        android:layout_height="wrap_content">
 
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:inputType="none"
+
+                            android:lines="1"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="@android:color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
 
