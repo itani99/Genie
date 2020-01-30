@@ -83,8 +83,8 @@
                 android:layout_marginRight="15dp"
 
                 android:adjustViewBounds="true"
-                android:scaleType="centerInside"
-                android:background="@android:drawable/ic_menu_edit"/>
+                android:background="@android:drawable/ic_menu_edit"
+                android:scaleType="centerInside" />
 
 
         </RelativeLayout>
@@ -175,7 +175,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="123dp"
+            android:layout_height="200dp"
             android:layout_below="@+id/linlay1">
 
             <LinearLayout
@@ -187,10 +187,6 @@
                 android:layout_marginRight="30dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,34 +195,41 @@
                         android:textColor="@color/headings"
                         android:textSize="13sp" />
 
-                    
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_phone"
+                            android:id="@+id/profile_email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
-                            android:focusable="false"
-                            android:focusableInTouchMode="false"
-                            android:inputType="none"
-
-                            android:lines="1"
-                            android:textColor="@android:color/white"
-                            android:textColorHint="@android:color/white" />
+                           android:lines="1"
+                            android:textColor="@android:color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textColor="@color/headings"
+                        android:textSize="13sp" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/profile_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:textColor="@android:color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
+
 
 
             </LinearLayout>

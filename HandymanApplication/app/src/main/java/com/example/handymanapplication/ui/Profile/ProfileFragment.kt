@@ -19,19 +19,12 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import org.json.JSONObject
 import androidx.appcompat.app.AppCompatActivity
-import android.R
+
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.graphics.Bitmap
-import android.widget.TextView
-import kotlinx.android.synthetic.main.activity_login.*
-import android.widget.ImageView
+import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.IOnBackPressed
-import java.io.ByteArrayOutputStream
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment(), IOnBackPressed {
@@ -94,7 +87,7 @@ class ProfileFragment : Fragment(), IOnBackPressed {
                 saveProfile()
             } else {
                 //open edit
-                edit_btn.setBackgroundResource(R.drawable.ic_menu_save)
+                edit_btn.setBackgroundResource(R.drawable.ic_save_black_24dp)
                 edit = true
 
             }
@@ -136,11 +129,13 @@ class ProfileFragment : Fragment(), IOnBackPressed {
                     if (res.optString("status", "error") == "success") {
 
                         var profile = res.getJSONObject("profile")
+                        activity!!.runOnUiThread {
+                            profile_name.setText(profile.getString("name"))
+                            profile_email.setText(profile.getString("email"))
+                            profile_phone.setText(profile.getString("phone"))
 
-                         profile_email.setText(profile.getString("email"))
-                             //profile.getString("email")
-                            flag = true
-
+                        }
+                        
                         activity?.runOnUiThread {
                             Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
                         }
