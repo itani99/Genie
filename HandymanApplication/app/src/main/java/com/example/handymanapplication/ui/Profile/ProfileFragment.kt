@@ -22,8 +22,10 @@ import com.github.kittinunf.result.success
 import androidx.appcompat.app.AppCompatActivity
 
 import android.app.AlertDialog
+import android.text.InputType
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.IOnBackPressed
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
@@ -84,9 +86,35 @@ class ProfileFragment : Fragment(), IOnBackPressed {
         edit_btn.setOnClickListener {
             if (edit) {
                 // complete saving
+                edit_btn.setBackgroundResource(R.drawable.ic_create_white_24dp)
+                edit = false
+                profile_email.isFocusable = false
+                profile_email.isFocusableInTouchMode = false
+
+
+                profile_phone.isFocusable = false
+                profile_phone.isFocusableInTouchMode = false
+
+                profile_biography.isFocusable = false
+                profile_biography.isFocusableInTouchMode = false
                 saveProfile()
             } else {
                 //open edit
+                profile_email.isFocusable = true
+                profile_email.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+                profile_email.isFocusableInTouchMode = true
+
+                profile_phone.isFocusable = true
+                profile_phone.inputType = InputType.TYPE_CLASS_PHONE
+                profile_phone.isFocusableInTouchMode = true
+
+                profile_biography.isFocusable = true
+                profile_biography.inputType = InputType.TYPE_CLASS_TEXT
+                profile_biography.isFocusableInTouchMode = true
+
+
+
+
                 edit_btn.setBackgroundResource(R.drawable.ic_save_black_24dp)
                 edit = true
 
@@ -135,7 +163,7 @@ class ProfileFragment : Fragment(), IOnBackPressed {
                             profile_phone.setText(profile.getString("phone"))
 
                         }
-                        
+
                         activity?.runOnUiThread {
                             Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
                         }
