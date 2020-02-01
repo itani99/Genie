@@ -86,7 +86,8 @@ class ProfileFragment : Fragment(), IOnBackPressed {
         edit_btn.setOnClickListener {
             if (edit) {
                 // complete saving
-                edit_btn.setBackgroundResource(R.drawable.ic_create_white_24dp)
+                edit_btn.setBackgroundResource(R.drawable.icons8_writeprofile)
+                Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
                 edit = false
                 profile_email.isFocusable = false
                 profile_email.isFocusableInTouchMode = false
@@ -139,7 +140,18 @@ class ProfileFragment : Fragment(), IOnBackPressed {
     }
 
     private fun saveProfile() {
+        var email = profile_email.text.toString()
+        var phone = profile_phone.text.toString()
+        var biography = profile_biography.text.toString()
+        Fuel.put(
+            Utils.API_EDIT_PROFILE, listOf(
+                "email" to email, "phone" to phone
 
+            )
+        ).header(
+            "accept" to "application/json",
+            Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString()
+        )
     }
 
     private fun viewProfile() {

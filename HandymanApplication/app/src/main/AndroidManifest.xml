@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.HomePageActivity"
-            android:label="@string/title_activity_bottom_navigator"></activity>
+            android:label="@string/title_Genie"></activity>
 
 
 

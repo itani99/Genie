@@ -24,12 +24,11 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.concurrent.TimeUnit
 
 class SignupActivity : AppCompatActivity() {
-var code: String=""
-    var callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks()
-    {
+    var code: String = ""
+    var callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
 //code=p0.smsCode.toString()
-            edt_verify_code.setText( p0.smsCode )
+            edt_verify_code.setText(p0.smsCode)
             btn_register.performClick()
         }
 
@@ -54,7 +53,7 @@ var code: String=""
 
     }
     var fauth = PhoneAuthProvider.getInstance()
-    var authToken : String? = null
+    var authToken: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_signup)
@@ -64,14 +63,15 @@ var code: String=""
         //  register_btn.setOnClickListener { register() }
 
         btn_register.setOnClickListener {
-            if ( ll_signup_form.visibility == View.VISIBLE){
+            if (ll_signup_form.visibility == View.VISIBLE) {
                 //make registration
 
                 if (edt_phone.text.toString().isEmpty() ||
                     edt_name.text.toString().isEmpty() ||
                     edt_email.text.toString().isEmpty() ||
                     edt_password.text.toString().isEmpty() ||
-                    edt_confirm_password.text.toString().isEmpty() ){
+                    edt_confirm_password.text.toString().isEmpty()
+                ) {
                     return@setOnClickListener
                 }
 
@@ -80,15 +80,17 @@ var code: String=""
                     60, // Timeout duration
                     TimeUnit.SECONDS, // Unit of timeout
                     this@SignupActivity, // Activity (for callback binding)
-                    callback) // OnVerificationStateChangedCallbacks
-            }else{
+                    callback
+                ) // OnVerificationStateChangedCallbacks
+            } else {
                 //verify code
-                var credential = PhoneAuthProvider.getCredential( authToken!! , edt_verify_code.text.toString())
+                var credential =
+                    PhoneAuthProvider.getCredential(authToken!!, edt_verify_code.text.toString())
 
                 FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-                    if ( it.isSuccessful ){
+                    if (it.isSuccessful) {
                         register()
-                    }else{
+                    } else {
                         runOnUiThread {
                             ll_signup_form.visibility = View.VISIBLE
                             ll_verify_code.visibility = View.GONE
@@ -116,9 +118,9 @@ var code: String=""
         Fuel.post(
             Utils.API_Register,
             listOf(
-                "password_confirmation"    to passwordConfirmation,
+                "password_confirmation" to passwordConfirmation,
                 "name" to name, "email" to email,
-                "password" to password,"phone" to phone ,"role" to "employee"
+                "password" to password, "phone" to phone, "role" to "handyman"
 
             )
         )
@@ -129,7 +131,7 @@ var code: String=""
                     var res = it.obj()
                     if (res.optString("status", "error") == "success") {
 
-                       Utils.sendRegistrationToServer(this) //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
+                        Utils.sendRegistrationToServer(this) //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
 
                         var user = res.getJSONObject("user")
 
