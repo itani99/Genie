@@ -56,6 +56,10 @@ class HomeFragment : Fragment() {
         homeAdapter.setItem(JSONObject().apply {
             put("name", "Mohammad")
         })
+        homeAdapter.setItem(JSONObject().apply {
+            put("name", "jad").put("family","itani ")
+        })
+      
        // viewProfile()
     }
 

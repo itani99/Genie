@@ -43,7 +43,7 @@ class ProfileFragment : Fragment(), IOnBackPressed {
 
     ): View? {
         viewProfile()
-        (activity as AppCompatActivity).supportActionBar!!.hide()
+        (activity as AppCompatActivity).supportActionBar!!.show()
 
         return inflater.inflate(
             com.example.handymanapplication.R.layout.fragment_profile,

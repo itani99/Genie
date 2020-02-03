@@ -25,8 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activities.MainActivity"
-            android:windowSoftInputMode="stateVisible"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:windowSoftInputMode="stateVisible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
