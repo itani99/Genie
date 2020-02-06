@@ -15,13 +15,13 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.handymanapplication.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/fragment_request" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.handymanapplication.ui.Profile.ProfileFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_requests" />
+        tools:layout="@layout/fragment_request" />
 
 
     <fragment

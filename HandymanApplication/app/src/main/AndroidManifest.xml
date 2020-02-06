@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".Utils.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,15 +13,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.HomePageActivity"
-            android:label="@string/title_Genie"></activity>
-
-
-
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity
             android:name=".activities.SignupActivity"
-            android:windowSoftInputMode="stateVisible"
-
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.MainActivity"
             android:windowSoftInputMode="stateVisible">
@@ -38,5 +32,6 @@
             </intent-filter>
         </service>
     </application>
+
 
 </manifest>

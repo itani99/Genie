@@ -8,7 +8,7 @@
 
 
     <item
-        android:id="@+id/navigation_requests"
+        android:id="@+id/navigation_dashboard"
         android:icon="@drawable/icons8_request_service_80"
         android:title="Requests" />
     <item

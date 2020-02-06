@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         homeAdapter.setItem(JSONObject().apply {
             put("name", "jad").put("family","itani ")
         })
-      
+
        // viewProfile()
     }
 
@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
                 Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString())
             .responseJson { _, _, result ->
 
-                result.success {
+                result.success{
 
                     var res = it.obj()
 

@@ -66,13 +66,13 @@ class MainActivity : AppCompatActivity() {
                             this@MainActivity, Constants.FILE_USER,
                             Constants.USER_TOKEN, res.getString("token")
                         )
-//                        runOnUiThread {
-//                            Toast.makeText(
-//                                this,
-//                                SharedPreferences.getToken(this@MainActivity).toString(),
-//                                Toast.LENGTH_LONG
-//                            ).show()
-//                        }
+                        runOnUiThread {
+                            Toast.makeText(
+                                this,
+                                SharedPreferences.getToken(this@MainActivity).toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                         val intent = Intent(this, HomePageActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
