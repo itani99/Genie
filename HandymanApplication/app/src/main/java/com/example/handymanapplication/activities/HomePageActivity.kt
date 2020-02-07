@@ -1,9 +1,14 @@
 package com.example.handymanapplication.activities
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -13,7 +18,10 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.IOnBackPressed
-
+import com.example.handymanapplication.Utils.Utils
+import com.example.handymanapplication.ui.dashboard.DashboardFragment
+import com.google.firebase.auth.FirebaseAuth
+import okhttp3.internal.Util
 
 
 class HomePageActivity : AppCompatActivity() {
@@ -26,13 +34,26 @@ class HomePageActivity : AppCompatActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
          navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        val appBarConfiguration = AppBarConfiguration(setOf(
-//            R.id.navigation_home, R.id.navigation_dashboard,
-//            R.id.navigation_notifications,R.id.navigation_profile))
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController!!)
+
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_logout -> {
+                Utils.logout(this)
+
+            }
+            R.id.action_settings -> {
+               //todo
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

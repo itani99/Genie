@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         getActionBar()?.hide()
         setContentView(R.layout.activity_login)
 
-        if ( SharedPreferences.getToken( this@MainActivity) != null ){
-            startActivity( Intent( this@MainActivity, HomePageActivity::class.java))
+        if (SharedPreferences.getToken(this@MainActivity) != null) {
+            startActivity(Intent(this@MainActivity, HomePageActivity::class.java))
             finish()
         }
 
@@ -77,20 +77,20 @@ class MainActivity : AppCompatActivity() {
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
+                        Utils.sendRegistrationToServer(this)
 
 //                       SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
                     } else {
 
 
-
-                     runOnUiThread{
-                         btn_login.isEnabled = true
-                        Toast.makeText(
-                            this@MainActivity,
-                            res.getString("errors"),
-                            Toast.LENGTH_LONG
-                        ).show()
-                     }
+                        runOnUiThread {
+                            btn_login.isEnabled = true
+                            Toast.makeText(
+                                this@MainActivity,
+                                res.getString("errors"),
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     }
                 }
                 result.failure {

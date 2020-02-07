@@ -56,7 +56,8 @@ class Utils {
 
         fun sendRegistrationToServer(context: Context) {
             if (SharedPreferences.getToken(context) != null) {
-
+                //is it working fine ?
+                // it is reaching to the database but not notifying the phone
                 FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
 
                     Fuel.post(
@@ -67,6 +68,7 @@ class Utils {
                         .responseJson { _, _, result ->
                             result.success {
                                 Log.i("Firebase reg", it.content)
+
                             }
                             result.failure {
                                 Log.i("Firebase fail", it.localizedMessage)
