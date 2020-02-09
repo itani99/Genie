@@ -1,7 +1,6 @@
 package com.example.handymanapplication.ui.Profile
 
 import android.view.LayoutInflater
-import com.example.handymanapplication.Utils.IOnBackPressed
 
 
 import android.app.Activity
@@ -23,9 +22,12 @@ import com.github.kittinunf.result.success
 import androidx.appcompat.app.AppCompatActivity
 
 import android.text.InputType
+
 import com.example.handymanapplication.R
+import com.example.handymanapplication.Utils.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_bussinessinformation.*
-class BussinessinformationFragment : Fragment() , IOnBackPressed {
+
+class BusinessInformationFragment : Fragment(), IOnBackPressed {
 
     private var edit = false
     private var image: String? = null
@@ -42,7 +44,7 @@ class BussinessinformationFragment : Fragment() , IOnBackPressed {
         (activity as AppCompatActivity).supportActionBar!!.show()
 
         return inflater.inflate(
-            com.example.handymanapplication.R.layout.fragment_bussinessinformation,
+            R.layout.fragment_bussinessinformation,
             container,
             false
         )
@@ -50,15 +52,15 @@ class BussinessinformationFragment : Fragment() , IOnBackPressed {
 
 
     override fun onBackPressed(): Boolean {
-        if(edit){
+        if (edit) {
             activity?.runOnUiThread {
                 AlertDialog.Builder(activity)
                     .setTitle("Discard Changes?")
                     .setMessage("Are you sure?")
-                    .setPositiveButton("Yes",{dialog,_ ->
+                    .setPositiveButton("Yes", { dialog, _ ->
                         dialog.dismiss()
                     })
-                    .setNegativeButton("No",{dialog,_->
+                    .setNegativeButton("No", { dialog, _ ->
                         dialog.dismiss()
                     }).create().show()
             }
@@ -66,6 +68,7 @@ class BussinessinformationFragment : Fragment() , IOnBackPressed {
         }
         return true
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -75,7 +78,8 @@ class BussinessinformationFragment : Fragment() , IOnBackPressed {
             intent.type = "image/*"
             startActivityForResult(intent, 0)
         }
-
+// full name , email, password, porifle pic, bio , gender ,bank account, phone , dob , balance , address
+        // service. , certificates , price ,criminal record , cv , certficiates . avaialable time
 
         edit_btn.setOnClickListener {
             if (edit) {
@@ -85,7 +89,6 @@ class BussinessinformationFragment : Fragment() , IOnBackPressed {
                 edit = false
                 profile_email.isFocusable = false
                 profile_email.isFocusableInTouchMode = false
-
 
                 profile_phone.isFocusable = false
                 profile_phone.isFocusableInTouchMode = false

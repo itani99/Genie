@@ -37,6 +37,8 @@ class DashboardPagerAdapter(manager: FragmentManager) :
         mFragmentTitleList.add(title)
     }
 
+    fun getItems() = mFragmentList
+
     override fun getPageTitle(position: Int): CharSequence? {
         return mFragmentTitleList.get(position)
     }

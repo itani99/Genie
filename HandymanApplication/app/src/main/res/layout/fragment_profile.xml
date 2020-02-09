@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         app:tabTextColor="@android:color/black"
+        android:background="@android:color/holo_blue_light"
         app:tabGravity="fill">
 
     </com.google.android.material.tabs.TabLayout>

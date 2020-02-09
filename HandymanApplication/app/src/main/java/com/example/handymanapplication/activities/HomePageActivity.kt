@@ -61,8 +61,7 @@ class HomePageActivity : AppCompatActivity() {
         if(navHostFragment != null) {
             val childFragments = navHostFragment.childFragmentManager.fragments
             childFragments.forEach { fragment ->
-                if ( fragment is IOnBackPressed
-                    && !(fragment as IOnBackPressed).onBackPressed())
+                if ( fragment is IOnBackPressed && !(fragment as IOnBackPressed).onBackPressed())
                     return
             }
         }
