@@ -39,6 +39,7 @@ class DashboardFragment : Fragment() {
         adapter.addFragment(onGoingFragment, "On Going")
         adapter.addFragment(outGoingFragment, "Out Going")
 //        adapter.addFragment(clientAddressesF, getString(R.string.client_address))
+        viewPager!!.offscreenPageLimit = 0
         viewPager!!.adapter = adapter
         tabs!!.setupWithViewPager(viewPager)
         //try

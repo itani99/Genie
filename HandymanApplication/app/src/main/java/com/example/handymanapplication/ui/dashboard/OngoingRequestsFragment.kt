@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.ongoing_notifications.*
 import kotlinx.android.synthetic.main.row_layout.view.*
 import org.json.JSONObject
@@ -29,24 +30,25 @@ class OngoingRequestsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = GroupAdapter<GroupieViewHolder>()
-        var request1 = Request("123", "mhmd", "ee")
-        var request2 = Request("123", "mhmd", "ee")
-        var request3 = Request("123", "mhmd", "ee")
-        var request4 = Request("123", "mhmd", "ee")
-        adapter.add(RequestItem(request1))
-        adapter.add(RequestItem(request2))
-        adapter.add(RequestItem(request3))
-        adapter.add(RequestItem(request4))
 
-        adapter.setOnItemClickListener { item, view ->
-            //TODO
-            val intent = Intent(view.context, ViewRequestFragment::class.java)
-            startActivity(intent)
-        }
-        recycler_ongoing_notifications_id.adapter = adapter
+        var homeAdapter = HomeAdapter(context!!)
+
+        recycler_ongoing_notifications_id.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
+        recycler_ongoing_notifications_id.adapter = homeAdapter
+
+        homeAdapter.setItem(JSONObject().apply {
+            put("name", "Ahmad")
+        })
+
+        homeAdapter.setItem(JSONObject().apply {
+            put("name", "Mohammad")
+        })
+        homeAdapter.setItem(JSONObject().apply {
+            put("name", "jad").put("family", "itani ")
+        })
     }
-
     class Request(val uid: String, val username: String, val profileImageUrl: String) {
         constructor() : this("", "", "")
 
