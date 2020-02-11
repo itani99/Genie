@@ -57,8 +57,9 @@ class ProfileFragment : Fragment()
         adapter = DashboardPagerAdapter(activity!!.supportFragmentManager)
 
 
-        adapter!!.addFragment(businessInformation, "Business Information")
         adapter!!.addFragment(personalInformation, "Personal Information")
+        adapter!!.addFragment(businessInformation, "Business Information")
+
 //        adapter.addFragment(clientAddressesF, getString(R.string.client_address))
         viewPager_profiler!!.offscreenPageLimit = 0
         viewPager_profiler!!.adapter = adapter

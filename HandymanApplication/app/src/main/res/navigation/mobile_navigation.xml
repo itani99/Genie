@@ -16,6 +16,14 @@
         android:name="com.example.handymanapplication.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_request" />
+    <activity
+
+        android:id="@+id/navigation_chat"
+        android:name="com.example.handymanapplication.ui.ChatLog.ChatLogActivity"
+        android:label="Chat"
+        tools:layout="@layout/activity_chat_log" />
+
+
 
     <fragment
         android:id="@+id/navigation_notifications"

@@ -22,10 +22,15 @@ import com.github.kittinunf.result.success
 import androidx.appcompat.app.AppCompatActivity
 
 import android.text.InputType
-
-import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.IOnBackPressed
 import kotlinx.android.synthetic.main.fragment_bussinessinformation.*
+import android.graphics.BitmapFactory
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.handymanapplication.Models.TimeLineHeader
+import com.example.handymanapplication.adapters.TimelineAdapter
+import com.squareup.picasso.Picasso
+import java.net.URL
+
 
 class BusinessInformationFragment : Fragment(), IOnBackPressed {
 
@@ -40,14 +45,30 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
         savedInstanceState: Bundle?
 
     ): View? {
-        viewProfile()
+
         (activity as AppCompatActivity).supportActionBar!!.show()
 
         return inflater.inflate(
-            R.layout.fragment_bussinessinformation,
+            com.example.handymanapplication.R.layout.fragment_bussinessinformation,
             container,
             false
         )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var adapter = TimelineAdapter(context!!)
+        adapter.setItem(TimeLineHeader(0,"Monday"))
+        adapter.setItem(TimeLineHeader(1,"Tuesday"))
+        adapter.setItem(TimeLineHeader(2,"wed"))
+        adapter.setItem(TimeLineHeader(3,"Thurs"))
+        adapter.setItem(TimeLineHeader(4,"Fri"))
+        adapter.setItem(TimeLineHeader(5,"Sat"))
+        adapter.setItem(TimeLineHeader(6,"Sun"))
+        timeline.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL, false)
+
+
+        timeline.adapter = adapter
+
     }
 
 
@@ -69,129 +90,4 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
         return true
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        selectphoto_button.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 0)
-        }
-// full name , email, password, porifle pic, bio , gender ,bank account, phone , dob , balance , address
-        // service. , certificates , price ,criminal record , cv , certficiates . avaialable time
-
-        edit_btn.setOnClickListener {
-            if (edit) {
-                // complete saving
-                edit_btn.setBackgroundResource(R.drawable.icons8_writeprofile)
-                Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
-                edit = false
-                profile_email.isFocusable = false
-                profile_email.isFocusableInTouchMode = false
-
-                profile_phone.isFocusable = false
-                profile_phone.isFocusableInTouchMode = false
-
-                profile_biography.isFocusable = false
-                profile_biography.isFocusableInTouchMode = false
-                saveProfile()
-            } else {
-                //open edit
-                profile_email.isFocusable = true
-                profile_email.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-                profile_email.isFocusableInTouchMode = true
-
-                profile_phone.isFocusable = true
-                profile_phone.inputType = InputType.TYPE_CLASS_PHONE
-                profile_phone.isFocusableInTouchMode = true
-
-                profile_biography.isFocusable = true
-                profile_biography.inputType = InputType.TYPE_CLASS_TEXT
-                profile_biography.isFocusableInTouchMode = true
-
-
-
-
-                edit_btn.setBackgroundResource(R.drawable.ic_save_black_24dp)
-                edit = true
-
-            }
-        }
     }
-
-    var selectedPhotoUri: Uri? = null
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
-            selectedPhotoUri = data.data
-            val bitmap =
-                MediaStore.Images.Media.getBitmap(activity?.contentResolver, selectedPhotoUri)
-            selectphoto_imageview_register.setImageBitmap(bitmap)
-            selectphoto_button.alpha = 0f
-            // when image is not null so u have an image
-            image = Utils.encodeToBase64(bitmap)
-
-        }
-    }
-
-    private fun saveProfile() {
-        var email = profile_email.text.toString()
-        var phone = profile_phone.text.toString()
-        var biography = profile_biography.text.toString()
-        Fuel.put(
-            Utils.API_EDIT_PROFILE, listOf(
-                "email" to email, "phone" to phone
-
-            )
-        ).header(
-            "accept" to "application/json",
-            Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString()
-        )
-    }
-
-    private fun viewProfile() {
-        Fuel.get(Utils.API_EDIT_PROFILE)
-            .header(
-                "accept" to "application/json",
-                Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString()
-            )
-            .responseJson { _, _, result ->
-
-                result.success {
-
-                    var res = it.obj()
-
-                    if (res.optString("status", "error") == "success") {
-
-                        var profile = res.getJSONObject("profile")
-                        activity!!.runOnUiThread {
-                            profile_name.setText(profile.getString("name"))
-                            profile_email.setText(profile.getString("email"))
-                            profile_phone.setText(profile.getString("phone"))
-
-                        }
-
-                        activity?.runOnUiThread {
-                            Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG).show()
-                        }
-                    } else {
-
-                        Toast.makeText(
-                            activity,
-                            res.getString("status"),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-                result.failure {
-
-                    Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-
-
-    }
-}

@@ -25,12 +25,12 @@ import java.util.*
 class Utils {
     companion object {
         private const val BASE_URL = "https://handiman.club/api"
-        const val BASE_IMAGE_URL = "https://handiman.club/storage"
+        const val BASE_IMAGE_URL = "https://handiman.club/public/storage"
         const val AUTHORIZATION = "Authorization"
-
+        const val API_HandymenList = "$BASE_URL/getHandymanList"
         const val API_CHECK_DISTRIBUTOR = "$BASE_URL/check-distributor/"
         const val API_LOGIN = "$BASE_URL/login"
-        const val API_Register ="$BASE_URL/register"
+        const val API_Register = "$BASE_URL/register"
         const val API_EDIT_PROFILE = "$BASE_URL/profile-edit"
         const val API_DEVICE_TOKEN = "$BASE_URL/device-token"
         const val API_PROFILE = "$BASE_URL/profile"
@@ -103,13 +103,17 @@ class Utils {
         fun encodeToBase64(image: Bitmap): String {
             val byteArrayOS = ByteArrayOutputStream()
             image.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOS)
-            return android.util.Base64.encodeToString(byteArrayOS.toByteArray(), android.util.Base64.DEFAULT)
+            return android.util.Base64.encodeToString(
+                byteArrayOS.toByteArray(),
+                android.util.Base64.DEFAULT
+            )
         }
 
         fun hideSoftKeyBoard(context: Context, view: View) {
             try {
 
-                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
             } catch (e: Exception) {
                 // TODO: handle exception
@@ -126,7 +130,8 @@ class Utils {
             c.time = d
             return c
         }
-        fun logout(context : Context){
+
+        fun logout(context: Context) {
             SharedPreferences.clearPreferences(context, Constants.FILE_USER)
             val intent = Intent(context, MainActivity::class.java)
 
@@ -136,8 +141,6 @@ class Utils {
         }
 
     }
-
-
 
 
 }
