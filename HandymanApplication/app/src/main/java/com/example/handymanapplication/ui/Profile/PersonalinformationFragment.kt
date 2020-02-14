@@ -3,6 +3,7 @@ package com.example.handymanapplication.ui.Profile
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -25,7 +26,6 @@ import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import kotlinx.android.synthetic.main.fragment_personalinformation.*
 
-
 class PersonalinformationFragment : Fragment(), IOnBackPressed {
 
 
@@ -43,8 +43,7 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         viewProfile()
         (activity as AppCompatActivity).supportActionBar!!.show()
 
-        return inflater.inflate(
-            com.example.handymanapplication.R.layout.fragment_personalinformation,
+        return inflater.inflate(R.layout.fragment_personalinformation,
             container,
             false
         )
@@ -82,7 +81,7 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         edit_btn.setOnClickListener {
             if (edit) {
                 // complete saving
-                edit_btn.setBackgroundResource(com.example.handymanapplication.R.drawable.icons8_writeprofile)
+                edit_btn.setBackgroundResource(R.drawable.icons8_writeprofile)
                 Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
                 edit = false
                 profile_email.isFocusable = false
@@ -141,6 +140,7 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         Fuel.put(
             Utils.API_EDIT_PROFILE, listOf(
                 "email" to email, "phone" to phone
+                //,"profile_picture" to image, "biography" to biography
 
             )
         ).header(
@@ -167,9 +167,16 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
                         activity!!.runOnUiThread {
                             profile_name.setText(profile.getString("name"))
                             profile_email.setText(profile.getString("email"))
-                            profile_phone.setText(profile.getString("phone"))
-                            val url: String =
-                                "https://handiman.club/public/storage/uploads/dzYci2r374tKkI7NdBtNu3L5K.png"
+                        profile_phone.setText(profile.getString("phone"))
+                         profile_biography.setText(profile.getString("biography"))
+                            profile_balance.setText((profile.getString("balance")).plus("$"))
+                            if(profile.optString("isApproved", "false") == "true"){
+                                profile_status_background.setBackgroundColor(Color.GREEN)
+                                profile_status.setText("Online")
+                            }
+                           val image_url =profile.getString("profile_picture")
+                            val url =
+                               Utils.BASE_IMAGE_URL.plus(image_url)
 
                             Glide
                                 .with(this)

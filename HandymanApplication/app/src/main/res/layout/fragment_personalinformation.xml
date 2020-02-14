@@ -47,18 +47,6 @@
 
             </RelativeLayout>
 
-
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/imgUser"
-                android:layout_marginTop="-37dp"
-                android:fontFamily="sans-serif-light"
-                android:text="mhmd"
-                android:textColor="@color/white"
-                android:textSize="32sp" />
-
             <Button
                 android:id="@+id/edit_btn"
                 android:layout_width="40dp"
@@ -102,6 +90,8 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="0.00$"
+                        android:inputType="numberDecimal"
+                        android:id="@+id/profile_balance"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
@@ -119,6 +109,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/profile_status_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -139,6 +130,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="Offline"
+                        android:id="@+id/profile_status"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
@@ -172,7 +164,29 @@
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
 
+                    android:textColor="@color/headings"
+                    android:text="Full Name"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profile_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:inputType="none"
+                    android:lines="1"
+                    android:textColor="@android:color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -238,6 +252,16 @@
                     android:text="Date of Birth"
                     android:textColor="@color/headings"
                     android:textSize="13sp" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <DatePicker
+                        android:id="@+id/profile_date_of_birth"
+                        android:layout_width="match_parent"
+                        android:layout_height="130dp"
+                        android:datePickerMode="spinner"
+                        android:calendarViewShown="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <TextView
@@ -285,14 +309,14 @@
                     <RadioGroup
                         android:id="@+id/radioGrp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="8dp"
                         android:paddingTop="64dp"
                         android:paddingRight="8dp">
 
                         <RadioButton
-                            android:id="@+id/radioM"
+                            android:id="@+id/profile_male"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
