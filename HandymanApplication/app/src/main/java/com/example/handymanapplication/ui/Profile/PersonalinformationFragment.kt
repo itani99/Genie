@@ -140,7 +140,7 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         Fuel.put(
             Utils.API_EDIT_PROFILE, listOf(
                 "email" to email, "phone" to phone
-                //,"profile_picture" to image, "biography" to biography
+                ,"profile_picture" to image, "biography" to biography
 
             )
         ).header(

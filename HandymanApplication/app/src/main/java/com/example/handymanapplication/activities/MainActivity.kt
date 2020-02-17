@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                         Utils.sendRegistrationToServer(this)
 
-//                       SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
+                     SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
                     } else {
 
 

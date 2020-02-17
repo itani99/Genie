@@ -120,7 +120,8 @@ class SignupActivity : AppCompatActivity() {
             listOf(
                 "password_confirmation" to passwordConfirmation,
                 "name" to name, "email" to email,
-                "password" to password, "phone" to phone, "role" to "handyman"
+                "password" to password, "phone" to phone,
+                "role" to "employee"
 
             )
         )
@@ -131,7 +132,8 @@ class SignupActivity : AppCompatActivity() {
                     var res = it.obj()
                     if (res.optString("status", "error") == "success") {
 
-                        Utils.sendRegistrationToServer(this) //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
+                        Utils.sendRegistrationToServer(this)
+                        //  Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
 
                         var user = res.getJSONObject("user")
 
