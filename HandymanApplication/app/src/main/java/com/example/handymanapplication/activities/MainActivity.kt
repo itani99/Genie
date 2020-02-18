@@ -40,9 +40,10 @@ class MainActivity : AppCompatActivity() {
         btn_login.isEnabled = false
         val email = edt_email.text.toString()
         val password = edt_password.text.toString()
+        val role="employee"
 
 
-        Fuel.post(Utils.API_LOGIN, listOf("email" to email, "password" to password))
+        Fuel.post(Utils.API_LOGIN, listOf("email" to email, "password" to password, "role" to role))
             .header("accept" to "application/json")
             .responseJson { _, _, result ->
                 result.success {
