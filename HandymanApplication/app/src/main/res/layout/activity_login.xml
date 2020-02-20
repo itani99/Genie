@@ -28,58 +28,70 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:textColorHint="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:lines="1"
+
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:textColorHint="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edt_email"
+
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:backgroundTint="@android:color/transparent"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:padding="15dp"
-            android:textColor="#292929"
-            android:textColorHint="#797979" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#999999" />
-
-        <EditText
-            android:id="@+id/edt_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:backgroundTint="@android:color/transparent"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:padding="15dp"
-            android:textColor="#292929"
-            android:textColorHint="#797979" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="30dp"
-            android:background="#999999" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="10dp">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_login"
@@ -87,14 +99,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:src="@drawable/round_arrow_forward_24"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:tint="@android:color/white"
                 android:layout_marginBottom="20dp"
-                android:elevation="0dp"
-                app:elevation="0dp"
                 android:backgroundTint="#4E525B"
+                android:elevation="0dp"
+                android:src="@drawable/round_arrow_forward_24"
+                android:tint="@android:color/white"
+                app:elevation="0dp"
                 app:fabCustomSize="80dp"
                 tools:ignore="RelativeOverlap" />
 
@@ -104,18 +116,18 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="30dp"
+                android:padding="15dp"
                 android:text="Sign in"
                 android:textColor="#191919"
                 android:textSize="25sp"
-                android:padding="15dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,9 +135,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="30dp"
-                android:padding="15dp"
-
                 android:onClick="openSignUpPage"
+
+                android:padding="15dp"
                 android:text="Sign up"
                 android:textSize="18sp"
                 android:textStyle="bold" />

@@ -1,13 +1,11 @@
 package com.example.handymanapplication.activities
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
 
-import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
                         Utils.sendRegistrationToServer(this)
 
-                     SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
+                     //SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
                     } else {
 
 

@@ -50,6 +50,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:lines="1"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />
@@ -63,6 +66,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:inputType="textEmailAddress"
                     android:lines="1"
                     android:textColor="@android:color/white"
@@ -79,6 +85,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Phone"
                     android:inputType="phone"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:lines="1"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />
@@ -96,6 +105,9 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:lines="1"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -112,6 +124,9 @@
                     android:hint="Password"
                     android:inputType="textPassword"
                     android:lines="1"
+
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />
 
@@ -167,8 +182,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="74dp"
         android:text="Sign In"
+        android:textSize="22dp"
         android:onClick="openSignUpPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
