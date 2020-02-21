@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "814830361205",
-    "firebase_url": "https://geine-c1bec.firebaseio.com",
-    "project_id": "geine-c1bec",
-    "storage_bucket": "geine-c1bec.appspot.com"
+    "project_number": "497621009145",
+    "firebase_url": "https://handymanapplication-cc474.firebaseio.com",
+    "project_id": "handymanapplication-cc474",
+    "storage_bucket": "handymanapplication-cc474.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:814830361205:android:97fcb88faef27a3f25f63c",
+        "mobilesdk_app_id": "1:497621009145:android:ced9e577fcd8325bb21828",
         "android_client_info": {
-          "package_name": "com.example.handymanapplication"
+          "package_name": "club.handyman.handymanapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "814830361205-rp132397dto5d1piiifr0insv2e8tgre.apps.googleusercontent.com",
+          "client_id": "497621009145-ri8j2jfrhptat6l5jdggipdkj3bh4vfn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "club.handyman.handymanapplication",
+            "certificate_hash": "b71b16423e6ae21d30725e6013d809a13cc3d1aa"
+          }
+        },
+        {
+          "client_id": "497621009145-mekotve9kl9lmfs39jo4ijo7rpe2l508.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC91kwSm2vHmfb9bmJDFzHbOCEoD_W-bBY"
+          "current_key": "AIzaSyBHtJhnrR5A0CZ0iNjlrjxr6T3EqIweWy8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "814830361205-rp132397dto5d1piiifr0insv2e8tgre.apps.googleusercontent.com",
+              "client_id": "497621009145-mekotve9kl9lmfs39jo4ijo7rpe2l508.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
