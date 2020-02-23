@@ -27,10 +27,15 @@
 
                 <Button
                     android:id="@+id/selectphoto_button"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@android:color/transparent"
-                    android:textStyle="bold" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    />
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
