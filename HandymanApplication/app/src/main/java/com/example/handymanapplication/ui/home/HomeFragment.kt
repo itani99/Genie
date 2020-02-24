@@ -42,23 +42,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var homeAdapter = HomeAdapter(context!!)
-
-        recycler_main_id.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        recycler_main_id.adapter = homeAdapter
-
-        homeAdapter.setItem(JSONObject().apply {
-            put("name", "Ahmad")
-        })
-
-        homeAdapter.setItem(JSONObject().apply {
-            put("name", "Mohammad")
-        })
-        homeAdapter.setItem(JSONObject().apply {
-            put("name", "jad").put("family","itani ")
-        })
+//        var homeAdapter = HomeAdapter(context!!)
+//
+//        recycler_main_id.layoutManager =
+//            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//
+//        recycler_main_id.adapter = homeAdapter
+//
+//        homeAdapter.setItem(JSONObject().apply {
+//            put("name", "Ahmad")
+//        })
+//
+//        homeAdapter.setItem(JSONObject().apply {
+//            put("name", "Mohammad")
+//        })
+//        homeAdapter.setItem(JSONObject().apply {
+//            put("name", "jad").put("family","itani ")
+//        })
 
        // viewProfile()
     }

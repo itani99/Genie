@@ -9,7 +9,6 @@ import com.example.handymanapplication.Utils.Constants
 import com.example.handymanapplication.Utils.SharedPreferences
 import android.view.View
 import android.widget.Toast
-import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Utils
 import com.github.kittinunf.fuel.Fuel
@@ -23,7 +22,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.activity_signup.*
 import java.util.concurrent.TimeUnit
 
-class SignupActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
     var code: String = ""
     var callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
@@ -79,7 +78,7 @@ class SignupActivity : AppCompatActivity() {
                     edt_phone.text.toString(), // Phone number to verify
                     60, // Timeout duration
                     TimeUnit.SECONDS, // Unit of timeout
-                    this@SignupActivity, // Activity (for callback binding)
+                    this@SignUpActivity, // Activity (for callback binding)
                     callback
                 ) // OnVerificationStateChangedCallbacks
             } else {
@@ -138,21 +137,21 @@ class SignupActivity : AppCompatActivity() {
                         var user = res.getJSONObject("user")
 
                         SharedPreferences.setPrefernces(
-                            this@SignupActivity, Constants.FILE_USER,
+                            this@SignUpActivity, Constants.FILE_USER,
                             Constants.USER_EMAIL, user.getString("email")
                         )
                         SharedPreferences.setPrefernces(
-                            this@SignupActivity, Constants.FILE_USER,
+                            this@SignUpActivity, Constants.FILE_USER,
                             Constants.USER_NAME, user.getString("name")
                         )
                         SharedPreferences.setPrefernces(
-                            this@SignupActivity, Constants.FILE_USER,
+                            this@SignUpActivity, Constants.FILE_USER,
                             Constants.USER_TOKEN, res.getString("token")
                         )
                         runOnUiThread {
                             Toast.makeText(
                                 this,
-                                SharedPreferences.getToken(this@SignupActivity).toString(),
+                                SharedPreferences.getToken(this@SignUpActivity).toString(),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -165,7 +164,7 @@ class SignupActivity : AppCompatActivity() {
 //                       SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
                     } else {
                         Toast.makeText(
-                            this@SignupActivity,
+                            this@SignUpActivity,
                             res.getString("message"),
                             Toast.LENGTH_LONG
                         ).show()
@@ -173,7 +172,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 result.failure {
                     runOnUiThread {
-                        Toast.makeText(this@SignupActivity, it.localizedMessage, Toast.LENGTH_LONG)
+                        Toast.makeText(this@SignUpActivity, it.localizedMessage, Toast.LENGTH_LONG)
                             .show()
                     }
                 }
@@ -181,7 +180,7 @@ class SignupActivity : AppCompatActivity() {
     }
 
     fun openSignUpPage(view: View) {
-        val intent = Intent(this@SignupActivity, MainActivity::class.java)
+        val intent = Intent(this@SignUpActivity, MainActivity::class.java)
 
         intent.flags =
             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)

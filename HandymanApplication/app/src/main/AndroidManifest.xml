@@ -22,7 +22,7 @@
             android:name=".activities.HomePageActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activities.SignupActivity"
+            android:name=".activities.SignUpActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.MainActivity"

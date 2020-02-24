@@ -37,7 +37,7 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
     private var image: String? = null
     private var flag = false
     private var AUTOCOMPLETE_REQUEST_CODE = 1
-    private var  fields = Arrays.asList(Place.Field.ID, Place.Field.NAME)
+    private var fields = Arrays.asList(Place.Field.ID, Place.Field.NAME)
     override fun onCreateView(
 
         inflater: LayoutInflater,
@@ -45,12 +45,6 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
         savedInstanceState: Bundle?
 
     ): View? {
-
-
-
-
-
-
         (activity as AppCompatActivity).supportActionBar!!.show()
 
         return inflater.inflate(
@@ -76,14 +70,17 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
         timeline.adapter = adapter
 
 
-        txt_address.setOnClickListener{
+        txt_address.setOnClickListener {
             if (!Places.isInitialized()) {
-                Places.initialize(activity!!.baseContext,
+                Places.initialize(
+                    activity!!.baseContext,
                     "AIzaSyCayBS9KPayvC2NTQ6JVz4Mef4UoaS5eQs",
-                    Locale.US)
+                    Locale.US
+                )
             }
-             val intent =  Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.FULLSCREEN, fields)
+            val intent = Autocomplete.IntentBuilder(
+                AutocompleteActivityMode.FULLSCREEN, fields
+            )
                 .build(activity!!)
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
 
@@ -114,12 +111,13 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             when (resultCode) {
-                Activity.RESULT_OK ->{
+                Activity.RESULT_OK -> {
                     val place = Autocomplete.getPlaceFromIntent(data!!)
-                    Toast.makeText(activity!! , place.name , Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity!!, place.name, Toast.LENGTH_LONG).show()
 
-                }AutocompleteActivity.RESULT_ERROR ->{
-                val status = Autocomplete.getStatusFromIntent(data!!)
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    val status = Autocomplete.getStatusFromIntent(data!!)
                 }
 
                 Activity.RESULT_CANCELED -> {

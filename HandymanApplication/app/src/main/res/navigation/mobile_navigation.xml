@@ -30,6 +30,11 @@
         android:name="com.example.handymanapplication.ui.Profile.ProfileFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_request" />
+    <fragment
+        android:id="@+id/navigation_schedule"
+        android:name="com.example.handymanapplication.ui.Scheduler.MyScheduleFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_request" />
 
 
     <fragment

@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openSignUpPage(view: View) {
-        val intent = Intent(this@MainActivity, SignupActivity::class.java)
+        val intent = Intent(this@MainActivity, SignUpActivity::class.java)
 
         intent.flags =
             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
