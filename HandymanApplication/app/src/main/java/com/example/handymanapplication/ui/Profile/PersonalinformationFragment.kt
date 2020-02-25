@@ -43,7 +43,8 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         viewProfile()
         (activity as AppCompatActivity).supportActionBar!!.show()
 
-        return inflater.inflate(R.layout.fragment_personalinformation,
+        return inflater.inflate(
+            R.layout.fragment_personalinformation,
             container,
             false
         )
@@ -140,7 +141,7 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         Fuel.put(
             Utils.API_EDIT_PROFILE, listOf(
                 "email" to email, "phone" to phone
-                ,"profile_picture" to image, "biography" to biography
+                , "profile_picture" to image, "biography" to biography
 
             )
         ).header(
@@ -165,22 +166,24 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
 
                         var profile = res.getJSONObject("profile")
                         activity!!.runOnUiThread {
-                            profile_name.setText(profile.getString("name"))
-                            profile_email.setText(profile.getString("email"))
-                        profile_phone.setText(profile.getString("phone"))
-                         profile_biography.setText(profile.getString("biography"))
-                            profile_balance.setText((profile.getString("balance")).plus("$"))
-                            if(profile.optString("isApproved", "false") == "true"){
+
+                            profile_name.setText(profile.optString("name", ""))
+                            profile_biography.setText(profile.optString("biography", ""))
+
+                            profile_balance.setText((profile.optString("balance", "")).plus("$"))
+
+                            if (profile.optString("isApproved", "false") == "true") {
                                 profile_status_background.setBackgroundColor(Color.GREEN)
                                 profile_status.setText("Online")
                             }
-                           val image_url =profile.getString("profile_picture")
+
                             val url =
-                               Utils.BASE_IMAGE_URL.plus(image_url)
+                                Utils.BASE_IMAGE_URL.plus(profile.optString("image", "ic_user.png"))
 
                             Glide
                                 .with(this)
                                 .load(url).into(profile_picture)
+
                             activity?.runOnUiThread {
                                 Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG)
                                     .show()
