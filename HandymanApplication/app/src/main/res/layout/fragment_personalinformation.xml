@@ -14,7 +14,7 @@
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:background="@drawable/grad"
+            android:background="@android:color/transparent"
             android:paddingBottom="20dp">
 
             <RelativeLayout
@@ -31,11 +31,8 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:background="@android:color/transparent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"
+
+
                     />
 
 
@@ -43,12 +40,7 @@
                     android:id="@+id/profile_picture"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="7dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp" />
+                    android:layout_alignParentTop="true" />
 
 
             </RelativeLayout>
@@ -194,80 +186,12 @@
                         android:textColor="@android:color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textColor="@color/headings"
-                    android:textSize="13sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/profile_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
-                        android:lines="1"
-                        android:textColor="@android:color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
 
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
 
-                        android:background="@drawable/ic_local_phone_black_24dp"></androidx.appcompat.widget.AppCompatImageView>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Phone"
-                        android:textColor="@color/headings"
-                        android:textSize="13sp" />
-                </LinearLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/profile_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:inputType="none"
-                        android:lines="1"
-                        android:textColor="@android:color/black" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date of Birth"
-                    android:textColor="@color/headings"
-                    android:textSize="13sp" />
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <DatePicker
-                        android:id="@+id/profile_date_of_birth"
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:datePickerMode="spinner"
-                        android:calendarViewShown="false"/>
-                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <TextView

@@ -5,36 +5,40 @@
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="5dp"
         android:text="From:"
         />
     <TextView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="5dp"
         android:id="@+id/txt_from"/>
     <TextView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="TO:"/>
     <TextView
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/txt_to"/>
+
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:padding="5dp"
-        android:id="@+id/txt_price"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text=" $/hour"/>
+        android:text="Remove:"
+        android:textColor="@android:color/holo_red_dark"/>
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/rmv_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_remove_black_24dp">
+
+    </androidx.appcompat.widget.AppCompatImageButton>
+
 </LinearLayout>

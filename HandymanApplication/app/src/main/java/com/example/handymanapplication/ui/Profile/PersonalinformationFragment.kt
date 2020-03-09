@@ -83,26 +83,25 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
             if (edit) {
                 // complete saving
                 edit_btn.setBackgroundResource(R.drawable.icons8_writeprofile)
-                Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
+                // Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
                 edit = false
-                profile_email.isFocusable = false
-                profile_email.isFocusableInTouchMode = false
+                profile_name.isFocusable = false
+                profile_name.isFocusableInTouchMode = false
 
-                profile_phone.isFocusable = false
-                profile_phone.isFocusableInTouchMode = false
+
 
                 profile_biography.isFocusable = false
                 profile_biography.isFocusableInTouchMode = false
                 saveProfile()
             } else {
                 //open edit
-                profile_email.isFocusable = true
-                profile_email.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
-                profile_email.isFocusableInTouchMode = true
+                profile_name.isFocusable = true
+                profile_name.inputType = InputType.TYPE_CLASS_TEXT
+                profile_name.isFocusableInTouchMode = true
 
-                profile_phone.isFocusable = true
-                profile_phone.inputType = InputType.TYPE_CLASS_PHONE
-                profile_phone.isFocusableInTouchMode = true
+//                profile_phone.isFocusable = true
+//                profile_phone.inputType = InputType.TYPE_CLASS_PHONE
+//                profile_phone.isFocusableInTouchMode = true
 
                 profile_biography.isFocusable = true
                 profile_biography.inputType = InputType.TYPE_CLASS_TEXT
@@ -134,20 +133,39 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         }
     }
 
-    private fun saveProfile() {
-        var email = profile_email.text.toString()
-        var phone = profile_phone.text.toString()
+   private  fun saveProfile() {
         var biography = profile_biography.text.toString()
-        Fuel.put(
+        Fuel.post(
             Utils.API_EDIT_PROFILE, listOf(
-                "email" to email, "phone" to phone
-                , "profile_picture" to image, "biography" to biography
+                "image" to image,
+                "biography" to biography
+
 
             )
         ).header(
             "accept" to "application/json",
             Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString()
-        )
+        ).responseJson { _, _, result ->
+
+            result.success {
+
+                var res = it.obj()
+                if (res.optString("status", "error") == "success") {
+
+                    var profile = res.getJSONObject("user")
+
+//                    activity?.runOnUiThread {
+//                        Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG)
+//                            .show()
+//                    }
+                }
+            }
+            result.failure {
+                Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
+                    .show()
+            }
+
+        }
     }
 
     private fun viewProfile() {
@@ -184,10 +202,10 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
                                 .with(this)
                                 .load(url).into(profile_picture)
 
-                            activity?.runOnUiThread {
-                                Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG)
-                                    .show()
-                            }
+//                            activity?.runOnUiThread {
+//                                Toast.makeText(activity, profile.toString(), Toast.LENGTH_LONG)
+//                                    .show()
+//                            }
                         }
                     } else {
 

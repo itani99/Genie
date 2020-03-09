@@ -12,33 +12,75 @@
 
     <TextView
         android:id="@+id/username_textview_new_message"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="15dp"
         android:text="Username"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageview_new_message"
-        app:layout_constraintEnd_toEndOf="parent"
+
         app:layout_constraintStart_toEndOf="@+id/imageview_new_message"
         app:layout_constraintTop_toTopOf="@+id/imageview_new_message" />
+
+    <TextView
+        android:id="@+id/message_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Message title"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/imageview_new_message"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/username_textview_new_message">
+
+    </TextView>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageview_new_message"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/icons8_male_user"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/btn_dialog" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/accept_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_light"
+        android:text="Accept"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/message_title"
+        app:layout_constraintTop_toTopOf="@+id/imageview_new_message">
+
+
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/decline_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="30dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="decline"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/accept_message"
+        app:layout_constraintTop_toTopOf="@+id/imageview_new_message">
+
+    </androidx.appcompat.widget.AppCompatButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

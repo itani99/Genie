@@ -26,6 +26,7 @@ class Utils {
     companion object {
         private const val BASE_URL = "https://handiman.club/api"
         const val BASE_IMAGE_URL = "https://handiman.club/public/storage/"
+        private const val BASE_URL_EMPLOYEE = "https://handiman.club/api/employee"
         const val AUTHORIZATION = "Authorization"
         const val API_HandymenList = "$BASE_URL/getHandymanList"
         const val API_CHECK_DISTRIBUTOR = "$BASE_URL/check-distributor/"
@@ -33,6 +34,9 @@ class Utils {
         const val API_Register = "$BASE_URL/register"
         const val API_EDIT_PROFILE = "$BASE_URL/profile-edit"
         const val API_DEVICE_TOKEN = "$BASE_URL/device-token"
+        const val API_POST = "$BASE_URL_EMPLOYEE/post"
+
+        const val API_Timeline = "$BASE_URL/timeline-view/"
         const val API_PROFILE = "$BASE_URL/profile"
         const val API_NIF_PROFILE = "$BASE_URL/profile/nif"
         const val API_DISTRIBUTOR = "$BASE_URL/distributor"

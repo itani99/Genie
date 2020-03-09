@@ -11,13 +11,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.TimePicker
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.handymanapplication.Models.TimeLineHeader
 import com.example.handymanapplication.Models.TimeLineItem
 import com.example.handymanapplication.R
 import kotlinx.android.synthetic.main.layout_timeline_header.view.*
 import kotlinx.android.synthetic.main.layout_timeline_item.view.*
-import kotlinx.android.synthetic.main.layout_timeline_price.view.*
 import kotlinx.android.synthetic.main.row_layout.view.*
 import org.json.JSONObject
 import java.util.*
@@ -64,9 +64,33 @@ class TimelineAdapter(var context: Context) : RecyclerView.Adapter<TimelineAdapt
         }else{
             holder.itemView.txt_from.text = ( list[position] as TimeLineItem).from
             holder.itemView.txt_to.text = ( list[position] as TimeLineItem).to
-            holder.itemView.txt_price.text =  (list[position] as TimeLineItem).price.toString()
+           holder.itemView.rmv_item.setOnClickListener {
 
+
+                Toast.makeText(context!!,(list[position].toString()), Toast.LENGTH_LONG).show()
+
+                val v = LayoutInflater.from(context).inflate(R.layout.layout_remove_item, null)
+
+                AlertDialog.Builder(context)
+                    .setTitle("Are you Sure you want to remove ?")
+                    .setView(v)
+                    .setNegativeButton(android.R.string.cancel){
+                            dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .setPositiveButton(android.R.string.ok){
+                            vdialog, _ ->
+                        this.removeItem(position)
+                        //list.removeItem(list[position])
+                        notifyDataSetChanged()
+                        vdialog.dismiss()
+                    }
+                    .create().show()
+
+            }
         }
+
+
         holder.itemView.tag = list[position]
         holder.itemView.setOnClickListener {
             if ( it.tag is TimeLineHeader){
@@ -84,26 +108,10 @@ class TimelineAdapter(var context: Context) : RecyclerView.Adapter<TimelineAdapt
                             to_view, thour,tminute->
                         to_hour = thour
                         to_minute = tminute
-                        val v = LayoutInflater.from(context).inflate(R.layout.layout_timeline_price, null)
 
-                        val price = v.findViewById(R.id.price) as EditText
 
                         AlertDialog.Builder(context)
-                            .setTitle("Set Price")
-                            .setView(v)
-                            .setNegativeButton(android.R.string.cancel){
-                                dialog, _ ->
-                                dialog.dismiss()
-                            }
-                            .setPositiveButton(android.R.string.ok){
-                                vdialog, _ ->
-                                list.add(list.indexOf(it.tag)+1,
-                                    TimeLineItem("${from_hour}:${from_minute}",
-                                        "${to_hour}:${to_minute}", price.text.toString().toDouble() ))
-                                notifyDataSetChanged()
-                                vdialog.dismiss()
-                            }
-                            .create().show()
+
                     }, hour +1,
                         minute, true).show()
                 }, cal.get(Calendar.HOUR_OF_DAY),

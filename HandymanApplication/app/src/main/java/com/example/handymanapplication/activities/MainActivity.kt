@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getActionBar()?.hide()
+        getSupportActionBar()!!.hide()
         setContentView(R.layout.activity_login)
 
         if (SharedPreferences.getToken(this@MainActivity) != null) {
@@ -35,10 +35,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun login() {
+
         btn_login.isEnabled = false
         val email = edt_email.text.toString()
         val password = edt_password.text.toString()
-        val role="employee"
+        val role = "employee"
 
 
         Fuel.post(Utils.API_LOGIN, listOf("email" to email, "password" to password, "role" to role))
@@ -63,12 +64,18 @@ class MainActivity : AppCompatActivity() {
                         )
                         SharedPreferences.setPrefernces(
                             this@MainActivity, Constants.FILE_USER,
+                            Constants.USER_ID, user.getString("_id")
+                        )
+                        SharedPreferences.setPrefernces(
+                            this@MainActivity, Constants.FILE_USER,
                             Constants.USER_TOKEN, res.getString("token")
                         )
+
+                        Utils.sendRegistrationToServer(this)
                         runOnUiThread {
                             Toast.makeText(
                                 this,
-                                SharedPreferences.getToken(this@MainActivity).toString(),
+                                SharedPreferences.getID(this@MainActivity).toString(),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
@@ -76,9 +83,8 @@ class MainActivity : AppCompatActivity() {
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
-                        Utils.sendRegistrationToServer(this)
 
-                     //SharedPreferences.clearPreferences(this@MainActivity, Constants.FILE_USER)
+
                     } else {
 
 

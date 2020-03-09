@@ -13,20 +13,31 @@ import kotlinx.android.synthetic.main.row_layout.view.*
 import org.json.JSONObject
 
 class RequestAdapter(context: Context) : RecyclerView.Adapter<RequestAdapter.ViewHolder>() {
+    var _list : ArrayList<Any> = ArrayList()
     var list : ArrayList<Any> = ArrayList()
+    var query: String? = null
 
     fun setItem( ob: Any){
-        list.add(ob)
-        notifyItemInserted(list.size -1)
+        _list.add(ob)
+        notifyItemInserted(_list.size -1)
     }
-    fun getItem( index : Int) = list[index]
+    fun getItem( index : Int) = _list[index]
 
     fun removeItem (index: Int){
-        list.removeAt(index)
+        _list.removeAt(index)
         notifyItemRemoved( index )
     }
     fun removeItems (){
-        list.clear()
+        _list.clear()
+        notifyDataSetChanged()
+    }
+
+    fun filter( key : String , query : String ){
+        this.query = query
+        this.list.clear()
+        this.list.addAll( this._list.filter {
+            (it as JSONObject).optString(key).contains(query)
+        })
         notifyDataSetChanged()
     }
 
@@ -40,11 +51,14 @@ class RequestAdapter(context: Context) : RecyclerView.Adapter<RequestAdapter.Vie
           //  if ((list[position] as JSONObject).)
         }
       //
+        if ( query == null )
+        holder.itemView.text1.text = (_list[position] as JSONObject).optString("name","unknown")
+        else
         holder.itemView.text1.text = (list[position] as JSONObject).optString("name","unknown")
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return if ( query == null ) _list.size else list.size
     }
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view)

@@ -28,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
 //code=p0.smsCode.toString()
             edt_verify_code.setText(p0.smsCode)
-            btn_register.performClick()
+          btn_verify.performClick()
         }
 
         override fun onVerificationFailed(p0: FirebaseException) {
@@ -56,13 +56,26 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_signup)
-        getActionBar()?.hide()
         super.onCreate(savedInstanceState)
 
-        //  register_btn.setOnClickListener { register() }
+        btn_verify.setOnClickListener {
+            var credential =
+                PhoneAuthProvider.getCredential(authToken!!, edt_verify_code.text.toString())
+
+            FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    register()
+                } else {
+                    runOnUiThread {
+                        ll_signup_form.visibility = View.VISIBLE
+                        ll_verify_code.visibility = View.GONE
+                    }
+
+                }
+            }
+        }
 
         btn_register.setOnClickListener {
-            if (ll_signup_form.visibility == View.VISIBLE) {
                 //make registration
 
                 if (edt_phone.text.toString().isEmpty() ||
@@ -81,23 +94,7 @@ class SignUpActivity : AppCompatActivity() {
                     this@SignUpActivity, // Activity (for callback binding)
                     callback
                 ) // OnVerificationStateChangedCallbacks
-            } else {
-                //verify code
-                var credential =
-                    PhoneAuthProvider.getCredential(authToken!!, edt_verify_code.text.toString())
 
-                FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        register()
-                    } else {
-                        runOnUiThread {
-                            ll_signup_form.visibility = View.VISIBLE
-                            ll_verify_code.visibility = View.GONE
-                        }
-
-                    }
-                }
-            }
 
 
         }

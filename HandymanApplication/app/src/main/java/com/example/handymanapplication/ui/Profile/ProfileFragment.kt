@@ -18,6 +18,7 @@ class ProfileFragment : Fragment()
         BusinessInformationFragment()
     private var personalInformation =
         PersonalinformationFragment()
+    private var creditCardFragment = CreditCardFragment()
 
 
     override fun onCreateView(
@@ -28,25 +29,6 @@ class ProfileFragment : Fragment()
 
         return inflater.inflate(R.layout.fragment_profile, null, false)
     }
-
-//    override fun onBackPressed(): Boolean {
-//
-//        activity?.runOnUiThread {
-//            AlertDialog.Builder(activity)
-//                .setTitle(" Discard Changes?")
-//                .setMessage("Are you sure?")
-//                .setPositiveButton("Yes", { dialog, _ ->
-//                    // close profile page
-//                    dialog.dismiss()
-//                })
-//                .setNegativeButton("No", { dialog, _ ->
-//                    dialog.dismiss()
-//                }).create().show()
-//        }
-//
-//
-//        return true
-//    }
 
 
     var adapter: DashboardPagerAdapter? = null
@@ -59,6 +41,7 @@ class ProfileFragment : Fragment()
 
         adapter!!.addFragment(personalInformation, "Personal Information")
         adapter!!.addFragment(businessInformation, "Business Information")
+        adapter!!.addFragment(creditCardFragment," Credit Card")
 
 //        adapter.addFragment(clientAddressesF, getString(R.string.client_address))
         viewPager_profiler!!.offscreenPageLimit = 0

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff">
@@ -9,8 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="10dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="30dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,9 +58,38 @@
                 android:textColor="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timeline"
+            android:textColor="@color/headings"
+            android:textSize="13sp" />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/timeline"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/timeline"/>
+            android:layout_marginTop="10dp"/>
+
+        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+
+            android:id="@+id/btn_save_changes"
+            style="@style/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/loginViewsMargin"
+            android:text="Save"
+            app:initialCornerAngle="27dp"
+            app:spinning_bar_color="#FFF"
+            app:spinning_bar_padding="6dp"
+            app:spinning_bar_width="4dp"
+            android:layout_marginBottom="40dp"
+
+            />
+
+
     </LinearLayout>
 </ScrollView>
