@@ -18,8 +18,13 @@ import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import com.google.firebase.iid.FirebaseInstanceId
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import android.os.FileUtils
+import android.util.Base64OutputStream
+import java.io.FileInputStream
+import java.nio.charset.StandardCharsets
 
 
 class Utils {
@@ -28,45 +33,33 @@ class Utils {
         const val BASE_IMAGE_URL = "https://handiman.club/public/storage/"
         private const val BASE_URL_EMPLOYEE = "https://handiman.club/api/employee"
         const val AUTHORIZATION = "Authorization"
-        const val API_HandymenList = "$BASE_URL/getHandymanList"
-        const val API_CHECK_DISTRIBUTOR = "$BASE_URL/check-distributor/"
+        const val API_ADD_Service = "$BASE_URL_EMPLOYEE/add-service/"
+        const val API_GET_JOBS = "$BASE_URL_EMPLOYEE/jobs"
+        const val API_DELETE_SERVICE = "$BASE_URL_EMPLOYEE/delete-service/"
         const val API_LOGIN = "$BASE_URL/login"
+
+        const val API_Services = "$BASE_URL/getServices"
         const val API_Register = "$BASE_URL/register"
         const val API_EDIT_PROFILE = "$BASE_URL/profile-edit"
         const val API_DEVICE_TOKEN = "$BASE_URL/device-token"
+        const val API_CREDIT_CARD = "$BASE_URL/credit-card"
         const val API_POST = "$BASE_URL_EMPLOYEE/post"
-
         const val API_Timeline = "$BASE_URL/timeline-view/"
-        const val API_PROFILE = "$BASE_URL/profile"
-        const val API_NIF_PROFILE = "$BASE_URL/profile/nif"
-        const val API_DISTRIBUTOR = "$BASE_URL/distributor"
-        const val API_PROFILE_PHOTO = "$BASE_URL/profile/photo"
-        const val API_CATEGORIES = "$BASE_URL/categories"
-        const val API_PRODUCTS = "$BASE_URL/products/"
-        const val API_SET_CART = "$BASE_URL/cart/set"
-        const val API_CART = "$BASE_URL/cart"
-        const val API_FAVORITE = "$BASE_URL/favorite"
-        const val API_SET_FAVORITE = "$BASE_URL/favorite/set"
-        const val API_Addresses = "$BASE_URL/addresses"
-        const val API_Address = "$BASE_URL/address"
-        const val API_Address_DELETE = "$BASE_URL/address-delete"
-        const val API_CITY = "$BASE_URL/city-select/"
-        const val API_CHECKOUT = "$BASE_URL/checkout-list/"
-        const val API_ORDERS = "$BASE_URL/orders"
-        const val API_CONFIRM_PAYMENT = "$BASE_URL/confirm-payment"
-        const val API_REQUEST_PASSWORD = "$BASE_URL/request-password"
-        const val API_RESET_PASSWORD = "$BASE_URL/reset-password"
-
+        const val API_ONGOING_REQUESTS = "$BASE_URL_EMPLOYEE/pending-requests"
+        const val API_APPROVE_REQUESTS = "$BASE_URL_EMPLOYEE/reply-request/"
+        const val API_RECEIPT = "$BASE_URL_EMPLOYEE/receipt/"
+        const val API_OUTGOING_REQUESTS = "$BASE_URL/jobs/"
+        const val API_CHAT_REQUESTS = "$BASE_URL_EMPLOYEE/chat-requests"
+        const val API_SEND_MESSAGE = "$BASE_URL/message/"
+        const val API_SCHEDULE = "$BASE_URL_EMPLOYEE/schedule"
 
         fun sendRegistrationToServer(context: Context) {
             if (SharedPreferences.getToken(context) != null) {
-                //is it working fine ?
-                // it is reaching to the database but not notifying the phone
                 FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener {
 
                     Fuel.post(
                         API_DEVICE_TOKEN,
-                        listOf("device_token" to it.token, "device_platform" to "android")
+                        listOf("employee_device_token" to it.token, "device_platform" to "android")
                     )
                         .header(Utils.AUTHORIZATION to SharedPreferences.getToken(context).toString())
                         .responseJson { _, _, result ->
@@ -106,11 +99,26 @@ class Utils {
 
         fun encodeToBase64(image: Bitmap): String {
             val byteArrayOS = ByteArrayOutputStream()
-            image.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOS)
+            image.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOS)
             return android.util.Base64.encodeToString(
                 byteArrayOS.toByteArray(),
                 android.util.Base64.DEFAULT
             )
+        }
+
+        fun convertFileToBase64(imageFile: File): String {
+            return FileInputStream(imageFile).use { inputStream ->
+                ByteArrayOutputStream().use { outputStream ->
+                    Base64OutputStream(
+                        outputStream,
+                        android.util.Base64.DEFAULT
+                    ).use { base64FilterStream ->
+                        inputStream.copyTo(base64FilterStream)
+                        base64FilterStream.close() // This line is required, see comments
+                        outputStream.toString()
+                    }
+                }
+            }
         }
 
         fun hideSoftKeyBoard(context: Context, view: View) {
@@ -142,6 +150,14 @@ class Utils {
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
+        }
+        fun addChar(str: String, ch: Char, position: Int): String {
+            val len = str.length
+            val updatedArr = CharArray(len + 1)
+            str.toCharArray(updatedArr, 0, 0, position)
+            updatedArr[position] = ch
+            str.toCharArray(updatedArr, position + 1, position, len)
+            return String(updatedArr)
         }
 
     }

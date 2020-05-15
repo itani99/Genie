@@ -10,55 +10,69 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.handymanapplication.R
 import kotlinx.android.synthetic.main.row_layout.view.*
+import kotlinx.android.synthetic.main.user_chat_row.view.*
 import org.json.JSONObject
 
 class RequestAdapter(context: Context) : RecyclerView.Adapter<RequestAdapter.ViewHolder>() {
-    var _list : ArrayList<Any> = ArrayList()
+
     var list : ArrayList<Any> = ArrayList()
-    var query: String? = null
+    private val unfoldedIndexes = HashSet<Int>()
+    var defaultRequestBtnClickListener: View.OnClickListener? = null
+
 
     fun setItem( ob: Any){
-        _list.add(ob)
-        notifyItemInserted(_list.size -1)
+        list.add(ob)
+        notifyItemInserted(list.size -1)
     }
-    fun getItem( index : Int) = _list[index]
+    fun getItem( index : Int) = list[index]
 
     fun removeItem (index: Int){
-        _list.removeAt(index)
+        list.removeAt(index)
         notifyItemRemoved( index )
     }
     fun removeItems (){
-        _list.clear()
+        list.clear()
         notifyDataSetChanged()
     }
 
-    fun filter( key : String , query : String ){
-        this.query = query
-        this.list.clear()
-        this.list.addAll( this._list.filter {
-            (it as JSONObject).optString(key).contains(query)
-        })
-        notifyDataSetChanged()
-    }
+    fun getItems() = list
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.row_layout,parent,false))
+            .inflate(R.layout.user_chat_row,parent,false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener {
-          //  if ((list[position] as JSONObject).)
-        }
-      //
-        if ( query == null )
-        holder.itemView.text1.text = (_list[position] as JSONObject).optString("name","unknown")
-        else
-        holder.itemView.text1.text = (list[position] as JSONObject).optString("name","unknown")
+//        holder.itemView.setOnClickListener {
+//          //  if ((list[position] as JSONObject).)
+//        }
+        //holder.itemView.request_description.text= (list[position] as JSONObject).optString("description", "title")
+//
+//      //
+//        if ( query == null )
+//        holder.itemView.text1.text = (_list[position] as JSONObject).optString("name","unknown")
+//        else
+//        holder.itemView.text1.text = (list[position] as JSONObject).optString("name","unknown")
     }
 
+    fun registerToggle(position: Int) {
+        if (unfoldedIndexes.contains(position))
+            registerFold(position)
+        else
+            registerUnfold(position)
+    }
+
+    fun registerFold(position: Int) {
+        unfoldedIndexes.remove(position)
+    }
+
+    fun registerUnfold(position: Int) {
+        unfoldedIndexes.add(position)
+    }
     override fun getItemCount(): Int {
-        return if ( query == null ) _list.size else list.size
+       return list.size
     }
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view)

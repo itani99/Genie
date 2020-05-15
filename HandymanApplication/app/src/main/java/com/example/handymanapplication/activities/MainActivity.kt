@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
 
         btn_login.setOnClickListener { login() }
 
-
     }
 
     private fun login() {
@@ -42,7 +41,8 @@ class MainActivity : AppCompatActivity() {
         val role = "employee"
 
 
-        Fuel.post(Utils.API_LOGIN, listOf("email" to email, "password" to password, "role" to role))
+        Fuel.post(
+            Utils.API_LOGIN, listOf("email" to email, "password" to password, "role" to role))
             .header("accept" to "application/json")
             .responseJson { _, _, result ->
                 result.success {
@@ -92,7 +92,8 @@ class MainActivity : AppCompatActivity() {
                             btn_login.isEnabled = true
                             Toast.makeText(
                                 this@MainActivity,
-                                res.getString("errors"),
+                                res.getJSONObject("errors").toString()
+                               ,
                                 Toast.LENGTH_LONG
                             ).show()
                         }

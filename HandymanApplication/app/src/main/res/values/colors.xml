@@ -5,8 +5,8 @@
     <color name="followers">#0D5D98</color>
     <color name="headings">#3797CF</color>
     <color name="solidCircle">#AAFFFFFF</color>
-    <color name="circleBorder">#50FFFFFF</color>
-    <color name="gradEnd">#67EFC8</color>
+    <color name="circleBorder">#4C83D8</color>
+    <color name="gradEnd">#6784EF</color>
     <color name="gradStart">#63C9FF</color>
     <color name="followersBg">#65DCE5</color>
     <color name="followingBg">#49BEFF</color>
@@ -16,7 +16,7 @@
 
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000</color>
-    <color name="colorAccent">#11CFC5</color>
+    <color name="colorAccent">#116DCF</color>
     <color name="themeColor">#11CFC5</color>
 
     <!--normal colors-->
@@ -38,7 +38,58 @@
     <color name="title_text_color">#258bd6</color>
     <color name="content_text_color">#999da4</color>
 
-    <color name="black" >#000000</color>
+    <color name="main_blue">#3fa2f9</color>
+    <color name="black">#000000</color>
+
+    <color name="event_1_color">#a31a0b</color>
+    <color name="event_2_color">#0c41bc</color>
+    <color name="event_3_color">#0f6c52</color>
+    <color name="event_4_color">#d9ba20</color>
+    <color name="event_5_color">#bf36c1</color>
+    <color name="event_6_color">#3dbebc</color>
+    <color name="event_7_color">#000000</color>
+
+    <color name="custom_calendar_grid_color">#4648D1</color>
+    <color name="custom_calendar_month_text_color">#3fa2f9</color>
+
+    <color name="custom_calendar_year_selection_background">#3fa2f9</color>
+    <color name="custom_calendar_year_selection_arrows_color">#E1F5FE</color>
+    <color name="custom_calendar_year_selection_text_color">#F3E5F5</color>
+
+    <color name="custom_calendar_days_bar_background">#E3F2FD</color>
+    <color name="custom_calendar_days_bar_text_color">#861F1F</color>
+
+    <color name="custom_calendar_date_text_color">#AD000000</color>
+    <color name="custom_calendar_date_background">#FFFFFF</color>
+
+    <color name="custom_calendar_date_pressed_text_color">#FFFFFF</color>
+    <color name="custom_calendar_date_pressed_background">#3376B1</color>
+
+    <color name="custom_calendar_date_selected_text_color">#f2e81a</color>
+    <color name="custom_calendar_date_selected_background">#3fa2f9</color>
+
+    <color name="custom_calendar_date_disabled_text_color">#757575</color>
+    <color name="custom_calendar_date_disabled_background">#eeeeee</color>
+
+    <color name="custom_calendar_date_today_text_color">#f2e81a</color>
+    <color name="custom_calendar_date_today_background">#3fa2f9</color>
+
+    <color name="custom_calendar_date_weekend_text_color">#3fa2f9</color>
+    <color name="custom_calendar_date_weekend_background">#eee</color>
+
+
+    <color name="bgBackSideColor">#f4f0ff</color>
+    <color name="bgTitleLeft">#01579B</color>
+    <color name="bgTitleRight">#ffffff</color>
+    <color name="bgContentTop">#48ADFC</color>
+    <color name="bgContent">#ffffff</color>
+    <color name="contentDividerLine">#e0e0e0</color>
+    <color name="contentBadgeTitle">#a9a9a9</color>
+    <color name="titleBadgeTitle">#adafb1</color>
+    <color name="titleBadgeText">#adafb1</color>
+    <color name="mainTextColor">#343d43</color>
+    <color name="btnRequest">#1E8634</color>
+
 
 
 </resources>

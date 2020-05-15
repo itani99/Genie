@@ -1,6 +1,7 @@
 package com.example.handymanapplication.ui.home
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,8 +9,10 @@ import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
+import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.adapters.PostAdapter
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
@@ -26,8 +29,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         return inflater.inflate(
-            com.example.handymanapplication.R.layout.posts_recycler,
+            R.layout.posts_recycler,
             container,
             false
         )
@@ -37,6 +41,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val create =
+            view!!.findViewById(com.example.handymanapplication.R.id.create_post_btn) as Button
+        create.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+
+                val intent = Intent(context!!, CreatePostActivity::class.java)
+                startActivity(intent)
+            }
+        })
 
         post_recycler!!.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -111,5 +124,11 @@ class HomeFragment : Fragment() {
             }
     }
 
+    fun replaceFragment(someFragment: Fragment) {
+        val transaction = fragmentManager!!.beginTransaction()
+        transaction.replace(R.id.root_layout, someFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 }
 

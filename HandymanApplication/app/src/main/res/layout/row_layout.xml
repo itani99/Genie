@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/whole_layout"
         android:layout_width="match_parent"
         android:layout_height="144dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_editor_absoluteX="1dp"
+        app:layout_editor_absoluteY="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/client_image"
             android:layout_width="96dp"
             android:layout_height="116dp"
             android:layout_gravity="start"
@@ -23,17 +30,60 @@
             app:srcCompat="@drawable/icons8_male_user" />
 
         <TextView
-            android:id="@+id/text1"
+            android:id="@+id/title_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="44dp"
-            android:text="this is a new request"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="5dp"
+            android:text="Request Title:"
+            android:textColor="@color/headings"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@id/client_image"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/request_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+
+            android:textSize="15sp"
+
+            app:layout_constraintStart_toEndOf="@id/client_image"
+            app:layout_constraintTop_toBottomOf="@id/title_id">
+
+        </TextView>
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Latest Message:"
+            android:id="@+id/lat_mes_view"
+            android:textColor="@color/headings"
+            android:textSize="10sp"
+            app:layout_constraintStart_toEndOf="@id/client_image"
+            app:layout_constraintTop_toBottomOf="@+id/request_title">
+
+        </TextView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="View Chat:"
+            android:id="@+id/view_chat"
+            android:textColor="@color/headings"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/client_image"
+            app:layout_constraintTop_toBottomOf="@+id/lat_mes_view">
+
+        </TextView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

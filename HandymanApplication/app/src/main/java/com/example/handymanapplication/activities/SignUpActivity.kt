@@ -26,9 +26,8 @@ class SignUpActivity : AppCompatActivity() {
     var code: String = ""
     var callback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-//code=p0.smsCode.toString()
             edt_verify_code.setText(p0.smsCode)
-          btn_verify.performClick()
+          //btn_verify.performClick()
         }
 
         override fun onVerificationFailed(p0: FirebaseException) {
@@ -86,7 +85,8 @@ class SignUpActivity : AppCompatActivity() {
                 ) {
                     return@setOnClickListener
                 }
-
+          //  register()
+//
                 fauth.verifyPhoneNumber(
                     edt_phone.text.toString(), // Phone number to verify
                     60, // Timeout duration
@@ -145,13 +145,11 @@ class SignUpActivity : AppCompatActivity() {
                             this@SignUpActivity, Constants.FILE_USER,
                             Constants.USER_TOKEN, res.getString("token")
                         )
-                        runOnUiThread {
-                            Toast.makeText(
-                                this,
-                                SharedPreferences.getToken(this@SignUpActivity).toString(),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+                        SharedPreferences.setPrefernces(
+                            this@SignUpActivity, Constants.FILE_USER,
+                            Constants.USER_ID, res.getString("_id")
+                        )
+
                         val intent = Intent(this, HomePageActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)

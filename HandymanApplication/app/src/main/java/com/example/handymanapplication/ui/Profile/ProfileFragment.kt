@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.fragment.app.Fragment
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.IOnBackPressed
@@ -18,7 +17,7 @@ class ProfileFragment : Fragment()
         BusinessInformationFragment()
     private var personalInformation =
         PersonalinformationFragment()
-    private var creditCardFragment = CreditCardFragment()
+    private var accountProgressFragment = AccountProgressFragment()
 
 
     override fun onCreateView(
@@ -39,9 +38,9 @@ class ProfileFragment : Fragment()
         adapter = DashboardPagerAdapter(activity!!.supportFragmentManager)
 
 
-        adapter!!.addFragment(personalInformation, "Personal Information")
-        adapter!!.addFragment(businessInformation, "Business Information")
-        adapter!!.addFragment(creditCardFragment," Credit Card")
+        adapter!!.addFragment(personalInformation, "Personal Info")
+        adapter!!.addFragment(businessInformation, "Business Info")
+        adapter!!.addFragment(accountProgressFragment, " progress")
 
 //        adapter.addFragment(clientAddressesF, getString(R.string.client_address))
         viewPager_profiler!!.offscreenPageLimit = 0

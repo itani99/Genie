@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff">
@@ -8,14 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:layout_marginBottom="30dp">
+        android:padding="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Company (Optional)"
+            android:text="File Uploads"
             android:textColor="@color/headings"
             android:textSize="13sp" />
 
@@ -23,28 +24,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_company_name"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:inputType="none"
-                android:lines="1"
-                android:textColor="@android:color/black" />
+                android:layout_height="wrap_content">
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/cv"
+                    style="@style/customButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CV"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/criminal_record"
+                    app:layout_constraintTop_toBottomOf="parent">
+
+                </br.com.simplepass.loading_button_lib.customViews.CircularProgressButton>
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/criminal_record"
+                    style="@style/customButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Criminal Record"
+                    app:layout_constraintLeft_toRightOf="@id/cv"
+
+                    app:layout_constraintRight_toLeftOf="@id/certificate">
+
+                </br.com.simplepass.loading_button_lib.customViews.CircularProgressButton>
+
+                <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                    android:id="@+id/certificate"
+                    style="@style/customButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Certificate"
+
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/criminal_record"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                </br.com.simplepass.loading_button_lib.customViews.CircularProgressButton>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Address"
             android:textColor="@color/headings"
             android:textSize="13sp" />
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:hint="choose location">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_address"
@@ -71,7 +108,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp" />
 
         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
 
@@ -81,12 +118,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/loginViewsMargin"
+            android:layout_marginBottom="60dp"
             android:text="Save"
             app:initialCornerAngle="27dp"
             app:spinning_bar_color="#FFF"
             app:spinning_bar_padding="6dp"
             app:spinning_bar_width="4dp"
-            android:layout_marginBottom="40dp"
 
             />
 

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -17,9 +18,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_input"
-        />
-
+        app:layout_constraintTop_toBottomOf="@+id/search_input" />
 
 
     <com.google.android.material.textfield.TextInputEditText
@@ -29,8 +28,6 @@
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:background="@drawable/search_input_style"
         android:drawableLeft="@drawable/ic_search_gray_24dp"
         android:drawablePadding="8dp"
@@ -38,8 +35,30 @@
         android:hint="search"
         android:inputType="text"
         android:textColor="@color/content_text_color"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        android:id="@+id/create_post_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="Create"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        app:spinning_bar_padding="6dp"
+        app:initialCornerAngle="27dp"
+
+        style="@style/loginButton"
+        android:drawableRight="@drawable/ic_add_box_black_24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_input"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </br.com.simplepass.loading_button_lib.customViews.CircularProgressButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

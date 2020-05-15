@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:id="@+id/create_post_fragment"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_fname">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="F Name"
+            android:id="@+id/lbl_fname"
+            android:layout_centerVertical="true"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_fname"
+            android:layout_toRightOf="@+id/lbl_fname"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_lname"
+        android:layout_below="@+id/rl_fname"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="L Name"
+            android:id="@+id/lbl_lname"
+            android:layout_centerVertical="true"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_lname"
+            android:layout_toRightOf="@+id/lbl_lname"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_gender"
+        android:layout_below="@+id/rl_lname"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:id="@+id/lbl_gender"
+            android:layout_centerVertical="true"
+            />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rg_gender"
+            android:layout_toRightOf="@+id/lbl_gender">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rb_male"
+                android:text="Male"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rb_female"
+                android:text="Female"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_hobbies"
+        android:layout_below="@+id/rl_gender"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:id="@+id/lbl_hobbies"
+            android:layout_centerVertical="true"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chk_reading"
+            android:text="Reading"
+            android:layout_toRightOf="@+id/lbl_hobbies"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chk_sports"
+            android:text="Sports"
+            android:layout_toRightOf="@+id/lbl_hobbies"
+            android:layout_below="@+id/chk_reading"
+            />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chk_travelling"
+            android:text="Travelling"
+            android:layout_toRightOf="@+id/lbl_hobbies"
+            android:layout_below="@+id/chk_sports"
+            />
+    </RelativeLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_submit"
+        android:text="Submit"
+
+        android:layout_below="@+id/rl_hobbies"
+        android:layout_marginTop="20dp"/>
+
+
+</RelativeLayout>

@@ -11,10 +11,10 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
             android:layout_height="175dp"
-            android:background="@android:color/transparent"
             android:paddingBottom="20dp">
 
             <RelativeLayout
@@ -40,7 +40,8 @@
                     android:id="@+id/profile_picture"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    app:civ_border_color="@color/black" />
 
 
             </RelativeLayout>
@@ -84,12 +85,12 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/profile_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="0.00$"
                         android:inputType="numberDecimal"
-                        android:id="@+id/profile_balance"
+                        android:text="0.00$"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
@@ -124,11 +125,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/profile_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
                         android:text="Offline"
-                        android:id="@+id/profile_status"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
@@ -151,7 +152,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/linlay1">
+            android:layout_below="@+id/linlay1"
+            android:layout_marginBottom="40dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,15 +162,16 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
 
-                    android:textColor="@color/headings"
-                    android:text="Full Name"/>
+                    android:text="Full Name"
+                    android:textColor="@color/headings" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -185,13 +188,6 @@
                         android:lines="1"
                         android:textColor="@android:color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-
-
-
 
 
                 <TextView
@@ -240,10 +236,7 @@
                         android:id="@+id/radioGrp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="8dp"
-                        android:paddingTop="64dp"
-                        android:paddingRight="8dp">
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_male"
@@ -258,7 +251,7 @@
                             android:textSize="14dp" />
 
                         <RadioButton
-                            android:id="@+id/radioF"
+                            android:id="@+id/profile_female"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
@@ -270,7 +263,40 @@
                     </RadioGroup>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Services"
+                        android:id="@+id/service_text"
+                        android:textColor="@color/headings"
+                        android:textSize="13sp" >
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+                    <ImageView
+                        android:id="@+id/add_services"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_services_black_24dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/services_recycler"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
             </LinearLayout>
+
 
         </RelativeLayout>
 

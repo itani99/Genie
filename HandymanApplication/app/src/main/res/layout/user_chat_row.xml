@@ -1,86 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:orientation="vertical">
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/username_textview_new_message"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="Username"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:layout_marginLeft="12dp"
+        android:background="@drawable/card_bg"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        app:layout_constraintStart_toEndOf="@+id/imageview_new_message"
-        app:layout_constraintTop_toTopOf="@+id/imageview_new_message" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/message_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:text="Message title"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toEndOf="@+id/imageview_new_message"
+            <ImageView
 
+                android:id="@+id/client_msg_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        app:layout_constraintTop_toBottomOf="@+id/username_textview_new_message">
+            <TextView
 
-    </TextView>
+                android:id="@+id/client_name_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Simple Title Text "
+                android:textColor="@color/title_text_color"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@id/client_msg_image"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageview_new_message"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/icons8_male_user"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+            <TextView
+                android:id="@+id/client_latest_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/client_name_msg"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="16dp"
+                android:lineSpacingExtra="8dp"
+                android:text="this is the request\n and this is another line\n and another one"
+                android:textColor="@color/content_text_color"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toRightOf="@id/client_msg_image"
+                app:layout_constraintStart_toEndOf="@id/client_msg_image"
+                app:layout_constraintTop_toBottomOf="@id/client_msg_image" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/accept_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/holo_green_light"
-        android:text="Accept"
-        android:layout_marginStart="30dp"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@id/message_title"
-        app:layout_constraintTop_toTopOf="@+id/imageview_new_message">
-
-
-    </androidx.appcompat.widget.AppCompatButton>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/decline_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="30dp"
-        android:background="@android:color/holo_red_dark"
-        android:text="decline"
-        android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@id/accept_message"
-        app:layout_constraintTop_toTopOf="@+id/imageview_new_message">
-
-    </androidx.appcompat.widget.AppCompatButton>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    </RelativeLayout>
+
+</LinearLayout>

@@ -9,6 +9,8 @@ import com.google.firebase.messaging.RemoteMessage
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.media.RingtoneManager
+import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.handymanapplication.R
 import com.example.handymanapplication.ui.ChatLog.ChatLogActivity
@@ -16,30 +18,41 @@ import com.google.gson.Gson
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
+import com.google.gson.JsonParser
+import com.google.gson.JsonObject
 
 
-class Firebase : FirebaseMessagingService(){
+
+class Firebase : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         //any notification reach here so
         //so here if type is comment  u send notification and broadcast to the chat activity and
         //append the chat list
-        if (remoteMessage.data.isNotEmpty()){
+        if (remoteMessage.data.isNotEmpty()) {
             //there is a new notification
-            // to be notified to the device
-            when (remoteMessage.data.get("type")){
-                "message"->{
+//            // to be notified to the device
+            var dataJson :JSONObject= JSONObject(remoteMessage.data["data"].toString())
+            var type = dataJson.getString("type")
+            when(type) {
+
+                "comment" -> {
                     // sending broadcast using broadcast receiver to refresh the chat list
-                    var msg = JSONObject(Gson().toJson(remoteMessage.data).toString())
-                    sendBrodcastNotification( msg)
-                    sendRegularNotification( msg, Intent(baseContext , ChatLogActivity::class.java))
+                    sendBrodcastNotification(dataJson)
+                    sendRegularNotification(dataJson, Intent(baseContext, ChatLogActivity::class.java))
                 }
-                "request"->{
+                "request" -> {
 
                 }
-                "announcement"->{
+                "message" -> {
+                    sendBrodcastNotification(dataJson)
+                    sendRegularNotification(dataJson, Intent(baseContext, ChatLogActivity::class.java))
 
                 }
+            }
+
+            for(  key in remoteMessage.data.keys){
+                Log.e(key, remoteMessage.data[key].toString())
             }
         }
 
@@ -74,9 +87,11 @@ class Firebase : FirebaseMessagingService(){
             .setSound(notificationSoundURI)
             .setContentIntent(resultIntentNotificationClicked)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val notificationID = Integer.parseInt(SimpleDateFormat("HHmmssSSS" , Locale.UK).format(Date()))
+        val notificationID =
+            Integer.parseInt(SimpleDateFormat("HHmmssSSS", Locale.UK).format(Date()))
         notificationManager.notify(notificationID, mNotificationBuilder.build())
     }
 
