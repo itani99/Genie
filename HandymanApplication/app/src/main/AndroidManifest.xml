@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".activities.PasswordRecoveryActivity"></activity>
+        <activity android:name=".ui.home.ViewImagesActivity"></activity>
+        <activity android:name=".ui.dashboard.ViewImagesActivity" />
+        <activity android:name=".activities.PasswordRecoveryActivity" />
         <activity android:name=".ui.dashboard.PaymentActivity" />
         <activity
             android:name=".ui.home.CreatePostActivity"

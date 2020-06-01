@@ -1,6 +1,7 @@
 package com.example.handymanapplication.ui.dashboard
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,13 @@ import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
 import com.example.handymanapplication.adapters.FoldingCellListAdapter
 import com.example.handymanapplication.Utils.IActionsOngoing
+import com.example.handymanapplication.Utils.putExtraJson
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import kotlinx.android.synthetic.main.ongoing_notifications.*
+import org.json.JSONObject
 
 import kotlin.collections.ArrayList
 
@@ -75,6 +78,16 @@ class OngoingRequestsFragment : Fragment() {
                 }
                 adapter!!.registerToggle(index!!)
                 adapter!!.notifyDataSetChanged()
+            }
+
+            override fun onViewImageClick(list: ItemCell) {
+                val ob: JSONObject? = JSONObject()
+                ob!!.put("images", list.images)
+
+                val intent = Intent(context!!, ViewImagesActivity::class.java)
+
+                intent!!.putExtraJson("object", ob)
+                startActivity(intent)
             }
 
             override fun onAccept(item: ItemCell) {
@@ -170,12 +183,11 @@ class OngoingRequestsFragment : Fragment() {
                             val request = list.getJSONObject(i)
                             val client = request.getJSONObject("client")
                             val service = request.getJSONObject("service")
-                            val location=request.getJSONArray("location")
+                            val location = request.optJSONArray("location")
 
 
                             activity!!.runOnUiThread {
-                                Toast.makeText(activity, location.toString(), Toast.LENGTH_LONG)
-                                    .show()
+
                                 items!!.add(
                                     ItemCell(
                                         request.optString("_id", ""),
@@ -189,13 +201,15 @@ class OngoingRequestsFragment : Fragment() {
                                         ,
                                         "",
                                         service.optString("image", ""),
-                                        request.optString("title", ""),
+                                        request.optString("subject", ""),
                                         request.optString("description", "")
                                         ,
-                                        "",false,
                                         "",
-                                        location.getDouble(0),
-                                        location.getDouble(1)
+                                        request.optJSONArray("images"),
+                                        false,
+                                        "",
+                                        -122.0839998498559,
+                                        37.42199952052943
                                         ,
                                         request.optString("from", "").plus(":00"),
                                         request.optString("to", "").plus(":00"),

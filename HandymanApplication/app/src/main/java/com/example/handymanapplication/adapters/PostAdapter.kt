@@ -2,14 +2,18 @@ package com.example.handymanapplication.adapters
 
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.Utils
+import com.example.handymanapplication.Utils.putExtraJson
+import com.example.handymanapplication.ui.dashboard.ViewImagesActivity
 import kotlinx.android.synthetic.main.post_row.view.*
 import org.json.JSONObject
 
@@ -53,14 +57,19 @@ class PostAdapter(var context: Context) : RecyclerView.Adapter<PostAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if ((_list[position] as JSONObject).has("images"))
+            holder.itemView.setOnClickListener {
+                val ob: JSONObject? = JSONObject()
+                ob!!.put("images", ((_list[position]) as JSONObject).optJSONArray("images"))
 
-        /*
-         if ( query == null )
-        holder.itemView.text1.text = (_list[position] as JSONObject).optString("name","unknown")
-        else
-        holder.itemView.text1.text = (list[position] as JSONObject).optString("name","unknown")
+                val intent = Intent(
+                    context!!,
+                    com.example.handymanapplication.ui.home.ViewImagesActivity::class.java
+                )
 
-         */
+                intent!!.putExtraJson("object", ob)
+                context!!.startActivity(intent)
+            }
         holder.itemView.post_img.setAnimation(
             AnimationUtils.loadAnimation(
                 context!!,

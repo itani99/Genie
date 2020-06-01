@@ -53,7 +53,7 @@ class AccountProgressFragment : Fragment() {
 
 
         adapter = FeedbacksAdapter(context!!)
-        viewProfile()
+      //  viewProfile()
         feedback_recycler.adapter = adapter
         // rating_bar.rating=2.5!!.toFloat()
     }
@@ -75,6 +75,7 @@ class AccountProgressFragment : Fragment() {
                         var profile = res.getJSONObject("profile")
                         activity!!.runOnUiThread {
                             rating_bar.rating = profile.optDouble("rating").toFloat()
+                            total_rating.text= profile.optDouble("rating").toString()
                             rating_bar.isFocusableInTouchMode = false
                             rating_bar.isFocusable = false
                             val items = profile.optJSONArray("feedbacks")

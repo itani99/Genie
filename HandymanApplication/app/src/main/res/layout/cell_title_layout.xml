@@ -38,10 +38,10 @@
             android:layout_height="wrap_content"
 
             android:layout_alignParentBottom="true"
-            android:text=""
             android:layout_centerHorizontal="true"
+            android:text=""
             android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textSize="10sp" />
 
 
     </RelativeLayout>
@@ -69,15 +69,25 @@
             android:src="@drawable/from_to_purple" />
 
         <TextView
+            android:id="@+id/text_created_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="created at:">
+
+        </TextView>
+
+        <TextView
             android:id="@+id/created_at_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/text_created_at"
             android:layout_alignTop="@+id/title_from_to_dots"
+            android:layout_marginStart="7dp"
             android:layout_marginTop="-5dp"
-            android:layout_toEndOf="@+id/title_from_to_dots"
+            android:layout_toEndOf="@+id/text_created_at"
             android:layout_toRightOf="@+id/title_from_to_dots"
             android:ellipsize="marquee"
-
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textColor="@android:color/black"
@@ -94,19 +104,30 @@
             android:layout_toRightOf="@+id/title_from_to_dots"
             android:src="@color/contentDividerLine" />
 
+
+        <TextView
+            android:id="@+id/text_due"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/request_date"
+            android:layout_marginStart="10dp"
+            android:text="due date:">
+
+        </TextView>
+
         <TextView
             android:id="@+id/request_to_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/request_date"
-            android:layout_toEndOf="@id/title_from_to_dots"
+            android:layout_marginStart="7dp"
+            android:layout_toEndOf="@id/text_due"
             android:layout_toRightOf="@id/title_from_to_dots"
             android:ellipsize="marquee"
             android:fadingEdge="horizontal"
             android:singleLine="true"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
-
 
 
     </RelativeLayout>

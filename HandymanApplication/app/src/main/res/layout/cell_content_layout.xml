@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone"
-
+android:visibility="gone"
     android:id="@+id/list"
     >
 
@@ -212,12 +211,25 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/parent_relative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
+                <TextView
+                    android:id="@+id/click_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:text="Click here\n    to view Images"
+                    android:textColor="@color/headings">
+
+                </TextView>
 
             </RelativeLayout>
+
 
         </LinearLayout>
 

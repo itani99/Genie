@@ -35,7 +35,7 @@ import kotlin.math.log
 class CreatePostActivity : AppCompatActivity() {
     private var context: Context? = null
 
-    var PICK_IMAGE_MULTIPLE = 1
+    var PICK_IMAGE_MULTIPLE = 111
     lateinit var imagePath: String
     var counter = 0
     var listOfImages = ArrayList<String>()

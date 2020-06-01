@@ -97,6 +97,26 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                     intent!!.putExtraJson("object", ob)
                     startActivity(intent)
                 }
+
+                override fun onViewImageClick(list: ItemCell) {
+                    val ob: JSONObject? = JSONObject()
+                    if (list.image.length > 0){
+                        ob!!.put("images", list.images)
+
+                    val intent = Intent(context!!, ViewImagesActivity::class.java)
+
+                    intent!!.putExtraJson("object", ob)
+                    startActivity(intent)
+                }}
+
+                override fun onRescheduleCllick(list: ItemCell) {
+
+                    Toast.makeText(
+                        mcontext,
+                       "Reschedule",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             }
 
         )
@@ -136,7 +156,7 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                 var request = list.getJSONObject(i)
                                 var client = request.getJSONObject("client")
                                 var service = request.getJSONObject("service")
-                                val location = request.getJSONArray("location")
+                           //     val location = request.getJSONArray("location")
                                 var flag = false
                                 if (request.has("receipt")) {
                                     flag = true
@@ -154,10 +174,10 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                         request.optString("title", ""),
                                         request.optString("description", "")
                                         ,
-                                        "", flag,
+                                        "", request.optJSONArray("images"), flag,
                                         "",
-                                        location.getDouble(0),
-                                        location.getDouble(1)
+                                        -122.0839998498559,
+                                        37.42199952052943
                                         , request.optString("from", "").plus(":00"),
                                         request.optString("to", "").plus(":00"),
                                         service.optString("name", "service name")

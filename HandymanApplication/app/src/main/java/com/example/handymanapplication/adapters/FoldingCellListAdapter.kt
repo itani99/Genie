@@ -65,6 +65,7 @@ class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iAct
             viewHolder.created_at_request = cell.findViewById(R.id.created_at_request)
 
 
+            viewHolder.viewimages=cell.findViewById(R.id.click_images)
             viewHolder.liste = cell.findViewById(R.id.list)
 
             viewHolder.description = cell.findViewById(R.id.description)
@@ -121,16 +122,9 @@ class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iAct
                 .load(Utils.BASE_IMAGE_URL.plus(item.image))
                 .into(viewHolder.client_profile_picture!!)
         }
-//        if (item.service_image != "") {
-//            Glide
-//                .with(context!!)
-//                .load(Utils.BASE_IMAGE_URL.plus(item.service_image))
-//                .into(viewHolder.service_image!!)
-//        }
-
-        // set custom btn handler for list item from that item
-
-//        viewHolder.contentRequestBtn!!.setOnClickListener(defaultRequestBtnClickListener)
+        viewHolder.viewimages!!.setOnClickListener {
+            iActions.onViewImageClick(item)
+        }
         viewHolder.acceptBtn!!.setOnClickListener {
             iActions.onAccept(item)
         }
@@ -182,6 +176,7 @@ fun addItem(item:ItemCell){
         internal var client_state: TextView? = null
         internal var request_from: TextView? = null
         internal var request_to: TextView? = null
+        internal var  viewimages:TextView?=null
         internal var acceptBtn: TextView? = null
         internal var rejectBtn: TextView? = null
         internal var map: MapView? = null

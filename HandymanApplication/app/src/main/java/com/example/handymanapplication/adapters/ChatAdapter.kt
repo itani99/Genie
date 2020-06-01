@@ -50,6 +50,26 @@ class ChatAdapter(var context: Context) : RecyclerView.Adapter<ChatAdapter.ViewH
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //check
+        val client = (list[position] as JSONObject).getJSONObject("client")
+        if (client.has("image")) {
+
+            val client_img = client.optString("image", "")
+            if (client_img == "null") {
+                Glide
+                    .with(holder.itemView!!)
+                    .load(Utils.BASE_IMAGE_URL.plus("services/service_1585417538.png"))
+                    .into(holder.itemView.client_msg_image)
+            } else {
+
+
+                Glide
+                    .with(holder.itemView!!)
+                    .load(Utils.BASE_IMAGE_URL.plus(client_img)).into(holder.itemView.client_msg_image)
+            }
+        }
+
+        holder.itemView.client_name_msg.text = client.optString("name", "name")
+
         if (!(list[position] as JSONObject).has("messages")) {
             holder.itemView.client_latest_message.text = "Click to send a new message.."
         } else {
@@ -59,7 +79,6 @@ class ChatAdapter(var context: Context) : RecyclerView.Adapter<ChatAdapter.ViewH
                 msgArray.getJSONObject(msgArray.length() - 1).getString("message")
 
             val client = (list[position] as JSONObject).getJSONObject("client")
-            holder.itemView.client_name_msg.text = client.optString("name", "name")
             if (client.has("image")) {
 
                 val client_img = client.optString("image", "")

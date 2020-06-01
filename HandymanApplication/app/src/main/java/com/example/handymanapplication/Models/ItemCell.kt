@@ -1,6 +1,7 @@
 package com.example.handymanapplication.Models
 
 import android.view.View
+import org.json.JSONArray
 
 import java.util.ArrayList
 
@@ -19,15 +20,14 @@ class ItemCell(
     var request_title: String,
     var description: String,
     var street: String,
-    val has_receipt:Boolean?=null,
+    val images: JSONArray? = null,
+    val has_receipt: Boolean? = null,
     var state: String,
     var longitude: Double,
     var latitude: Double,
     var request_from: String,
     var request_to: String,
-    var service_name:String
-)
-
-{
+    var service_name: String
+) {
 
 }

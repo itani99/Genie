@@ -1,20 +1,19 @@
 package com.example.handymanapplication.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.example.handymanapplication.Models.ItemCell
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.IActionsOutgoing
 import com.example.handymanapplication.Utils.Utils
+import com.example.handymanapplication.activities.HomePageActivity
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -51,6 +50,8 @@ class OutgoingFoldingCellListAdapter(
             cell = vi.inflate(R.layout.cell_outgoing, parent, false) as FoldingCell
 
             viewHolder.pose = cell.findViewById(R.id.pose)
+            viewHolder.rescheduletBtn = cell.findViewById(R.id.re_schedule_layout)
+            viewHolder.reschedule_btn = cell.findViewById(R.id.reschedule_btn)
             viewHolder.map = cell.findViewById(R.id.mapViewe)
             viewHolder.paymentbtn = cell.findViewById(R.id.payment)
             this.mapView = viewHolder.map
@@ -66,6 +67,7 @@ class OutgoingFoldingCellListAdapter(
             viewHolder.request_to_date = cell.findViewById(R.id.request_to_date)
             viewHolder.created_at_request = cell.findViewById(R.id.created_at_request)
 
+            viewHolder.viewimages = cell.findViewById(R.id.click_images)
 
             viewHolder.description = cell.findViewById(R.id.descriptione)
             viewHolder.liste = cell.findViewById(R.id.outgoing_list)
@@ -121,24 +123,23 @@ class OutgoingFoldingCellListAdapter(
                 .load(Utils.BASE_IMAGE_URL.plus(item.image))
                 .into(viewHolder.client_profile_picture!!)
         }
-//        if (item.service_image != "") {
-//            Glide
-//                .with(context!!)
-//                .load(Utils.BASE_IMAGE_URL.plus(item.service_image))
-//                .into(viewHolder.service_image!!)
-//        }
 
-        // set custom btn handler for list item from that item
-
-//        viewHolder.contentRequestBtn!!.setOnClickListener(defaultRequestBtnClickListener)
+        viewHolder.viewimages!!.setOnClickListener {
+            iActions.onViewImageClick(item)
+        }
 
         viewHolder.liste!!.setOnClickListener {
             iActions.onListClick(item)
         }
-        if(item.has_receipt==true){
-            viewHolder.paymentbtn!!.text="Paid"
+        viewHolder.reschedule_btn!!.setOnClickListener {
+            iActions.onRescheduleCllick(item)
+        }
+
+        if (item.has_receipt == true) {
+            viewHolder.paymentbtn!!.text = "Paid"
             viewHolder.paymentbtn!!.setBackgroundColor(Color.GREEN)
-        }else{
+            viewHolder.rescheduletBtn!!.visibility = View.GONE
+        } else {
 
             viewHolder.paymentbtn!!.setOnClickListener {
                 iActions.onItemPay(item)
@@ -149,14 +150,7 @@ class OutgoingFoldingCellListAdapter(
         return cell
     }
 
-    fun addItem(item: ItemCell) {
-    }
 
-    fun unfoldNext(position: Int) {
-        registerToggle(position)
-    }
-
-    // simple methods for register cell state changes
     fun registerToggle(position: Int) {
         if (unfoldedIndexes.contains(position))
             registerFold(position)
@@ -188,9 +182,12 @@ class OutgoingFoldingCellListAdapter(
         internal var client_state: TextView? = null
         internal var request_from: TextView? = null
         internal var request_to: TextView? = null
+        internal var rescheduletBtn: RelativeLayout? = null
+        internal var reschedule_btn: TextView? = null
         internal var acceptBtn: TextView? = null
         internal var rejectBtn: TextView? = null
         internal var map: MapView? = null
+        internal var viewimages: TextView? = null
         internal var liste: LinearLayout? = null
         internal var service_name: TextView? = null
         internal var paymentbtn: TextView? = null

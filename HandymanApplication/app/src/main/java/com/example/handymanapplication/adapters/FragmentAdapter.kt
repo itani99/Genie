@@ -31,8 +31,8 @@ class FragmentAdapter
 
 
     override fun getPageTitle(position: Int): CharSequence = when (position) {
-        0 -> "Ongoing Requests"
-        1 -> "Outgoing Requests"
+        0 -> "Requests"
+        1 -> "Jobs"
         else -> throw IllegalStateException("Unexpected position $position")
     }
 

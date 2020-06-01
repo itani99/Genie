@@ -76,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Offline"
+                        android:text="Total Rating:"
                         android:textColor="@color/white"
                         android:textSize="25sp" />
 
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-light"
-                        android:text="Profile Status"
+                        android:id="@+id/total_rating"
                         android:textAllCaps="true"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
@@ -151,7 +151,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/feedback_recycler"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
 
