@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.handymanapplication.R
@@ -41,6 +42,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         val create =
             view!!.findViewById(com.example.handymanapplication.R.id.create_post_btn) as Button
         create.setOnClickListener(object : View.OnClickListener {
@@ -73,6 +76,7 @@ class HomeFragment : Fragment() {
 
 
     }
+
 
 
     fun init() {

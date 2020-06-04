@@ -1,5 +1,8 @@
 package com.example.handymanapplication.ui.dashboard
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -7,12 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.DatePicker
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.handymanapplication.Models.ItemCell
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.*
+import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.activities.MainActivity
 import com.example.handymanapplication.adapters.FoldingCellListAdapter
 import com.example.handymanapplication.adapters.OutgoingFoldingCellListAdapter
@@ -24,6 +29,10 @@ import com.ramotion.foldingcell.FoldingCell
 import kotlinx.android.synthetic.main.fragment_request.*
 import kotlinx.android.synthetic.main.outgoing_notifications.*
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class OutgoingRequestsFragment : Fragment(), IUpdate {
@@ -100,20 +109,109 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
 
                 override fun onViewImageClick(list: ItemCell) {
                     val ob: JSONObject? = JSONObject()
-                    if (list.image.length > 0){
+                    if (list.image.length > 0) {
                         ob!!.put("images", list.images)
 
-                    val intent = Intent(context!!, ViewImagesActivity::class.java)
+                        val intent = Intent(context!!, ViewImagesActivity::class.java)
 
-                    intent!!.putExtraJson("object", ob)
-                    startActivity(intent)
-                }}
+                        intent!!.putExtraJson("object", ob)
+                        startActivity(intent)
+                    }
+                }
 
                 override fun onRescheduleCllick(list: ItemCell) {
 
+                    val cal = Calendar.getInstance()
+                    val c = Calendar.getInstance()
+                    val year = c.get(Calendar.YEAR)
+                    val month = c.get(Calendar.MONTH)
+                    val day = c.get(Calendar.DAY_OF_MONTH)
+                    var from_hour: Any? = null
+                    var stringDate1: Any? = null
+                    var to_hour: Any? = null
+
+                    var date: Any? = null
+                    DatePickerDialog(
+                        context!!,
+                        DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+
+                            c!!.set(year, monthOfYear, dayOfMonth)
+                            var dateofl: String? = (dayOfMonth.toString())
+                            var monthofk: String? = ((monthOfYear + 1).toString())
+                            if (dateofl!!.length == 1) {
+                                dateofl = "0".plus((dayOfMonth.toString()))
+                            }
+                            if (monthofk!!.length == 1) {
+                                monthofk = "0".plus(((monthOfYear + 1).toString()))
+                            }
+                            var ex =
+                                year.toString().plus("-").plus(monthofk).plus("-").plus(dateofl)
+                            stringDate1 = LocalDate.parse(ex).toString()
+
+
+                            var timepicker = TimePickerDialog(
+
+                                context, TimePickerDialog.OnTimeSetListener { view, hour, minute ->
+                                    from_hour = hour
+
+                                    TimePickerDialog(
+                                        context,
+                                        TimePickerDialog.OnTimeSetListener { to_view, thour, tminute ->
+                                            to_hour = thour
+
+
+                                            AlertDialog.Builder(context)
+                                                .setTitle("Please Confirm")
+
+                                                .setNegativeButton(android.R.string.cancel) { dialog, _ ->
+                                                    dialog.dismiss()
+                                                }
+                                                .setPositiveButton(android.R.string.ok) { vdialog, _ ->
+                                                    vdialog.dismiss()
+
+                                                    Toast.makeText(
+                                                        context!!,
+                                                        ex.toString().plus(" \n").plus(from_hour).plus(
+                                                            ""
+                                                        )
+                                                            .plus(to_hour)
+                                                        ,
+                                                        Toast.LENGTH_LONG
+                                                    ).show()
+                                                    reschedule(list, ex, from_hour!!, to_hour!!)
+
+                                                }
+                                                .create().show()
+                                        },
+                                        hour + 1,
+                                        minute,
+                                        true
+                                    ).show()
+                                },
+                                cal.get(Calendar.HOUR_OF_DAY),
+                                cal.get(Calendar.MINUTE),
+                                true
+                            )
+                            timepicker.show()
+
+
+                        },
+                        year,
+                        month,
+                        day
+                    ).show()
+
+
+
+
+
+
+
+
+
                     Toast.makeText(
                         mcontext,
-                       "Reschedule",
+                        "Reschedule",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -133,6 +231,33 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
             }
 
         )
+    }
+
+    private fun reschedule(item: ItemCell, date: Any, from: Any, to: Any) {
+        Fuel.post(
+            Utils.API_RESCHEDULE.plus(item.pos),
+            listOf(
+                "date" to date, "from" to from, "to" to to
+            )
+        )
+            .header(
+                "accept" to "application/json",
+                Utils.AUTHORIZATION to SharedPreferences.getToken(context!!).toString()
+            )
+            .responseJson { _, _, result ->
+
+                result.success {
+                    val intent = Intent(context!!, HomePageActivity::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                }
+                result.failure {
+
+                    Toast.makeText(context!!, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
     }
 
     private fun getRequests(mcontext: Context) {
@@ -156,7 +281,9 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                 var request = list.getJSONObject(i)
                                 var client = request.getJSONObject("client")
                                 var service = request.getJSONObject("service")
-                           //     val location = request.getJSONArray("location")
+                                val address = request.getJSONObject("client_address")
+                                var location = address.getJSONArray("location")
+
                                 var flag = false
                                 if (request.has("receipt")) {
                                     flag = true
@@ -171,16 +298,21 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                         ,
                                         "",
                                         service.optString("image", ""),
-                                        request.optString("title", ""),
+                                        request.optString("subject", ""),
                                         request.optString("description", "")
                                         ,
-                                        "", request.optJSONArray("images"), flag,
+                                        address.optString("street","street"),
+                                        request.optJSONArray("images"),
+                                        flag,
                                         "",
-                                        -122.0839998498559,
-                                        37.42199952052943
-                                        , request.optString("from", "").plus(":00"),
+                                        location.getDouble(0),
+                                        location.getDouble(1)
+                                        ,
+                                        request.optString("from", "").plus(":00"),
                                         request.optString("to", "").plus(":00"),
-                                        service.optString("name", "service name")
+                                        service.optString("name", "service name"),
+                                        address.optString("building", "building"),
+                                        address.optString("floor", "floor")
                                     )
 
                                 )

@@ -98,50 +98,82 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/add_images_btn"
+                android:layout_marginBottom="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@color/quantum_googblue50"
+                android:padding="10dp"
+                android:text="Add Images"
+                android:textAlignment="center"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/receipt_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
 
             <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
                 android:id="@+id/color_round_1"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
                 android:background="@drawable/ic_rounds" />
 
 
             <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginLeft="45dp"
                 android:id="@+id/color_round_2"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="45dp"
                 android:background="@drawable/ic_rounds" />
 
 
             <ImageView
-                android:layout_width="13dp"
-                android:layout_height="13dp"
-                android:layout_marginLeft="45dp"
                 android:id="@+id/color_round_3"
-                android:background="@drawable/ic_rounds" />
-
-            <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginLeft="45dp"
+                android:background="@drawable/ic_rounds" />
+
+            <ImageView
                 android:id="@+id/color_round_4"
-                android:background="@drawable/ic_rounds" />
-
-            <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginLeft="45dp"
+                android:background="@drawable/ic_rounds" />
+
+            <ImageView
                 android:id="@+id/color_round_5"
-                android:background="@drawable/ic_rounds" />
-
-            <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
                 android:layout_marginLeft="45dp"
+                android:background="@drawable/ic_rounds" />
+
+            <ImageView
                 android:id="@+id/color_round_6"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="45dp"
                 android:background="@drawable/ic_rounds" />
 
 
@@ -184,64 +216,5 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/ic_locked"
-                android:gravity="center" />
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please visit"
-                android:textColor="@color/headings"
-                android:textSize="13dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" Handiman.club"
-                android:textColor="#59c861"
-                android:textSize="13dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" when emergency"
-                android:textColor="@color/headings"
-                android:textSize="13dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.handymanapplication.R
 import kotlinx.android.synthetic.main.feedback_row.view.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 class FeedbacksAdapter(context: Context) : RecyclerView.Adapter<FeedbacksAdapter.ViewHolder>() {
@@ -37,10 +38,11 @@ class FeedbacksAdapter(context: Context) : RecyclerView.Adapter<FeedbacksAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.feedback_text.text =
-            (list[position] as JSONObject).optString("feedback", "feedback")
-        holder.itemView.rating_item.rating =
-            (list[position] as JSONObject).optDouble("rating", 0.0).toFloat()
+
+            holder.itemView.feedback_text.text =
+                (list[position] as JSONObject).optString("feedback", "feedback")
+
+
 
     }
 

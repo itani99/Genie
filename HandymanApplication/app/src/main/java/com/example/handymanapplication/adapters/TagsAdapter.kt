@@ -1,26 +1,21 @@
 package com.example.handymanapplication.adapters
 
-
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.provider.MediaStore
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.handymanapplication.R
-import kotlinx.android.synthetic.main.post_image.view.*
-import kotlinx.android.synthetic.main.row_layout.view.*
+import kotlinx.android.synthetic.main.tags_item.view.*
 import org.json.JSONObject
 
-class PostImagesAdapter(var context: Context) :
-    RecyclerView.Adapter<PostImagesAdapter.ViewHolder>() {
-    var list: ArrayList<Uri> = ArrayList()
 
-    fun setItem(ob: Uri) {
+class TagsAdapter(var context: Context) :
+    RecyclerView.Adapter<TagsAdapter.ViewHolder>() {
+    var list: ArrayList<Any> = ArrayList()
+    var tags: ArrayList<Any> = ArrayList()
+
+    fun setItem(ob: Any) {
         list.add(ob!!)
         notifyItemInserted(list.size - 1)
     }
@@ -37,23 +32,26 @@ class PostImagesAdapter(var context: Context) :
         notifyDataSetChanged()
     }
 
+    fun getTags() = tags.toArray()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.post_image, parent, false)
+                .inflate(R.layout.tags_item, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var counter=position+1
-        holder.itemView.crt_post_title.text = "# $counter"
-        val bitmap =
-            MediaStore.Images.Media.getBitmap(
-                context.contentResolver, list[position]
-            )
+        holder.itemView.service_name_txt.text = (list[position] as JSONObject).optString("name")
+        holder.itemView.is_service_checked.setOnClickListener {
 
-        holder.itemView.create_post_image.setImageBitmap(bitmap)
-        //(list[position] as JSONObject).optString("name","unknown")
+            if (holder.itemView.is_service_checked.isChecked == true) {
+                tags.add((list[position] as JSONObject).optString("_id"))
+            } else {
+                tags.remove((list[position] as JSONObject).optString("_id"))
+            }
+        }
+
     }
 
     override fun getItemCount(): Int {

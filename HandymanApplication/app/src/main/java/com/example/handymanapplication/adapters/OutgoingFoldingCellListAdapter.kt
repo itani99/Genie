@@ -50,6 +50,9 @@ class OutgoingFoldingCellListAdapter(
             cell = vi.inflate(R.layout.cell_outgoing, parent, false) as FoldingCell
 
             viewHolder.pose = cell.findViewById(R.id.pose)
+            viewHolder.building = cell.findViewById(R.id.building_name)
+
+            viewHolder.floor = cell.findViewById(R.id.floor_nmbr)
             viewHolder.rescheduletBtn = cell.findViewById(R.id.re_schedule_layout)
             viewHolder.reschedule_btn = cell.findViewById(R.id.reschedule_btn)
             viewHolder.map = cell.findViewById(R.id.mapViewe)
@@ -103,8 +106,10 @@ class OutgoingFoldingCellListAdapter(
         val addresses = geocoder.getFromLocation(item.latitude, item.longitude, 1)
 
 
-        viewHolder.client_street!!.setText(addresses[0].getAddressLine(0))
-        viewHolder.client_state!!.setText(addresses[0].getAddressLine(1))
+        viewHolder.client_street!!.setText(item.street)
+        viewHolder.client_state!!.setText(addresses[0].adminArea)
+        viewHolder.building!!.text = item.building
+        viewHolder.floor!!.text = item.floor_
 
 
 
@@ -191,6 +196,8 @@ class OutgoingFoldingCellListAdapter(
         internal var liste: LinearLayout? = null
         internal var service_name: TextView? = null
         internal var paymentbtn: TextView? = null
+        internal var building: TextView? = null
+        internal var floor: TextView? = null
 
 
     }

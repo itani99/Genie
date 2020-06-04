@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.handymanapplication.R
+import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
 import com.example.handymanapplication.Utils.putExtraJson
 import com.example.handymanapplication.ui.dashboard.ViewImagesActivity
@@ -57,6 +58,7 @@ class PostAdapter(var context: Context) : RecyclerView.Adapter<PostAdapter.ViewH
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         if ((_list[position] as JSONObject).has("images"))
             holder.itemView.setOnClickListener {
                 val ob: JSONObject? = JSONObject()
@@ -76,9 +78,7 @@ class PostAdapter(var context: Context) : RecyclerView.Adapter<PostAdapter.ViewH
                 R.anim.fade_transition_animation
             )
         )
-/*
 
- */
         holder.itemView.setAnimation(
             AnimationUtils.loadAnimation(
                 context,
@@ -103,6 +103,7 @@ class PostAdapter(var context: Context) : RecyclerView.Adapter<PostAdapter.ViewH
                     .load(Utils.BASE_IMAGE_URL.plus(url))
                     .into(holder.itemView.post_img)
             }
+
         } else {
             holder.itemView.post_title.text =
                 (list[position] as JSONObject).optString("title", "title")
@@ -110,8 +111,15 @@ class PostAdapter(var context: Context) : RecyclerView.Adapter<PostAdapter.ViewH
                 (list[position] as JSONObject).optString("body", "content")
             holder.itemView.post_date.text =
                 (list[position] as JSONObject).optString("created_at", "date")
+            if ((list[position] as JSONObject).has("images")) {
+                var images_array = (list[position] as JSONObject).getJSONArray("images")
+                val url = images_array.get(0).toString()
 
-            //Mond
+                Glide
+                    .with(holder.itemView)
+                    .load(Utils.BASE_IMAGE_URL.plus(url))
+                    .into(holder.itemView.post_img)
+            }
 
 
         }

@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:padding="10dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp">
+    android:layout_marginTop="8dp"
+    android:background="@drawable/card_bg"
+    android:padding="10dp">
 
 
     <LinearLayout
@@ -14,18 +15,34 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/card_bg"
-        android:gravity="center"
         android:orientation="horizontal"
         android:padding="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/client_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="left"
+            android:background="@drawable/icons8_male_user"></ImageView>
+
+        <TextView
+            android:id="@+id/client_name"
+            android:text="name"
+            android:layout_marginStart="15dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
 
         <TextView
             android:id="@+id/feedback_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="15dp"
             android:text="this is it"
             android:textColor="@color/content_text_color">
 
@@ -40,9 +57,11 @@
         android:background="@color/quantum_googgreen50"
         android:foregroundGravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
+
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/whole_layout">
 
     </androidx.appcompat.widget.AppCompatRatingBar>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

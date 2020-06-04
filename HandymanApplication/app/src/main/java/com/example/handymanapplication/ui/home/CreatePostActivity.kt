@@ -23,6 +23,7 @@ import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
 import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.adapters.PostImagesAdapter
+import com.example.handymanapplication.adapters.TagsAdapter
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
@@ -40,11 +41,15 @@ class CreatePostActivity : AppCompatActivity() {
     var counter = 0
     var listOfImages = ArrayList<String>()
     val adapter = PostImagesAdapter(this)
+    val tags_adapter = TagsAdapter(this)
     var imagesPathList: MutableList<String> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_post)
         initAdapter()
+        initTagsAdapter()
+
+        tags()
         select_post_images.setOnClickListener {
             if (counter == 5) {
                 Toast.makeText(this, "You are allowed to upload 5 images", Toast.LENGTH_LONG)
@@ -74,6 +79,20 @@ class CreatePostActivity : AppCompatActivity() {
         submit_post.setOnClickListener {
             savePost()
         }
+    }
+
+    fun initTagsAdapter() {
+        val mLayoutManager = GridLayoutManager(this, 2)
+        tags_recycler.setLayoutManager(mLayoutManager)
+        tags_recycler.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        tags_recycler.setItemAnimator(DefaultItemAnimator())
+        tags_recycler.setAdapter(tags_adapter)
+
+
+        tags_recycler.setLayoutManager(mLayoutManager)
+        tags_recycler.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        tags_recycler.setItemAnimator(DefaultItemAnimator())
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,11 +127,15 @@ class CreatePostActivity : AppCompatActivity() {
     fun savePost() {
         val post_title = create_post_title.text.toString()
         val post_body = create_post_body.text.toString()
-        var params = HashMap<String , String>()
+
+        var params = HashMap<String, String>()
         params.put("title", post_title)
         params.put("body", post_body)
-        for ( x in 0 until listOfImages.size){
+        for (x in 0 until listOfImages.size) {
             params.put("images[$x]", listOfImages.get(x))
+        }
+        for (x in 0 until tags_adapter.getTags().size) {
+            params.put("tags[$x]", tags_adapter.getTags().get(x).toString())
         }
         Fuel.post(
             Utils.API_POST, params.toList()
@@ -140,6 +163,48 @@ class CreatePostActivity : AppCompatActivity() {
             }
     }
 
+    fun tags() {
+        Fuel.get(Utils.API_TAGS)
+            .header(
+                "accept" to "application/json",
+                Utils.AUTHORIZATION to SharedPreferences.getToken(this!!.baseContext).toString()
+            )
+            .responseJson { _, _, result ->
+
+                result.success {
+
+
+                    var res = it.obj()
+
+                    if (res.optString("status", "error") == "success") {
+
+                        runOnUiThread {
+                            var tags = res.optJSONArray("tags")
+                            for (i in 0 until tags.length()) {
+                                tags_adapter.setItem(tags.getJSONObject(i))
+                            }
+                        }
+
+                    } else {
+
+                        Toast.makeText(
+                            this,
+                            res.getString("status"),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+
+                }
+
+                result.failure {
+
+                    Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+
+                }
+            }
+
+    }
 
     private fun getPathFromURI(uri: Uri) {
         var path: String? = uri.path // uri = any content Uri

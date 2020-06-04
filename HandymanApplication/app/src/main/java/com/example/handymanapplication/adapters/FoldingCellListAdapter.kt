@@ -14,7 +14,6 @@ import com.example.handymanapplication.Utils.IActionsOngoing
 import com.example.handymanapplication.Utils.Utils
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.ramotion.foldingcell.FoldingCell
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.MarkerOptions
@@ -25,7 +24,11 @@ import java.util.*
 import kotlin.collections.HashSet
 
 
-class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iActions: IActionsOngoing) :
+class FoldingCellListAdapter(
+    context: Context,
+    objects: List<ItemCell>,
+    var iActions: IActionsOngoing
+) :
     ArrayAdapter<ItemCell>(context, 0, objects), OnMapReadyCallback {
     var mapView: MapView? = null
     var title: TextView? = null
@@ -51,6 +54,10 @@ class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iAct
 
             viewHolder.pos = cell.findViewById(R.id.pos)
             viewHolder.map = cell.findViewById(R.id.mapView)
+
+            viewHolder.building = cell.findViewById(R.id.building_namee)
+
+            viewHolder.floor = cell.findViewById(R.id.floor_number)
             this.mapView = viewHolder.map
             viewHolder.client_profile_picture = cell.findViewById(R.id.client_profile_picture)
             viewHolder.client_name = cell.findViewById(R.id.client_name)
@@ -65,7 +72,7 @@ class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iAct
             viewHolder.created_at_request = cell.findViewById(R.id.created_at_request)
 
 
-            viewHolder.viewimages=cell.findViewById(R.id.click_images)
+            viewHolder.viewimages = cell.findViewById(R.id.click_images)
             viewHolder.liste = cell.findViewById(R.id.list)
 
             viewHolder.description = cell.findViewById(R.id.description)
@@ -102,8 +109,10 @@ class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iAct
         val addresses = geocoder.getFromLocation(item.latitude, item.longitude, 1)
 
 
-        viewHolder.client_street!!.setText(addresses[0].getAddressLine(0))
-        viewHolder.client_state!!.setText(addresses[0].getAddressLine(1))
+        viewHolder.client_street!!.setText(item.street)
+        viewHolder.client_state!!.setText(addresses[0].adminArea)
+        viewHolder . building !!. text = item . building
+                viewHolder.floor!!.text = item.floor_
 
 
 
@@ -138,8 +147,10 @@ class FoldingCellListAdapter(context: Context, objects: List<ItemCell>, var iAct
         }
         return cell
     }
-fun addItem(item:ItemCell){
-}
+
+    fun addItem(item: ItemCell) {
+    }
+
     fun unfoldNext(position: Int) {
         registerToggle(position)
     }
@@ -176,12 +187,14 @@ fun addItem(item:ItemCell){
         internal var client_state: TextView? = null
         internal var request_from: TextView? = null
         internal var request_to: TextView? = null
-        internal var  viewimages:TextView?=null
+        internal var viewimages: TextView? = null
         internal var acceptBtn: TextView? = null
         internal var rejectBtn: TextView? = null
         internal var map: MapView? = null
         internal var liste: LinearLayout? = null
         internal var service_name: TextView? = null
+        internal var building: TextView? = null
+        internal var floor: TextView? = null
 
 
     }

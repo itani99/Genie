@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-android:visibility="gone"
     android:id="@+id/list"
+    android:visibility="gone"
     >
 
     <!-- content header line -->
@@ -153,6 +153,21 @@ android:visibility="gone"
                 android:textColor="@color/contentBadgeTitle"
                 android:textSize="12sp" />
 
+            <TextView
+                android:id="@+id/click_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/description"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/request_image"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Click here  to view Images"
+                android:textColor="@color/headings">
+
+            </TextView>
+
 
         </RelativeLayout>
 
@@ -165,6 +180,8 @@ android:visibility="gone"
             android:src="@color/contentDividerLine" />
 
         <!-- addresses part -->
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -178,32 +195,52 @@ android:visibility="gone"
 
                 <TextView
                     android:id="@+id/content_from_badge"
-                    style="@style/ContentMainBadgeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
-                    android:text="location:" />
+                    android:textStyle="bold"
+                    android:text="Address:" />
+
+                <TextView
+                    android:id="@+id/state_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/content_from_badge"
+                    android:text="State:">
+
+                </TextView>
 
                 <TextView
                     android:id="@+id/client_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_from_badge"
-                    android:layout_alignStart="@id/content_from_badge"
-                    android:layout_alignLeft="@id/content_from_badge"
-                    android:text="@string/content_from1_mock"
+
+                    android:layout_marginStart="5dp"
+                    android:layout_toRightOf="@id/state_txt"
+                    android:text="Statetee"
                     android:textColor="@color/mainTextColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/street_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/state_txt"
+                    android:layout_marginTop="8dp"
+                    android:text="Street:">
+
+                </TextView>
 
                 <TextView
                     android:id="@+id/client_street"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/client_state"
-                    android:layout_alignStart="@id/client_state"
-                    android:layout_alignLeft="@id/client_state"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/state_txt"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/street_txt"
                     android:text="@string/content_from2_mock"
                     android:textColor="@color/mainTextColor"
                     android:textSize="14sp" />
@@ -217,21 +254,57 @@ android:visibility="gone"
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/click_images"
+                    android:id="@+id/building_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center"
-                    android:text="Click here\n    to view Images"
-                    android:textColor="@color/headings">
+                    android:layout_marginTop="14dp"
+                    android:text="Building:">
 
                 </TextView>
 
+                <TextView
+                    android:id="@+id/building_namee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_toRightOf="@+id/building_txt"
+
+                    android:text="Building"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/floor_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/building_txt"
+                    android:layout_marginTop="8dp"
+                    android:text="Floor #:">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/floor_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/building_namee"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/floor_txt"
+
+                    android:text="floor number"
+                    android:textColor="@color/mainTextColor"
+                    android:textSize="14sp">
+
+                </TextView>
             </RelativeLayout>
 
-
         </LinearLayout>
+
+
 
         <!-- divider line -->
         <ImageView

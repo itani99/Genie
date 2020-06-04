@@ -37,13 +37,16 @@ class Utils {
         const val API_GET_JOBS = "$BASE_URL_EMPLOYEE/jobs"
         const val API_DELETE_SERVICE = "$BASE_URL_EMPLOYEE/delete-service/"
         const val API_LOGIN = "$BASE_URL/login"
-
+        const val API_RESCHEDULE = "$BASE_URL_EMPLOYEE/reschedule/"
         const val API_Services = "$BASE_URL/getServices"
         const val API_Register = "$BASE_URL/register"
         const val API_EDIT_PROFILE = "$BASE_URL/profile-edit"
         const val API_DEVICE_TOKEN = "$BASE_URL/device-token"
         const val API_CREDIT_CARD = "$BASE_URL/credit-card"
         const val API_POST = "$BASE_URL_EMPLOYEE/post"
+
+        const val API_TAGS = "$BASE_URL_EMPLOYEE/tags"
+
         const val API_Timeline = "$BASE_URL/timeline-view/"
         const val API_ONGOING_REQUESTS = "$BASE_URL_EMPLOYEE/pending-requests"
         const val API_APPROVE_REQUESTS = "$BASE_URL_EMPLOYEE/reply-request/"
@@ -151,6 +154,7 @@ class Utils {
                 Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
+
         fun addChar(str: String, ch: Char, position: Int): String {
             val len = str.length
             val updatedArr = CharArray(len + 1)

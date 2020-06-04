@@ -183,7 +183,8 @@ class OngoingRequestsFragment : Fragment() {
                             val request = list.getJSONObject(i)
                             val client = request.getJSONObject("client")
                             val service = request.getJSONObject("service")
-                            val location = request.optJSONArray("location")
+                            val address = request.optJSONObject("client_address")
+                            val location = address!!.optJSONArray("location")
 
 
                             activity!!.runOnUiThread {
@@ -204,19 +205,22 @@ class OngoingRequestsFragment : Fragment() {
                                         request.optString("subject", ""),
                                         request.optString("description", "")
                                         ,
-                                        "",
+                                        address.optString("street", "street"),
                                         request.optJSONArray("images"),
                                         false,
                                         "",
-                                        -122.0839998498559,
-                                        37.42199952052943
+                                        location.getDouble(0),
+                                        location.getDouble(1)
                                         ,
                                         request.optString("from", "").plus(":00"),
                                         request.optString("to", "").plus(":00"),
-                                        service.optString("name", "service name")
+                                        service.optString("name", "service name"),
+                                        address.optString("building", "building"),
+                                        address.optString("floor", "floor")
                                     )
 
                                 )
+                                adapter!!.notifyDataSetChanged()
 
                                 //                                items!!.add(
 //                                    ItemCell(
