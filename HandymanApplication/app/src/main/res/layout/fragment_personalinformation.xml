@@ -189,6 +189,29 @@
                         android:textColor="@android:color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+
+                    android:text="Price/Hour"
+                    android:textColor="@color/headings" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/price_hour"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:inputType="numberDecimal"
+                        android:lines="1"
+                        android:textColor="@android:color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:id="@+id/txt_date_of_birth"
@@ -286,14 +309,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:visibility="gone"
-                    android:id="@+id/services_recycler"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
 
-                </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.example.handymanapplication.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
@@ -13,23 +14,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.handymanapplication.R
 import com.example.handymanapplication.Utils.SharedPreferences
 import com.example.handymanapplication.Utils.Utils
-import com.example.handymanapplication.activities.HomePageActivity
 import com.example.handymanapplication.adapters.PostAdapter
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
 import kotlinx.android.synthetic.main.posts_recycler.*
-
-
 class HomeFragment : Fragment() {
     private var recyclerAdapter: PostAdapter? = null
+
+    var handler: Handler = Handler()
+    val tags = arrayListOf<String>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        (activity as AppCompatActivity).supportActionBar!!.hide()
+        //activity!!.actionBar!!.hide()
 
         return inflater.inflate(
             R.layout.posts_recycler,
@@ -41,8 +44,36 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getTgas()
+        var progress = progress_bar
+        var progressStatus = 0
+        Thread(Runnable {
+            while (progressStatus < 100) {
+                // Update the progress status
+                progressStatus += 1
 
+                // Try to sleep the thread for 20 milliseconds
+                try {
+                    Thread.sleep(20)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
 
+                // Update the progress bar
+                handler.post {
+                    if (progressStatus === 100) {
+                        // Hide the progress bar from layout after finishing task
+                        progress.setVisibility(View.GONE)
+                        post_recycler.visibility = View.VISIBLE
+                        search_input.visibility = View.VISIBLE
+                        create_post_btn.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }).start()
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, tags)
+        (search_input)?.setAdapter(adapter)
 
         val create =
             view!!.findViewById(com.example.handymanapplication.R.id.create_post_btn) as Button
@@ -78,7 +109,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
     fun init() {
         Fuel.get(Utils.API_POST)
             .header(
@@ -102,9 +132,11 @@ class HomeFragment : Fragment() {
                             val items = res.getJSONArray("posts")
 
                             for (i in 0 until items.length()) {
-                                recyclerAdapter!!.setItem(items.getJSONObject(i))
+                                    recyclerAdapter!!.setItem(items.getJSONObject(i))
+                                }
+//                            recyclerAdapter!!.notifyDataSetChanged()
 
-                            }
+
 
 
                         }
@@ -128,11 +160,47 @@ class HomeFragment : Fragment() {
             }
     }
 
-    fun replaceFragment(someFragment: Fragment) {
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.replace(R.id.root_layout, someFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    fun getTgas() {
+        Fuel.get(Utils.API_Services)
+            .header(
+                "accept" to "application/json"
+            )
+            .responseJson { _, _, result ->
+
+                result.success {
+                    //
+                    var res = it.obj()
+
+                    if (res.optString("status", "error") == "success") {
+
+                        //     var services = res.getJSONObject("services")
+                        requireActivity().runOnUiThread {
+
+
+                            val items = res.getJSONArray("services")
+
+                            for (i in 0 until items.length()) {
+                                tags.add(items.optJSONObject(i).optString("name"))
+                                //  adapter.setItem(items.getJSONObject(i))
+                            }
+
+
+                        }
+                    } else {
+
+                        Toast.makeText(
+                            activity,
+                            res.getString("status"),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+                result.failure {
+
+                    Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
     }
 }
 

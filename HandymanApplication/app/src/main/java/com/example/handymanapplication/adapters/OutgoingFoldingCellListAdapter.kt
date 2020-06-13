@@ -93,14 +93,14 @@ class OutgoingFoldingCellListAdapter(
         // bind data from selected element to view through view holder
         // viewHolder.client!!.setText((item.client))
         viewHolder.pose!!.setText(item.pos)
-        viewHolder.description!!.setText(item.description)
+        viewHolder.description!!.setText((item.description))
         viewHolder.client_name?.setText(item.client)
         viewHolder.request_from!!.setText(item.request_from)
         viewHolder.request_to!!.setText(item.request_to)
         viewHolder.request_to_date!!.setText(item.request_to_date)
         viewHolder.created_at_request!!.setText(item.created_at_date)
         viewHolder.service_name!!.setText(item.service_name)
-        viewHolder.request_title!!.setText(item.request_title)
+        viewHolder.request_title!!.setText((item.request_title))
 
         val geocoder = Geocoder(context, Locale.getDefault())
         val addresses = geocoder.getFromLocation(item.latitude, item.longitude, 1)
@@ -141,9 +141,15 @@ class OutgoingFoldingCellListAdapter(
         }
 
         if (item.has_receipt == true) {
-            viewHolder.paymentbtn!!.text = "Paid"
-            viewHolder.paymentbtn!!.setBackgroundColor(Color.GREEN)
-            viewHolder.rescheduletBtn!!.visibility = View.GONE
+            if (item.paid == true) {
+                viewHolder.paymentbtn!!.text = "Paid"
+                viewHolder.paymentbtn!!.setBackgroundColor(Color.GREEN)
+                viewHolder.rescheduletBtn!!.visibility = View.GONE
+            } else {
+                viewHolder.paymentbtn!!.text = "Waiting for client"
+                viewHolder.paymentbtn!!.setBackgroundColor(Color.BLUE)
+                viewHolder.rescheduletBtn!!.visibility = View.GONE
+            }
         } else {
 
             viewHolder.paymentbtn!!.setOnClickListener {
@@ -187,7 +193,7 @@ class OutgoingFoldingCellListAdapter(
         internal var client_state: TextView? = null
         internal var request_from: TextView? = null
         internal var request_to: TextView? = null
-        internal var rescheduletBtn: RelativeLayout? = null
+        internal var rescheduletBtn: LinearLayout? = null
         internal var reschedule_btn: TextView? = null
         internal var acceptBtn: TextView? = null
         internal var rejectBtn: TextView? = null

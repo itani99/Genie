@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/list"
     android:visibility="gone"
-    >
+    android:orientation="vertical">
 
     <!-- content header line -->
     <RelativeLayout
@@ -15,8 +14,7 @@
         android:background="@color/bgContentTop"
         android:paddingLeft="12dp"
         android:paddingTop="7dp"
-        android:paddingRight="12dp"
-        android:paddingBottom="7dp">
+        android:paddingRight="12dp">
 
 
         <ImageView
@@ -95,50 +93,43 @@
         android:paddingBottom="6dp">
 
         <!-- avatar and name part -->
+
+
+
         <RelativeLayout
+            android:id="@+id/parent_lay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/content_avatar_title"
-                style="@style/ContentMainBadgeTitle"
+                android:id="@+id/content_avatar_titlee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_marginBottom="5dp"
-                android:text="Request Content:" />
+                android:text="Request Overview:"
 
-            <ImageView
-                android:id="@+id/request_image"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_below="@+id/content_avatar_title"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/circle_border"
-                android:scaleType="centerCrop"
-                android:src="@drawable/avatar">
-
-            </ImageView>
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
 
             <TextView
                 android:id="@+id/request_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/request_image"
+                android:layout_below="@id/content_avatar_titlee"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="2dp"
-                android:layout_toEndOf="@id/request_image"
-                android:layout_toRightOf="@id/request_image"
                 android:text="@string/client_name_mock"
                 android:textColor="@color/mainTextColor"
-                android:textSize="18sp"
+                android:textSize="13sp"
                 android:textStyle="bold" />
 
 
             <TextView
+
                 android:id="@+id/description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,28 +139,15 @@
                 android:layout_marginStart="3dp"
 
                 android:layout_marginLeft="3dp"
-                android:layout_marginBottom="-2dp"
-                android:text="description"
+              android:text="description"
                 android:textColor="@color/contentBadgeTitle"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/click_images"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/description"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@id/request_image"
-                android:fontFamily="sans-serif"
-                android:gravity="center"
-                android:text="Click here  to view Images"
-                android:textColor="@color/headings">
-
-            </TextView>
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
+
+
 
         <!-- divider line -->
         <ImageView
@@ -180,6 +158,7 @@
             android:src="@color/contentDividerLine" />
 
         <!-- addresses part -->
+
 
 
         <LinearLayout
@@ -199,15 +178,17 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
-                    android:textStyle="bold"
-                    android:text="Address:" />
+                    android:text="Address:"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/state_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/content_from_badge"
-                    android:text="State:">
+                    android:text="State:"
+                    android:textStyle="bold">
 
                 </TextView>
 
@@ -226,17 +207,18 @@
                 <TextView
                     android:id="@+id/street_txt"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/state_txt"
                     android:layout_marginTop="8dp"
-                    android:text="Street:">
+                    android:text="Street:"
+                    android:textStyle="bold">
 
                 </TextView>
 
                 <TextView
                     android:id="@+id/client_street"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/state_txt"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="8dp"
@@ -252,22 +234,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-
+                <TextView
+                    android:id="@+id/content_from_badge_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/building_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:layout_below="@id/content_from_badge_"
                     android:text="Building:">
 
                 </TextView>
 
                 <TextView
-                    android:id="@+id/building_namee"
+                    android:id="@+id/building_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/content_from_badge_"
                     android:layout_toRightOf="@+id/building_txt"
 
                     android:text="Building"
@@ -287,10 +277,10 @@
                 </TextView>
 
                 <TextView
-                    android:id="@+id/floor_number"
+                    android:id="@+id/floor_nmbr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/building_namee"
+                    android:layout_below="@id/building_name"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="8dp"
                     android:layout_toRightOf="@id/floor_txt"
@@ -303,6 +293,7 @@
             </RelativeLayout>
 
         </LinearLayout>
+
 
 
 
@@ -393,15 +384,17 @@
 
                 <TextView
                     android:id="@+id/request_accept_btn"
+                    style="@style/customButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="10dp"
                     android:background="@android:color/holo_green_light"
                     android:padding="10dp"
                     android:text="Accept"
                     android:textAlignment="center"
-                    android:textColor="@color/mainTextColor"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
 
@@ -414,23 +407,42 @@
 
                 <TextView
                     android:id="@+id/request_reject_btn"
+                    style="@style/customButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="16dp"
                     android:background="@android:color/holo_red_light"
                     android:padding="10dp"
+
                     android:text="@string/request_btn_text"
                     android:textAlignment="center"
-                    android:textColor="@color/mainTextColor"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
             </RelativeLayout>
 
         </LinearLayout>
         <!-- request button -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/click_images"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:text="Click here  to view Images"
+                android:textColor="@color/headings"
+                android:textStyle="italic">
+
+            </TextView>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

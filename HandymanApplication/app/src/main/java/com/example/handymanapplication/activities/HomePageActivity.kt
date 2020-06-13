@@ -31,6 +31,7 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navigator)
+       // actionBar!!.hide()
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
          navController = findNavController(R.id.nav_host_fragment)

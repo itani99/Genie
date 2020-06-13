@@ -44,17 +44,21 @@ class Utils {
         const val API_DEVICE_TOKEN = "$BASE_URL/device-token"
         const val API_CREDIT_CARD = "$BASE_URL/credit-card"
         const val API_POST = "$BASE_URL_EMPLOYEE/post"
-
+        const val API_OFFLINE = "$BASE_URL/offline"
         const val API_TAGS = "$BASE_URL_EMPLOYEE/tags"
-
+        const val API_PASSWORD = "$BASE_URL/password"
+        const val API_DELETE_POST="$BASE_URL_EMPLOYEE/post/"
         const val API_Timeline = "$BASE_URL/timeline-view/"
         const val API_ONGOING_REQUESTS = "$BASE_URL_EMPLOYEE/pending-requests"
         const val API_APPROVE_REQUESTS = "$BASE_URL_EMPLOYEE/reply-request/"
         const val API_RECEIPT = "$BASE_URL_EMPLOYEE/receipt/"
+        const val API_RECEIPT_IMAGES = "$BASE_URL_EMPLOYEE/receipt-images/"
+        const val API_RESULT_IMAGES= "$BASE_URL_EMPLOYEE/result-images/"
         const val API_OUTGOING_REQUESTS = "$BASE_URL/jobs/"
         const val API_CHAT_REQUESTS = "$BASE_URL_EMPLOYEE/chat-requests"
         const val API_SEND_MESSAGE = "$BASE_URL/message/"
         const val API_SCHEDULE = "$BASE_URL_EMPLOYEE/schedule"
+
 
         fun sendRegistrationToServer(context: Context) {
             if (SharedPreferences.getToken(context) != null) {
@@ -147,12 +151,26 @@ class Utils {
         }
 
         fun logout(context: Context) {
-            SharedPreferences.clearPreferences(context, Constants.FILE_USER)
-            val intent = Intent(context, MainActivity::class.java)
 
-            intent.flags =
-                Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(intent)
+            Fuel.post(
+                API_OFFLINE
+
+            )
+                .header(Utils.AUTHORIZATION to SharedPreferences.getToken(context).toString())
+                .responseJson { _, _, result ->
+                    result.success {
+                        SharedPreferences.clearPreferences(context, Constants.FILE_USER)
+                        val intent = Intent(context, MainActivity::class.java)
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(intent)
+                    }
+                    result.failure {
+
+                    }
+                }
+
+
         }
 
         fun addChar(str: String, ch: Char, position: Int): String {

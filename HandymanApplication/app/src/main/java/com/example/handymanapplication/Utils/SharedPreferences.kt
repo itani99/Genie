@@ -34,6 +34,32 @@ class SharedPreferences {
             }
         }
 
+        fun setNightModeState(context: Context, state: Any) {
+            SharedPreferences.setPrefernces(
+                context, Constants.FILE_USER,
+                Constants.Theme, state
+            )
+//
+        }
+
+        // this method will load the Night Mode State
+        fun loadNightModeState(context: Context): Boolean? {
+            if (getPreferences(
+                    context,
+                    Constants.FILE_USER,
+                    Constants.Theme
+                ) == null
+            ) {
+                return false
+            } else {
+                return (getPreferences(
+                    context,
+                    Constants.FILE_USER,
+                    Constants.Theme
+                ) as Boolean)
+            }
+        }
+
         fun clearPreferences(context: Context, file: String) {
             context.getSharedPreferences(file, Context.MODE_PRIVATE).edit().clear().apply()
         }

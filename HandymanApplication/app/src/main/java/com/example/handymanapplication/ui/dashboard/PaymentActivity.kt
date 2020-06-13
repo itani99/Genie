@@ -58,16 +58,25 @@ class PaymentActivity : AppCompatActivity() {
     var listOfImages = ArrayList<String>()
     val images_adapter = PostImagesAdapter(this)
     var imagesPathList: MutableList<String> = arrayListOf()
+
+
+    lateinit var imagePath2: String
+    var listOfImages2 = ArrayList<String>()
+    val images_adapter2 = PostImagesAdapter(this)
+    var imagesPathList2: MutableList<String> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
         initAdapter()
+        initAdapter2()
         supportActionBar!!.hide()
         var obje = JSONObject(intent!!.extras!!.getString("object"))
         var object2 = JSONObject(obje.getString("nameValuePairs"))
         request_id = (object2).optString("request_id")
         receipt_recycler!!.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        result_images!!.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         add_receipt_item.setOnClickListener {
             withEditText(it)
@@ -76,6 +85,7 @@ class PaymentActivity : AppCompatActivity() {
         reset_btn.setOnClickListener {
             total_receipt.text = 00.00.toString()
             recyclerAdapter!!.removeItems()
+
             round_counter = 0
 
             color_round_1.setBackgroundResource(R.drawable.ic_rounds)
@@ -95,6 +105,26 @@ class PaymentActivity : AppCompatActivity() {
             sendReceipt()
 
         }
+        add_images_btn_result.setOnClickListener {
+            if (Build.VERSION.SDK_INT < 19) {
+
+                var intent = Intent()
+                intent.type = "image/*"
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.action = Intent.ACTION_GET_CONTENT
+                startActivityForResult(
+                    Intent.createChooser(intent, "Select Picture")
+                    , 10011
+                )
+            } else {
+                var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.type = "image/*"
+                startActivityForResult(intent, 10011);
+            }
+        }
+
 
         add_images_btn.setOnClickListener {
             if (Build.VERSION.SDK_INT < 19) {
@@ -141,18 +171,36 @@ class PaymentActivity : AppCompatActivity() {
                 var count = data.clipData!!.itemCount
                 for (i in 0..count - 1) {
                     var imageUri: Uri = data!!.clipData!!.getItemAt(i).uri
-                    getPathFromURI(imageUri)
+                    getPathFromURI(imageUri, 0)
                 }
             } else if (data.getData() != null) {
                 var imagePath: String? = data!!.data!!.path
-                Log.e("imagePath", imagePath);
+                Log.e("imagePath", imagePath)
             }
 
             //   displayImageData()
+        } else if (requestCode == 10011 && resultCode == Activity.RESULT_OK
+            && null != data
+        ) {
+            images_adapter2.setItem(data.data!!)
+
+            val bitmap =
+                MediaStore.Images.Media.getBitmap(contentResolver, data.data)
+            listOfImages2.add(Utils.encodeToBase64(bitmap))
+            if (data.getClipData() != null) {
+
+                var count = data.clipData!!.itemCount
+                for (i in 0..count - 1) {
+                    var imageUri: Uri = data!!.clipData!!.getItemAt(i).uri
+                    getPathFromURI(imageUri, 1)
+                }
+            } else if (data.getData() != null) {
+                var imagePath: String? = data!!.data!!.path
+            }
         }
     }
 
-    private fun getPathFromURI(uri: Uri) {
+    private fun getPathFromURI(uri: Uri, id: Int) {
         var path: String? = uri.path // uri = any content Uri
 
         val databaseUri: Uri
@@ -180,10 +228,15 @@ class PaymentActivity : AppCompatActivity() {
             )
             if (cursor!!.moveToFirst()) {
                 val columnIndex = cursor.getColumnIndex(projection[0])
-                imagePath = cursor.getString(columnIndex)
-                // Log.e("path", imagePath);
-                imagesPathList.add(imagePath)
-
+                if (id == 0) {
+                    imagePath = cursor.getString(columnIndex)
+                    // Log.e("path", imagePath);
+                    imagesPathList.add(imagePath)
+                } else {
+                    imagePath2 = cursor.getString(columnIndex)
+                    // Log.e("path", imagePath);
+                    imagesPathList2.add(imagePath)
+                }
 
             }
             cursor.close()
@@ -252,12 +305,65 @@ class PaymentActivity : AppCompatActivity() {
 
 
     fun sendReceipt() {
-//        var params = HashMap<String, String>()
-//        params.put("receipt", recyclerAdapter!!.getList().toString())
-//        params.put("total", total_receipt.text.toString())
-//        for (x in 0 until listOfImages.size) {
-//            params.put("images[$x]", listOfImages.get(x))
-//        }
+        var params = HashMap<String, String>()
+
+        for (x in 0 until listOfImages.size) {
+            params.put("images[$x]", listOfImages.get(x))
+        }
+
+
+        Fuel.post(
+            Utils.API_RECEIPT_IMAGES.plus(request_id),
+            params.toList()
+        )
+
+            .header(
+                "accept" to "application/json",
+                Utils.AUTHORIZATION to SharedPreferences.getToken(this!!).toString()
+            )
+            .responseJson { _, _, result ->
+
+                result.success {
+
+                }
+                result.failure {
+
+                    Toast.makeText(this!!, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+
+
+
+
+        var params2 = HashMap<String, String>()
+
+        for (x in 0 until listOfImages2.size) {
+            params2.put("images[$x]", listOfImages2.get(x))
+        }
+
+
+        Fuel.post(
+            Utils.API_RESULT_IMAGES.plus(request_id),
+            params2.toList()
+        )
+
+            .header(
+                "accept" to "application/json",
+                Utils.AUTHORIZATION to SharedPreferences.getToken(this!!).toString()
+            )
+            .responseJson { _, _, result ->
+
+                result.success {
+
+                }
+                result.failure {
+
+                    Toast.makeText(this!!, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+
 
         Fuel.post(
             Utils.API_RECEIPT.plus(request_id), listOf(
@@ -290,6 +396,21 @@ class PaymentActivity : AppCompatActivity() {
             }
     }
 
+    fun initAdapter2() {
+
+        val mLayoutManager = GridLayoutManager(this, 2)
+        result_images.setLayoutManager(mLayoutManager)
+        result_images.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        result_images.setItemAnimator(DefaultItemAnimator())
+        result_images.setAdapter(images_adapter2)
+
+
+        result_images.setLayoutManager(mLayoutManager)
+        result_images.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+        result_images.setItemAnimator(DefaultItemAnimator())
+
+
+    }
     fun initAdapter() {
 
         val mLayoutManager = GridLayoutManager(this, 2)

@@ -9,6 +9,7 @@ class Constants {
        val USER_TOKEN = Constants.javaClass.name + ".USER_TOKEN"
         val USER_NAME = Constants.javaClass.name + ".USER_NAME"
         val USER_EMAIL = Constants.javaClass.name + ".USER_EMAIL"
+        val Theme=Constants.javaClass.name+".APP_THEME"
 
         val USER_ID = Constants.javaClass.name + ".User_ID"
         val WEBVIEW = Constants.javaClass.name + ".WEBVIEW"

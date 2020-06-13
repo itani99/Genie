@@ -55,9 +55,9 @@ class FoldingCellListAdapter(
             viewHolder.pos = cell.findViewById(R.id.pos)
             viewHolder.map = cell.findViewById(R.id.mapView)
 
-            viewHolder.building = cell.findViewById(R.id.building_namee)
+            viewHolder.building = cell.findViewById(R.id.building_name)
 
-            viewHolder.floor = cell.findViewById(R.id.floor_number)
+            viewHolder.floor = cell.findViewById(R.id.floor_nmbr)
             this.mapView = viewHolder.map
             viewHolder.client_profile_picture = cell.findViewById(R.id.client_profile_picture)
             viewHolder.client_name = cell.findViewById(R.id.client_name)

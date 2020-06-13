@@ -3,10 +3,12 @@ package com.example.handymanapplication.ui.dashboard
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.ramotion.foldingcell.FoldingCell
@@ -20,8 +22,10 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.json.responseJson
 import com.github.kittinunf.result.failure
 import com.github.kittinunf.result.success
+import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.ongoing_notifications.*
 import org.json.JSONObject
+import java.util.*
 
 import kotlin.collections.ArrayList
 
@@ -31,10 +35,16 @@ class OngoingRequestsFragment : Fragment() {
     var items: ArrayList<ItemCell>? = ArrayList<ItemCell>()
     var adapter: FoldingCellListAdapter? = null
     var mcontext: Context? = null
+
+
+    var handler: Handler = Handler()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         mcontext = context!!
         return inflater.inflate(
             com.example.handymanapplication.R.layout.ongoing_notifications,
@@ -62,71 +72,105 @@ class OngoingRequestsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        var progress = progress_bar
+        var progressStatus = 0
+        Thread(Runnable {
+            while (progressStatus < 100) {
+                // Update the progress status
+                progressStatus += 1
+
+                // Try to sleep the thread for 20 milliseconds
+                try {
+                    Thread.sleep(20)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+
+                // Update the progress bar
+                handler.post {
+                    // Toast.makeText(context!!, progressStatus, Toast.LENGTH_LONG).show()
+
+//                    pb.setProgress(progressStatus)
+                    // Show the progress on TextView
+//                    tv.setText(progressStatus + "")
+                    // If task execution completed
+                    if (progressStatus === 100) {
+                        // Hide the progress bar from layout after finishing task
+                        progress.setVisibility(View.GONE)
+                        mainListView.visibility=View.VISIBLE
+                        // Set a message of completion
+//                        tv.setText("Operation completed...")
+                    }
+                }
+            }
+        }).start()
+
         val theListView = mainListView
         getRequests()
 
 
 
-        adapter = FoldingCellListAdapter(mcontext!!, items!!, object :
-            IActionsOngoing {
-            override fun onListClick(list: ItemCell) {
-                var index: Int? = null
-                for (i in 0 until items!!.size) {
-                    if (items!!.get(i).equals(list)) {
-                        index = i
+        adapter = FoldingCellListAdapter(mcontext!!, items!!,
+            object :
+                IActionsOngoing {
+                override fun onListClick(list: ItemCell) {
+                    var index: Int? = null
+                    for (i in 0 until items!!.size) {
+                        if (items!!.get(i).equals(list)) {
+                            index = i
+                        }
+                    }
+                    adapter!!.registerToggle(index!!)
+                    adapter!!.notifyDataSetChanged()
+                }
+
+                override fun onViewImageClick(list: ItemCell) {
+                    val ob: JSONObject? = JSONObject()
+                    ob!!.put("images", list.images)
+
+                    val intent = Intent(context!!, ViewImagesActivity::class.java)
+
+                    intent!!.putExtraJson("object", ob)
+                    startActivity(intent)
+                }
+
+                override fun onAccept(item: ItemCell) {
+                    replyToRequest(item.pos, "accepted")
+
+                    var index: Int? = null
+                    for (i in 0 until items!!.size) {
+                        if (items!!.get(i).equals(item)) {
+                            index = i
+                        }
+                    }
+                    adapter!!.registerToggle(index!!)
+                    items!!.remove(item)
+                    adapter!!.notifyDataSetChanged()
+
+                    activity!!.runOnUiThread {
+                        Toast.makeText(mcontext!!, "accept", Toast.LENGTH_LONG).show()
                     }
                 }
-                adapter!!.registerToggle(index!!)
-                adapter!!.notifyDataSetChanged()
-            }
 
-            override fun onViewImageClick(list: ItemCell) {
-                val ob: JSONObject? = JSONObject()
-                ob!!.put("images", list.images)
+                override fun onDelete(item: ItemCell) {
 
-                val intent = Intent(context!!, ViewImagesActivity::class.java)
 
-                intent!!.putExtraJson("object", ob)
-                startActivity(intent)
-            }
+                    replyToRequest(item.pos, "rejected")
+                    var index: Int? = null
+                    for (i in 0 until items!!.size) {
+                        if (items!!.get(i).equals(item)) {
+                            index = i
+                        }
+                    }
+                    adapter!!.registerToggle(index!!)
+                    items!!.remove(item)
+                    adapter!!.notifyDataSetChanged()
 
-            override fun onAccept(item: ItemCell) {
-                replyToRequest(item.pos, "approved")
-
-                var index: Int? = null
-                for (i in 0 until items!!.size) {
-                    if (items!!.get(i).equals(item)) {
-                        index = i
+                    activity!!.runOnUiThread {
+                        Toast.makeText(mcontext!!, "Rejected", Toast.LENGTH_LONG).show()
                     }
                 }
-                adapter!!.registerToggle(index!!)
-                items!!.remove(item)
-                adapter!!.notifyDataSetChanged()
-
-                activity!!.runOnUiThread {
-                    Toast.makeText(mcontext!!, "accept", Toast.LENGTH_LONG).show()
-                }
-            }
-
-            override fun onDelete(item: ItemCell) {
-
-
-                replyToRequest(item.pos, "approved")
-                var index: Int? = null
-                for (i in 0 until items!!.size) {
-                    if (items!!.get(i).equals(item)) {
-                        index = i
-                    }
-                }
-                adapter!!.registerToggle(index!!)
-                items!!.remove(item)
-                adapter!!.notifyDataSetChanged()
-
-                activity!!.runOnUiThread {
-                    Toast.makeText(mcontext!!, "Rejected", Toast.LENGTH_LONG).show()
-                }
-            }
-        })
+            })
         theListView.setAdapter(adapter)
 
         // set on click event listener to list view

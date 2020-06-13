@@ -50,14 +50,12 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         savedInstanceState: Bundle?
 
     ): View? {
-        viewProfile()
-
-        (activity as AppCompatActivity).supportActionBar!!.show()
+      //  viewProfile()
 
 
 
         return inflater.inflate(
-            R.layout.fragment_personalinformation,
+            R.layout.activity_settings,
             container,
             false
         )
@@ -82,58 +80,59 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-              add_services.setOnClickListener {
-            getServices()
-            services_recycler.visibility = View.VISIBLE
-            //prepare all the services
-
-        }
-
-
-
-        selectphoto_button.setOnClickListener {
-
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, 0)
-        }
-        edit_btn.setOnClickListener {
-            if (edit) {
-                // complete saving
-                edit_btn.setBackgroundResource(R.drawable.icons8_writeprofile)
-                // Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
-                edit = false
-                profile_name.isFocusable = false
-                profile_name.isFocusableInTouchMode = false
-
-
-
-                profile_biography.isFocusable = false
-                profile_biography.isFocusableInTouchMode = false
-                saveProfile()
-            } else {
-                //open edit
-                profile_name.isFocusable = true
-                profile_name.inputType = InputType.TYPE_CLASS_TEXT
-                profile_name.isFocusableInTouchMode = true
-
-//                profile_phone.isFocusable = true
-//                profile_phone.inputType = InputType.TYPE_CLASS_PHONE
-//                profile_phone.isFocusableInTouchMode = true
-
-                profile_biography.isFocusable = true
-                profile_biography.inputType = InputType.TYPE_CLASS_TEXT
-                profile_biography.isFocusableInTouchMode = true
-
-
-
-
-                edit_btn.setBackgroundResource(R.drawable.ic_save_black_24dp)
-                edit = true
-
-            }
-        }
+//
+//        add_services.setOnClickListener {
+//            getServices()
+//            services_recycler.visibility = View.VISIBLE
+//            //prepare all the services
+//
+//        }
+//
+//
+//
+//        selectphoto_button.setOnClickListener {
+//
+//            val intent = Intent(Intent.ACTION_PICK)
+//            intent.type = "image/*"
+//            startActivityForResult(intent, 0)
+//        }
+//        edit_btn.setOnClickListener {
+//            if (edit) {
+//                // complete saving
+//                edit_btn.setBackgroundResource(R.drawable.icons8_writeprofile)
+//                // Utils.hideSoftKeyBoard(activity!!.baseContext, profile_email)
+//                edit = false
+//                profile_name.isFocusable = false
+//                profile_name.isFocusableInTouchMode = false
+//
+//
+//                price_hour.isFocusable = false
+//                price_hour.isFocusableInTouchMode = false
+//
+//                profile_biography.isFocusable = false
+//                profile_biography.isFocusableInTouchMode = false
+//                saveProfile()
+//            } else {
+//                //open edit
+//                profile_name.isFocusable = true
+//                profile_name.inputType = InputType.TYPE_CLASS_TEXT
+//                profile_name.isFocusableInTouchMode = true
+//
+//                price_hour.isFocusable = true
+//                price_hour.isFocusableInTouchMode = true
+//
+//                profile_biography.isFocusable = true
+//                profile_biography.inputType = InputType.TYPE_CLASS_TEXT
+//                profile_biography.isFocusableInTouchMode = true
+//
+//
+//
+//
+//                edit_btn.setBackgroundResource(R.drawable.ic_save_black_24dp)
+//                edit = true
+//
+//            }
+//        }
     }
 
     var selectedPhotoUri: Uri? = null
@@ -159,7 +158,7 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
             Utils.API_EDIT_PROFILE, listOf(
                 "image" to image,
                 "biography" to biography,
-                "gender" to gender
+                "gender" to gender, "price" to price_hour.text.toString()
 
 
             )
@@ -217,7 +216,9 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
                                 }
                             }
                             profile_balance.setText((profile.optString("balance", "")).plus("$"))
-
+                            if (profile.has("price")) {
+                                price_hour.setText(profile.get("price").toString())
+                            }
                             if (profile.optString("isApproved", "false") == "true") {
                                 profile_status_background.setBackgroundColor(Color.GREEN)
                                 profile_status.setText("Online")
@@ -286,15 +287,15 @@ class PersonalinformationFragment : Fragment(), IOnBackPressed {
         // recycler_view.layoutManager=GridLayoutManager(context!!,30)
 
         val mLayoutManager = GridLayoutManager(context!!, 2)
-        services_recycler.setLayoutManager(mLayoutManager)
-        services_recycler.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        services_recycler.setItemAnimator(DefaultItemAnimator())
-        services_recycler.setAdapter(adapter)
-
-
-        services_recycler.setLayoutManager(mLayoutManager)
-        services_recycler.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
-        services_recycler.setItemAnimator(DefaultItemAnimator())
+//        services_recycler.setLayoutManager(mLayoutManager)
+//        services_recycler.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+//        services_recycler.setItemAnimator(DefaultItemAnimator())
+//        services_recycler.setAdapter(adapter)
+//
+//
+//        services_recycler.setLayoutManager(mLayoutManager)
+//        services_recycler.addItemDecoration(GridSpacingItemDecoration(2, dpToPx(10), true))
+//        services_recycler.setItemAnimator(DefaultItemAnimator())
 
 
         //TODO

@@ -285,8 +285,12 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                 var location = address.getJSONArray("location")
 
                                 var flag = false
+                                var flag2 = false
                                 if (request.has("receipt")) {
                                     flag = true
+                                    if (request.optBoolean("paid") == true) {
+                                        flag2 = true
+                                    }
                                 }
                                 items!!.add(
                                     ItemCell(
@@ -301,7 +305,7 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                         request.optString("subject", ""),
                                         request.optString("description", "")
                                         ,
-                                        address.optString("street","street"),
+                                        address.optString("street", "street"),
                                         request.optJSONArray("images"),
                                         flag,
                                         "",
@@ -312,7 +316,7 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                         request.optString("to", "").plus(":00"),
                                         service.optString("name", "service name"),
                                         address.optString("building", "building"),
-                                        address.optString("floor", "floor")
+                                        address.optString("floor", "floor"), flag2
                                     )
 
                                 )

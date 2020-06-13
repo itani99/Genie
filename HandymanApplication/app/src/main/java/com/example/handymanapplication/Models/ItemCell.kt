@@ -28,7 +28,7 @@ class ItemCell(
     var request_from: String,
     var request_to: String,
     var service_name: String,
-    var building: String, var floor_: String
-    ) {
+    var building: String, var floor_: String, var paid: Boolean? = null
+) {
 
 }

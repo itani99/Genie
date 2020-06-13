@@ -51,7 +51,7 @@ class ServiceAdapter(var context: Context) : RecyclerView.Adapter<ServiceAdapter
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+holder.itemView.service_title.visibility=View.VISIBLE
         var ids: JSONArray? = null
         if ((list[position] as JSONObject).has("user_ids")) {
 

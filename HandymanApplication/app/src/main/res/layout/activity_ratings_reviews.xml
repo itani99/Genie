@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    tools:context="com.example.handymanapplication.ui.Profile.RatingsReviewsActivity">
+
+    <TextView
+        android:id="@+id/service_name_rated"
+        android:text="service name"
+        android:textColor="@color/headings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="94dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="number"
+        android:text="3.5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/service_name_rated"
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="46dp" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="235dp"
+        android:layout_height="68dp"
+        android:numStars="5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        tools:layout_editor_absoluteX="51dp"
+        tools:layout_editor_absoluteY="181dp" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/editText"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="236dp"
+        tools:layout_editor_absoluteY="80dp" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/editText"
+        app:layout_constraintTop_toBottomOf="@id/progressBar1"
+        tools:layout_editor_absoluteX="236dp"
+        tools:layout_editor_absoluteY="118dp" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/editText"
+        app:layout_constraintTop_toBottomOf="@id/progressBar2"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="158dp" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/editText"
+        app:layout_constraintTop_toBottomOf="@id/progressBar3"
+        tools:layout_editor_absoluteX="230dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/progressBar5"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toRightOf="@id/editText"
+        app:layout_constraintTop_toBottomOf="@id/progressBar4"
+        tools:layout_editor_absoluteX="241dp"
+        tools:layout_editor_absoluteY="29dp" />
+
+    <TextView
+        android:id="@+id/textView2_feedback"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+</androidx.constraintlayout.widget.ConstraintLayout>

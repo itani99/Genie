@@ -40,15 +40,23 @@ class MainActivity : AppCompatActivity() {
         val password = edt_password.text.toString()
         val role = "employee"
 
-
+        if (password.length < 8) {
+            Toast.makeText(
+                this,
+                "Wrong password",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
         Fuel.post(
-            Utils.API_LOGIN, listOf("email" to email, "password" to password, "role" to role))
+            Utils.API_LOGIN, listOf("email" to email, "password" to password, "role" to role)
+        )
             .header("accept" to "application/json")
             .responseJson { _, _, result ->
                 result.success {
 
                     var res = it.obj()
-                    if (res.optString("status", "error") == "success") {
+                    if (res.optString("status", "errorss") == "success") {
 
                         // Toast.makeText(this, "Success.", Toast.LENGTH_SHORT).show()
 
@@ -72,13 +80,7 @@ class MainActivity : AppCompatActivity() {
                         )
 
                         Utils.sendRegistrationToServer(this)
-                        runOnUiThread {
-                            Toast.makeText(
-                                this,
-                                SharedPreferences.getID(this@MainActivity).toString(),
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+
                         val intent = Intent(this, HomePageActivity::class.java)
                         intent.flags =
                             Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -87,21 +89,20 @@ class MainActivity : AppCompatActivity() {
 
                     } else {
 
+                        btn_login.isEnabled = true
+                        Toast.makeText(
+                            this@MainActivity,
+                            res.toString()
+                            ,
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                        runOnUiThread {
-                            btn_login.isEnabled = true
-                            Toast.makeText(
-                                this@MainActivity,
-                                res.getJSONObject("errors").toString()
-                               ,
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
                     }
                 }
                 result.failure {
 
                     runOnUiThread {
+
                         btn_login.isEnabled = true
                         Toast.makeText(this@MainActivity, it.localizedMessage, Toast.LENGTH_LONG)
                             .show()

@@ -26,11 +26,13 @@ import kotlin.collections.ArrayList
 
 class TimelineAdapter(var context: Context) : RecyclerView.Adapter<TimelineAdapter.ViewHolder>() {
     var list: ArrayList<Any> = ArrayList()
-
+    var edited: Boolean = false
     fun setItem(ob: Any) {
         list.add(ob)
         notifyItemInserted(list.size - 1)
     }
+
+    fun edited() = edited
 
     fun getItem(index: Int) = list[index]
 
@@ -73,7 +75,7 @@ class TimelineAdapter(var context: Context) : RecyclerView.Adapter<TimelineAdapt
             holder.itemView.txt_to.text = (list[position] as TimeLineItem).to
             holder.itemView.rmv_item.setOnClickListener {
 
-
+edited=true
                 Toast.makeText(context!!, (list[position].toString()), Toast.LENGTH_LONG).show()
 
                 val v = LayoutInflater.from(context).inflate(R.layout.layout_remove_item, null)
@@ -98,6 +100,7 @@ class TimelineAdapter(var context: Context) : RecyclerView.Adapter<TimelineAdapt
 
         holder.itemView.tag = list[position]
         holder.itemView.setOnClickListener {
+            edited=true
             if (it.tag is TimeLineHeader) {
                 var from_hour: Int? = null
                 var from_minute: Int? = null

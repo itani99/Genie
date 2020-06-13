@@ -5,10 +5,22 @@
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_request_recycler"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/chat_request_recycler">
+        android:layout_height="wrap_content">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_gravity="center_horizontal"
+        >
+
+    </ProgressBar>
+
 
 </LinearLayout>

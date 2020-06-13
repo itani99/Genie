@@ -90,7 +90,6 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
     ): View? {
 
         adapter = TimelineAdapter(context!!)
-        (activity as AppCompatActivity).supportActionBar!!.show()
 
         return inflater.inflate(
             R.layout.fragment_bussinessinformation,
@@ -98,15 +97,28 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
             false
         )
     }
+    override fun onBackPressed(): Boolean {
+        if (edit) {
+            activity?.runOnUiThread {
+                android.app.AlertDialog.Builder(activity)
+                    .setTitle("Discard Changes?")
+                    .setMessage("Are You Sure?")
+                    .setPositiveButton("Yes", { dialog, _ ->
+                        dialog.dismiss()
+                    }).setNegativeButton("No", { dialog, _ ->
+                        dialog.dismiss()
+                    }).create().show()
+            }
+            return false
+        }
+        return true
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         edit = true
-        initTimeline()
+        //initTimeline()
 
-        btn_save_changes.setOnClickListener {
-            onBackPressed()
 
-        }
         txt_address.setOnClickListener {
             // getLastLocation()
             showPlacePicker()
@@ -168,14 +180,7 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if ((requestCode == pingActivityRequestCode) && (resultCode == Activity.RESULT_OK)) {
-
-            val place: Place? = PingPlacePicker.getPlace(data!!)
-
-            saveLocation(place!!.latLng!!.latitude, place.latLng!!.longitude)
-
-
-        } else if ((requestCode == cvActivityRequestCode) && (resultCode == Activity.RESULT_OK)) {
+      if ((requestCode == cvActivityRequestCode) && (resultCode == Activity.RESULT_OK)) {
             var pdfFile: File? = null
             if (data != null) {
                 data.data?.let {
@@ -329,107 +334,107 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
             }
     }
 
-    private fun initTimeline() {
-        Toast.makeText(
-            activity,
-            SharedPreferences.getID(activity!!.baseContext).toString(),
-            Toast.LENGTH_LONG
-        )
-            .show()
-
-        Fuel.get(Utils.API_Timeline.plus(SharedPreferences.getID(activity!!.baseContext).toString()))
-            .header(
-                "accept" to "application/json",
-                Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString()
-            )
-            .responseJson { _, _, result ->
-
-                result.success {
-
-                    var res = it.obj()
-
-                    if (res.optString("status", "error") == "success") {
-
-                        activity!!.runOnUiThread {
-
-                            if (res.has("timeline")) {
-                                val items = res.getJSONArray("timeline")
-
-                                for (i in 0 until items.length()) {
-                                    when (i) {
-                                        0 -> {
-
-                                            adapter!!.setItem(TimeLineHeader(0, "Monday"))
-                                            var monday = items[i] as JSONArray
-                                            filler(i, adapter!!, monday, 0)
-                                        }
-
-                                        1 -> {
-                                            adapter!!.setItem(TimeLineHeader(1, "Tuesday"))
-                                            var tuesday = items[i] as JSONArray
-                                            filler(i, adapter!!, tuesday, 1)
-
-                                        }
-                                        2 -> {
-                                            adapter!!.setItem(TimeLineHeader(2, "Wednesday"))
-                                            var wednesday = items[i] as JSONArray
-                                            filler(i, adapter!!, wednesday, 2)
-                                        }
-
-                                        3 -> {
-
-
-                                            adapter!!.setItem(TimeLineHeader(3, "Thursday"))
-                                            var thursday = items[i] as JSONArray
-                                            filler(i, adapter!!, thursday, 3)
-                                        }
-                                        4 -> {
-
-
-                                            adapter!!.setItem(TimeLineHeader(4, "Friday"))
-                                            var friday = items[i] as JSONArray
-                                            filler(i, adapter!!, friday, 4)
-                                        }
-                                        5 -> {
-
-                                            adapter!!.setItem(TimeLineHeader(5, "Saturday"))
-                                            var saturday = items[i] as JSONArray
-                                            filler(i, adapter!!, saturday, 5)
-                                        }
-                                        6 -> {
-
-                                            adapter!!.setItem(TimeLineHeader(6, "Sunday"))
-                                            var sunday = items[i] as JSONArray
-                                            filler(i, adapter!!, sunday, 6)
-                                        }
-
-
-                                    }
-                                }
-
-                            }
-                        }
-                    } else {
-
-                        Toast.makeText(
-                            activity,
-                            res.getString("status"),
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-                result.failure {
-
-                    Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-        timeline.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-
-        timeline.adapter = adapter
-    }
+//    private fun initTimeline() {
+//        Toast.makeText(
+//            activity,
+//            SharedPreferences.getID(activity!!.baseContext).toString(),
+//            Toast.LENGTH_LONG
+//        )
+//            .show()
+//
+//        Fuel.get(Utils.API_Timeline.plus(SharedPreferences.getID(activity!!.baseContext).toString()))
+//            .header(
+//                "accept" to "application/json",
+//                Utils.AUTHORIZATION to SharedPreferences.getToken(activity!!.baseContext).toString()
+//            )
+//            .responseJson { _, _, result ->
+//
+//                result.success {
+//
+//                    var res = it.obj()
+//
+//                    if (res.optString("status", "error") == "success") {
+//
+//                        activity!!.runOnUiThread {
+//
+//                            if (res.has("timeline")) {
+//                                val items = res.getJSONArray("timeline")
+//
+//                                for (i in 0 until items.length()) {
+//                                    when (i) {
+//                                        0 -> {
+//
+//                                            adapter!!.setItem(TimeLineHeader(0, "Monday"))
+//                                            var monday = items[i] as JSONArray
+//                                            filler(i, adapter!!, monday, 0)
+//                                        }
+//
+//                                        1 -> {
+//                                            adapter!!.setItem(TimeLineHeader(1, "Tuesday"))
+//                                            var tuesday = items[i] as JSONArray
+//                                            filler(i, adapter!!, tuesday, 1)
+//
+//                                        }
+//                                        2 -> {
+//                                            adapter!!.setItem(TimeLineHeader(2, "Wednesday"))
+//                                            var wednesday = items[i] as JSONArray
+//                                            filler(i, adapter!!, wednesday, 2)
+//                                        }
+//
+//                                        3 -> {
+//
+//
+//                                            adapter!!.setItem(TimeLineHeader(3, "Thursday"))
+//                                            var thursday = items[i] as JSONArray
+//                                            filler(i, adapter!!, thursday, 3)
+//                                        }
+//                                        4 -> {
+//
+//
+//                                            adapter!!.setItem(TimeLineHeader(4, "Friday"))
+//                                            var friday = items[i] as JSONArray
+//                                            filler(i, adapter!!, friday, 4)
+//                                        }
+//                                        5 -> {
+//
+//                                            adapter!!.setItem(TimeLineHeader(5, "Saturday"))
+//                                            var saturday = items[i] as JSONArray
+//                                            filler(i, adapter!!, saturday, 5)
+//                                        }
+//                                        6 -> {
+//
+//                                            adapter!!.setItem(TimeLineHeader(6, "Sunday"))
+//                                            var sunday = items[i] as JSONArray
+//                                            filler(i, adapter!!, sunday, 6)
+//                                        }
+//
+//
+//                                    }
+//                                }
+//
+//                            }
+//                        }
+//                    } else {
+//
+//                        Toast.makeText(
+//                            activity,
+//                            res.getString("status"),
+//                            Toast.LENGTH_LONG
+//                        ).show()
+//                    }
+//                }
+//                result.failure {
+//
+//                    Toast.makeText(activity, it.localizedMessage, Toast.LENGTH_LONG)
+//                        .show()
+//                }
+//            }
+//        timeline.layoutManager =
+//            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//
+//
+//        timeline.adapter = adapter
+//    }
 
     private fun filler(i: Int, adapter: TimelineAdapter, day: JSONArray, id: Int) {
         // day.put("1111", false)
@@ -455,24 +460,6 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
     }
 
 
-    override fun onBackPressed(): Boolean {
-        if (edit) {
-            activity?.runOnUiThread {
-                AlertDialog.Builder(activity!!)
-                    .setTitle("Discard Changes?")
-                    .setMessage("Are you sure?")
-                    .setPositiveButton("Yes", { dialog, _ ->
-                        dialog.dismiss()
-                        saveTimeline()
-                    })
-                    .setNegativeButton("No", { dialog, _ ->
-                        dialog.dismiss()
-                    }).create().show()
-            }
-            return false
-        }
-        return true
-    }
 
     private fun showPlacePicker() {
 
@@ -534,40 +521,6 @@ class BusinessInformationFragment : Fragment(), IOnBackPressed {
         )
     }
 
-    private fun saveLocation(latitude: Double, longitude: Double) {
-
-
-        var params = HashMap<String, Double>()
-
-
-        params.put("latitude", latitude)
-        params.put("longitude", longitude)
-
-        Fuel.post(
-            Utils.API_EDIT_PROFILE, params.toList()
-        ).header(
-            "accept" to "application/json",
-            Utils.AUTHORIZATION to SharedPreferences.getToken(context!!).toString()
-        )
-            .responseJson { _, _, result ->
-
-                result.success {
-
-                    var res = it.obj()
-                    if (res.optString("status", "error") == "success") {
-                        activity!!.runOnUiThread {
-                            Toast.makeText(context!!, "saved", Toast.LENGTH_LONG)
-                                .show()
-                        }
-                    }
-                }
-                result.failure {
-                    Toast.makeText(context!!, it.localizedMessage, Toast.LENGTH_LONG)
-                        .show()
-                }
-
-            }
-    }
 
     fun saveTimeline() {
         //Toast.makeText(context!!, adapter!!.getItems().toString(), Toast.LENGTH_LONG).show()

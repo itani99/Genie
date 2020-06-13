@@ -31,9 +31,9 @@
         tools:layout="@layout/fragment_request" />
 
 
-    <fragment
+    <activity
         android:id="@+id/navigation_profile"
-        android:name="com.example.handymanapplication.ui.Profile.ProfileFragment"
+        android:name="com.example.handymanapplication.ui.Profile.ProfileActivity"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
