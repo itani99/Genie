@@ -45,6 +45,7 @@ import kotlinx.android.synthetic.main.activity_create_post.*
 import org.json.JSONObject
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.math.roundToInt
 
 
 class PaymentActivity : AppCompatActivity() {
@@ -64,21 +65,26 @@ class PaymentActivity : AppCompatActivity() {
     var listOfImages2 = ArrayList<String>()
     val images_adapter2 = PostImagesAdapter(this)
     var imagesPathList2: MutableList<String> = arrayListOf()
+
+    var total_price_balance:Double?=null
+    var total_hours:Int?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment)
         initAdapter()
         initAdapter2()
+        getBalance()
         supportActionBar!!.hide()
         var obje = JSONObject(intent!!.extras!!.getString("object"))
+
         var object2 = JSONObject(obje.getString("nameValuePairs"))
+         total_hours= object2.optInt("hours")
         request_id = (object2).optString("request_id")
         receipt_recycler!!.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 //        result_images!!.layoutManager =
 //            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
-        add_receipt_item.setOnClickListener {
+       add_receipt_item.setOnClickListener {
             withEditText(it)
 
         }
@@ -245,6 +251,49 @@ class PaymentActivity : AppCompatActivity() {
         }
     }
 
+    fun getBalance(){
+        Fuel.get(Utils.API_EDIT_PROFILE)
+            .header(
+                "accept" to "application/json",
+                Utils.AUTHORIZATION to SharedPreferences.getToken(this).toString()
+            )
+            .responseJson { _, _, result ->
+
+                result.success {
+                    var res = it.obj()
+
+                    if (res.optString("status", "error") == "success") {
+
+                        var profile = res.getJSONObject("profile")
+                        this!!.runOnUiThread {
+
+                            if (profile.has("price")) {
+
+                                this.total_price_balance = profile.optDouble("price")
+                                total_receipt.text=(( total_hours!!* total_price_balance!! ).roundToInt()).toString()
+
+
+                            }
+
+//
+                        }
+                    } else {
+
+                        Toast.makeText(
+                            this,
+                            res.getString("status"),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+                result.failure {
+
+                    Toast.makeText(this, it.localizedMessage, Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+
+    }
     fun withEditText(view: View) {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -278,7 +327,7 @@ class PaymentActivity : AppCompatActivity() {
 
             total_receipt.text =
                 (
-                        total_receipt.text.toString().toDouble()
+                        total_receipt.text.toString().toDouble().roundToInt()
                                 + ((editText2.text.toString().toInt()
                                 * editText3.text.toString().toDouble()))
                         ).toString()

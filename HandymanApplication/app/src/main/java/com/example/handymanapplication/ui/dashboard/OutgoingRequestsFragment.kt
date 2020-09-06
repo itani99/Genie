@@ -100,6 +100,8 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                 override fun onItemPay(list: ItemCell) {
                     val ob: JSONObject? = JSONObject()
                     ob!!.put("request_id", list.pos)
+                    val diff = (list.request_to).toInt() - (list.request_from).toInt()
+                    ob.put("hours", diff!!)
 
                     val intent = Intent(context!!, PaymentActivity::class.java)
 
@@ -134,7 +136,7 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                     DatePickerDialog(
                         context!!,
                         DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-
+                            val dayOfMonth = dayOfMonth + 1
                             c!!.set(year, monthOfYear, dayOfMonth)
                             var dateofl: String? = (dayOfMonth.toString())
                             var monthofk: String? = ((monthOfYear + 1).toString())
@@ -312,8 +314,8 @@ class OutgoingRequestsFragment : Fragment(), IUpdate {
                                         location.getDouble(0),
                                         location.getDouble(1)
                                         ,
-                                        request.optString("from", "").plus(":00"),
-                                        request.optString("to", "").plus(":00"),
+                                        request.optString("from", ""),
+                                        request.optString("to", ""),
                                         service.optString("name", "service name"),
                                         address.optString("building", "building"),
                                         address.optString("floor", "floor"), flag2
